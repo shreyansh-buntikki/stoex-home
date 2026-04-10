@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { cubicBezier, motion, type Variants } from "framer-motion";
 import Background from "@/public/assets/images/steps-bg.webp";
 import { Phone, Mail, CreditCard, CheckCircle, Check } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -33,6 +33,17 @@ const stepVariants = {
     x: 0,
     transition: {
       duration: 0.8,
+    },
+  },
+};
+
+const connectorVariants: Variants = {
+  hidden: { width: "0%" },
+  visible: {
+    width: "100%",
+    transition: {
+      duration: 0.9,
+      ease: cubicBezier(0.42, 0, 0.58, 1),
     },
   },
 };
@@ -121,11 +132,12 @@ function StepMockup({ step, index }: { step: any; index: number }) {
         {/* Phone card - appears first, then gets pushed back */}
         <motion.div
           initial={{ opacity: 0, y: 20, scale: 1 }}
-          animate={{
+          whileInView={{
             opacity: 1,
             y: 0,
             scale: [1, 1, 0.95],
           }}
+          viewport={{ once: true, amount: 0.6 }}
           transition={{
             opacity: { delay: 1.2, duration: 0.6 },
             y: { delay: 1.2, duration: 0.6 },
@@ -149,11 +161,12 @@ function StepMockup({ step, index }: { step: any; index: number }) {
         {/* Email card - slides in from below and stacks below phone card */}
         <motion.div
           initial={{ opacity: 0, y: 80, scale: 0.95 }}
-          animate={{
+          whileInView={{
             opacity: 1,
             y: 0,
             scale: 1,
           }}
+          viewport={{ once: true, amount: 0.6 }}
           transition={{
             delay: 2.0,
             duration: 0.5,
@@ -290,13 +303,7 @@ export const Steps = () => {
                       <div className="w-4 h-4 bg-white rounded-full border-2 border-white shadow-lg z-10" />
                       <div className="flex-1 h-px bg-transparent relative overflow-hidden">
                         <motion.div
-                          initial={{ width: "0%" }}
-                          animate={{ width: "100%" }}
-                          transition={{
-                            delay: 1.2,
-                            duration: 0.9,
-                            ease: "easeInOut",
-                          }}
+                          variants={connectorVariants}
                           className="absolute top-0 left-0 h-full bg-white/[0.36]"
                         />
                       </div>
@@ -331,25 +338,14 @@ export const Steps = () => {
 
                 <div className="flex-1 relative">
                   <motion.div
-                    initial={{ opacity: 0, x: -50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{
-                      delay: 2.1,
-                      duration: 0.8
-                    }}
+                    variants={stepVariants}
                     className="relative"
                   >
                     <div className="h-[16px] relative mb-5 w-full">
                       <div className="absolute left-[43px] w-4 h-4 bg-white rounded-full border-2 border-white shadow-lg z-10 top-[-1px]" />
                       <div className="absolute h-px left-0 top-[8px] w-full bg-transparent overflow-hidden">
                         <motion.div
-                          initial={{ width: "0%" }}
-                          animate={{ width: "100%" }}
-                          transition={{
-                            delay: 2.1,
-                            duration: 0.9,
-                            ease: "easeInOut",
-                          }}
+                          variants={connectorVariants}
                           className="absolute top-0 left-0 h-full bg-white/[0.36]"
                         />
                       </div>
@@ -384,24 +380,13 @@ export const Steps = () => {
 
                 <div className="flex-1 relative">
                   <motion.div
-                    initial={{ opacity: 0, x: -50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{
-                      delay: 2.9,
-                      duration: 0.8
-                    }}
+                    variants={stepVariants}
                     className="relative"
                   >
                     <div className="h-[16px] relative mb-5 w-full">
                       <div className="absolute h-px left-[-0.33px] top-[8px] w-[387px] bg-transparent overflow-hidden">
                         <motion.div
-                          initial={{ width: "0%" }}
-                          animate={{ width: "100%" }}
-                          transition={{
-                            delay: 2.3,
-                            duration: 0.6,
-                            ease: "easeInOut",
-                          }}
+                          variants={connectorVariants}
                           className="absolute top-0 left-0 h-full bg-white/[0.36]"
                         />
                       </div>
