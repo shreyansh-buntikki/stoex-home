@@ -343,7 +343,7 @@ export const Steps = () => {
                   >
                     <div className="h-[16px] relative mb-5 w-full">
                       <div className="absolute left-[43px] w-4 h-4 bg-white rounded-full border-2 border-white shadow-lg z-10 top-[-1px]" />
-                      <div className="absolute h-px left-0 top-[8px] w-full bg-transparent overflow-hidden">
+                      <div className="absolute h-px left-[-2px] top-[7.5px] w-[calc(100%+2px)] bg-transparent overflow-hidden">
                         <motion.div
                           variants={connectorVariants}
                           className="absolute top-0 left-0 h-full bg-white/[0.36]"
@@ -384,7 +384,7 @@ export const Steps = () => {
                     className="relative"
                   >
                     <div className="h-[16px] relative mb-5 w-full">
-                      <div className="absolute h-px left-[-0.33px] top-[8px] w-[387px] bg-transparent overflow-hidden">
+                      <div className="absolute h-px left-[-2px] top-[8px] w-[389px] bg-transparent overflow-hidden">
                         <motion.div
                           variants={connectorVariants}
                           className="absolute top-0 left-0 h-full bg-white/[0.36]"

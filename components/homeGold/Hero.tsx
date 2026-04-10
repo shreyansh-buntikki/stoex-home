@@ -267,7 +267,7 @@ function GoldInvestCard({
   };
 
   const valueInputClass =
-    "min-w-0 flex-1 border-none bg-transparent p-0 text-[28px] font-medium leading-none tracking-tight outline-none ring-0 focus:ring-0 sm:text-[32px]";
+    "min-w-0 flex-1 border-none bg-transparent p-0 text-[24px] font-medium leading-none tracking-tight outline-none ring-0 focus:ring-0 sm:text-[28px]";
 
   return (
     <div
@@ -326,14 +326,14 @@ function GoldInvestCard({
         >
           <div
             ref={amtRef}
-            className={`rounded-2xl border p-4 ${
+            className={`rounded-2xl border px-4 py-3 ${
               goldFirst
-                ? "border-[#E5E7EB] bg-[#F3F4F6] pb-8"
+                ? "border-[#E5E7EB] bg-[#F3F4F6] pb-5"
                 : "border-[#F3F4F6] bg-white pb-3"
             }`}
           >
             <label
-              className={`mb-2 block text-[14px] font-medium ${
+              className={`mb-1 block text-[14px] font-medium ${
                 goldFirst ? "text-[#6B7280]" : "text-[#101828]"
               }`}
               style={mona}
@@ -342,17 +342,17 @@ function GoldInvestCard({
             </label>
             {goldFirst ? (
               <div
-                className="mb-0 text-[28px] font-medium leading-none tracking-tight text-[#6B7280] sm:text-[32px]"
+                className="mb-0 text-[28px] font-medium leading-none tracking-tight text-[#6B7280] sm:text-[28px]"
                 style={mona}
               >
                 ₹{amount.toLocaleString("en-IN")}
               </div>
             ) : (
               <div
-                className="mb-3 flex min-w-0 items-baseline gap-0.5"
+                className="mb-1 flex min-w-0 items-baseline gap-0.5"
                 style={mona}
               >
-                <span className="shrink-0 text-[28px] font-bold leading-none tracking-tight text-[#111827] sm:text-[32px]">
+                <span className="shrink-0 text-[28px] font-medium leading-none tracking-tight text-[#111827] sm:text-[28px]">
                   ₹
                 </span>
                 <input
@@ -369,13 +369,13 @@ function GoldInvestCard({
               </div>
             )}
             {!goldFirst && (
-              <div className="mt-5 flex flex-nowrap items-center justify-start gap-1.5 overflow-x-auto pb-1.5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+              <div className="mt-2 flex flex-nowrap items-center justify-between gap-1.5 overflow-x-auto pb-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                 {QUICK_AMOUNTS.map((qa) => (
                   <button
                     key={qa}
                     type="button"
                     onClick={() => onAmountChange(qa)}
-                    className={`shrink-0 rounded-lg px-1.5 py-1.5 text-[11px] font-medium transition-colors sm:px-2 sm:text-[12px] sm:py-2 md:text-[13px] ${
+                    className={`shrink-0 rounded-lg flex-1 px-1.5 py-1.5 text-[11px] font-medium transition-colors sm:px-2 sm:text-[12px] sm:py-2 md:text-[13px] ${
                       amount === qa
                         ? "border border-[#C5CAD3] bg-[#E8EAEF] text-[#1D1D1D]"
                         : "border border-[#E5E7EB] bg-white text-[#6B7280] hover:bg-[#F9FAFB]"
@@ -428,14 +428,14 @@ function GoldInvestCard({
         >
           <div
             ref={goldRef}
-            className={`rounded-2xl border p-4 ${
+            className={`rounded-2xl border px-4 py-3 ${
               goldFirst
                 ? "border-[#F3F4F6] bg-white pb-3"
-                : "border-[#E5E7EB] bg-[#F3F4F6] pb-8"
+                : "border-[#E5E7EB] bg-[#F3F4F6] pb-5"
             }`}
           >
             <label
-              className={`mb-2 block text-[14px] font-medium ${
+              className={`mb-1 block text-[14px] font-medium ${
                 goldFirst ? "text-[#101828]" : "text-[#6B7280]"
               }`}
               style={mona}
@@ -444,13 +444,13 @@ function GoldInvestCard({
             </label>
             {!goldFirst ? (
               <div
-                className="mt-3 text-[28px] font-bold leading-none tracking-tight text-[#6B7280] sm:text-[32px]"
+                className="mt-1 text-[28px] font-medium leading-none tracking-tight text-[#6B7280] sm:text-[28px]"
                 style={mona}
               >
                 {goldGrams > 0 ? goldGrams.toFixed(3) : "0"}
               </div>
             ) : (
-              <div className="mt-3 flex min-w-0 items-baseline gap-1" style={mona}>
+              <div className="mt-1 flex min-w-0 items-baseline gap-1" style={mona}>
                 <input
                   type="text"
                   name="gold-invest-grams"
@@ -474,13 +474,13 @@ function GoldInvestCard({
                     setGramsEdit(formatGramsInputDisplay(goldGrams));
                   }}
                 />
-                <span className="shrink-0 text-[28px] font-bold leading-none tracking-tight text-[#111827] sm:text-[32px]">
+                <span className="shrink-0 text-[28px] font-bold leading-none tracking-tight text-[#111827] sm:text-28px]">
                   g
                 </span>
               </div>
             )}
             {goldFirst && (
-              <div className="mt-4 flex flex-nowrap items-center justify-start gap-1.5 overflow-x-auto pb-1.5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+              <div className="mt-2 flex flex-nowrap items-center justify-between gap-1.5 overflow-x-auto pb-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                 {QUICK_GRAMS.map((g) => {
                   const selected =
                     goldGrams > 0 && Math.abs(goldGrams - g) < 0.02;
@@ -492,7 +492,7 @@ function GoldInvestCard({
                         setFromGrams(g);
                         setGramsEdit(formatGramsInputDisplay(g));
                       }}
-                      className={`shrink-0 rounded-lg px-1.5 py-1.5 text-[11px] font-medium transition-colors sm:px-2 sm:text-[12px] sm:py-2 md:text-[13px] ${
+                      className={`shrink-0 flex-1 rounded-lg px-1.5 py-1.5 text-[11px] font-medium transition-colors sm:px-2 sm:text-[12px] sm:py-2 md:text-[13px] ${
                         selected
                           ? "border border-[#C5CAD3] bg-[#E8EAEF] text-[#1D1D1D]"
                           : "border border-[#E5E7EB] bg-white text-[#6B7280] hover:bg-[#F9FAFB]"
@@ -538,7 +538,7 @@ function GoldInvestCard({
 
         <button
           type="button"
-          className={`mt-4 w-full rounded-4xl py-3.5 text-[15px] font-bold uppercase tracking-wide text-white transition-colors ${
+          className={`mt-1 w-full rounded-4xl py-3.5 text-[15px] font-bold uppercase tracking-wide text-white transition-colors ${
             mode === "Sell"
               ? "bg-[#C62828] hover:bg-[#B71C1C]"
               : "bg-[#00007F] hover:bg-[#000066]"
@@ -548,7 +548,7 @@ function GoldInvestCard({
           {mode === "Sell" ? "SELL" : "INVEST"}
         </button>
 
-        <div className="my-3 flex pt-2">
+        <div className=" flex pt-1">
           {footerRows.map((col, i) => (
             <div
               key={col.k}
