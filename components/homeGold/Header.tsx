@@ -127,8 +127,8 @@ export const HeaderGold = () => {
 
           <div className="hidden md:flex items-center gap-4">
             <div className="bg-white rounded-full px-4 py-2 flex items-center gap-2 shadow-sm">
-              <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-              <span className="text-[#00007F] text-[13px] font-semibold">₹9,846.98/g</span>
+              <div className="w-2 h-2 bg-[#1A9E5C] rounded-full"></div>
+              <span className="text-[#0000000] text-[13px] font-semibold">₹9,846.98/g</span>
             </div>
 
             <button
@@ -244,7 +244,7 @@ export const HeaderGold = () => {
                   setIsMenuOpen(false);
                   setIsModalOpen(true);
                 }}
-                className="w-full bg-gradient-to-r from-lime-400 to-lime-500 hover:from-lime-500 hover:to-lime-600 text-black font-bold px-6 py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2"
+                className="w-full bg-[#86EA6B] text-black font-bold px-6 py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2"
               >
                 <span>Get Early Access</span>
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">

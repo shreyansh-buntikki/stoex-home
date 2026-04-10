@@ -11,7 +11,7 @@ import CoinImage from "@/public/assets/images/coin-2.webp";
 import CoinIcon from "@/public/assets/images/coin.webp";
 import Gold1gm from "@/public/assets/images/gold-1g.png";
 import Gold5gm from "@/public/assets/images/gold-5g.png";
-import Gold10gm from "@/public/assets/images/gold-10g.png"
+import Gold10gm from "@/public/assets/images/gold-10g.png";
 
 const mona: CSSProperties = { fontFamily: "Mona Sans, sans-serif" };
 const sansation: CSSProperties = {
@@ -28,7 +28,7 @@ const CARD_GAP = 16;
 const swapDuration = 0.45;
 const swapEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const GOLD_WEIGHTS = [
-  { weight: "1g", icon: Gold1gm},
+  { weight: "1g", icon: Gold1gm },
   { weight: "5g", icon: Gold5gm },
   { weight: "10g", icon: Gold10gm },
 ];
@@ -37,9 +37,7 @@ function AvailableGoldBar({ greyed }: { greyed: boolean }) {
   return (
     <div
       className={`flex items-center justify-between rounded-xl border px-4 py-3 ${
-        greyed
-          ? "border-[#E5E7EB] bg-[#F9FAFB]"
-          : "border-[#E5E7EB] bg-white"
+        greyed ? "border-[#E5E7EB] bg-[#F9FAFB]" : "border-[#E5E7EB] bg-white"
       }`}
     >
       <div className="flex items-center gap-3">
@@ -91,7 +89,9 @@ function sanitizeGramsInput(raw: string): string {
 
 function CashCard({ active }: { active: boolean }) {
   const [goldGrams, setGoldGrams] = useState(0.01);
-  const [amountInr, setAmountInr] = useState(Math.round(0.01 * CASH_PRICE_PER_GRAM));
+  const [amountInr, setAmountInr] = useState(
+    Math.round(0.01 * CASH_PRICE_PER_GRAM),
+  );
   const [gramsEdit, setGramsEdit] = useState("0.01");
   const [goldFirst, setGoldFirst] = useState(true);
   const goldRef = useRef<HTMLDivElement>(null);
@@ -156,7 +156,8 @@ function CashCard({ active }: { active: boolean }) {
         }`}
         style={mona}
       >
-        Convert your gold tokens to cash at live market rates. Get money in your bank within seconds.
+        Convert your gold tokens to cash at live market rates. Get money in your
+        bank within seconds.
       </p>
 
       <AvailableGoldBar greyed={greyed} />
@@ -212,7 +213,9 @@ function CashCard({ active }: { active: boolean }) {
                       setAmountInr(Math.round(parsed * CASH_PRICE_PER_GRAM));
                     }
                   }}
-                  onBlur={() => setGramsEdit(formatGramsInputDisplay(goldGrams))}
+                  onBlur={() =>
+                    setGramsEdit(formatGramsInputDisplay(goldGrams))
+                  }
                 />
                 <span className="shrink-0 text-[28px] font-bold leading-none text-[#0A0A0A]">
                   g
@@ -326,7 +329,9 @@ function CashCard({ active }: { active: boolean }) {
             >
               {!goldFirst && !greyed ? (
                 <span className="flex min-w-0 items-baseline gap-0.5">
-                  <span className="shrink-0 text-[28px] font-bold leading-none">₹</span>
+                  <span className="shrink-0 text-[28px] font-bold leading-none">
+                    ₹
+                  </span>
                   <input
                     type="text"
                     name="redeem-cash-amount-inr"
@@ -336,7 +341,9 @@ function CashCard({ active }: { active: boolean }) {
                     className={`${valueInputClass} text-[#0A0A0A]`}
                     style={mona}
                     value={amountInr === 0 ? "" : String(amountInr)}
-                    onChange={(e) => setFromAmount(parseInrDigits(e.target.value))}
+                    onChange={(e) =>
+                      setFromAmount(parseInrDigits(e.target.value))
+                    }
                   />
                 </span>
               ) : (
@@ -417,75 +424,80 @@ function PhysicalCard({ active }: { active: boolean }) {
         }`}
         style={mona}
       >
-        Exchange your digital gold units for certified gold delivered to your address.
+        Exchange your digital gold units for certified gold delivered to your
+        address.
       </p>
 
       {/* Available Gold */}
       <AvailableGoldBar greyed={greyed} />
 
       {/* Gold (grams) */}
-      <div
-        className={`mt-4 rounded-xl border p-4 ${
-          greyed ? "border-[#E5E7EB] bg-[#F9FAFB]" : "border-[#E5E7EB] bg-white"
-        }`}
-      >
-        <label
-          className={`block text-[14px] font-medium mb-2 ${
-            greyed ? "text-[#BCBCBC]" : "text-[#3D3D3D]"
-          }`}
-          style={mona}
+<div className="mt-4 mb-9 relative rounded-xl border border-[#E5E7EB] overflow-visible">
+        <div
+          className={`relative z-10 rounded-xl p-4 ${greyed ? "bg-[#F9FAFB]" : "bg-white"}`}
         >
-          Gold (grams)
-        </label>
-        <p
-          className={`text-[28px] font-bold leading-none mb-4 ${
-            greyed ? "text-[#BCBCBC]" : "text-[#0A0A0A]"
-          }`}
-          style={mona}
-        >
-          {selectedWeight}
-        </p>
+          <label
+            className={`block text-[14px] font-medium mb-2 ${
+              greyed ? "text-[#BCBCBC]" : "text-[#3D3D3D]"
+            }`}
+            style={mona}
+          >
+            Gold (grams)
+          </label>
+          <p
+            className={`text-[28px] font-bold leading-none mb-4 ${
+              greyed ? "text-[#BCBCBC]" : "text-[#0A0A0A]"
+            }`}
+            style={mona}
+          >
+            {selectedWeight}
+          </p>
 
-        <div className="flex gap-3">
-          {GOLD_WEIGHTS.map((item) => {
-            const selected = selectedWeight === item.weight;
-            return (
-              <button
-                key={item.weight}
-                type="button"
-                onClick={() => !greyed && setSelectedWeight(item.weight)}
-                className={`flex-1 flex flex-col items-center gap-2 rounded-xl border py-3 transition-colors ${
-                  greyed
-                    ? "border-[#E5E7EB] bg-[#F3F4F6] cursor-default"
-                    : selected
-                      ? "border-[#C08514] bg-[#FAF3E8]"
-                      : "border-[#E5E7EB] bg-[#F9FAFB] hover:bg-[#F3F4F6]"
-                }`}
-                disabled={greyed}
-              >
-                <div className="w-10 h-15 flex items-center justify-center">
-                  <Image
-                    src={item.icon}
-                    alt={item.weight}
-                    width={32}
-                    height={32}
-                    className={`object-contain ${greyed ? "opacity-40 grayscale" : ""}`}
-                  />
-                </div>
-                <span
-                  className={`text-[13px] font-semibold ${
-                    greyed ? "text-[#BCBCBC]" : selected ? "text-[#C08514]" : "text-[#3D3D3D]"
+          <div className="flex gap-3">
+            {GOLD_WEIGHTS.map((item) => {
+              const selected = selectedWeight === item.weight;
+              return (
+                <button
+                  key={item.weight}
+                  type="button"
+                  onClick={() => !greyed && setSelectedWeight(item.weight)}
+                  className={`flex-1 flex flex-col items-center gap-2 rounded-xl border py-3 transition-colors ${
+                    greyed
+                      ? "border-[#E5E7EB] bg-[#F3F4F6] cursor-default"
+                      : selected
+                        ? "border-[#C08514] bg-[#FAF3E8]"
+                        : "border-[#E5E7EB] bg-[#F9FAFB] hover:bg-[#F3F4F6]"
                   }`}
-                  style={mona}
+                  disabled={greyed}
                 >
-                  {item.weight}
-                </span>
-              </button>
-            );
-          })}
+                  <div className="w-10 h-15 flex items-center justify-center">
+                    <Image
+                      src={item.icon}
+                      alt={item.weight}
+                      width={32}
+                      height={32}
+                      className={`object-contain ${greyed ? "opacity-40 grayscale" : ""}`}
+                    />
+                  </div>
+                  <span
+                    className={`text-[13px] font-semibold ${
+                      greyed
+                        ? "text-[#BCBCBC]"
+                        : selected
+                          ? "text-[#C08514]"
+                          : "text-[#3D3D3D]"
+                    }`}
+                    style={mona}
+                  >
+                    {item.weight}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
         <p
-          className={`-mx-4 -mb-4 mt-3 rounded-b-xl px-4 py-3 text-center text-[13px] leading-[18px] ${
+          className={`absolute -bottom-7 z-0 left-0 right-0 flex w-full items-end justify-center rounded-b-xl px-4 pt-3 pb-1 text-center text-[13px] leading-[18px] ${
             greyed
               ? "bg-[#F1F1F6] text-[#C8C8D6]"
               : "bg-[#E6E6F2] text-[#3F4656]"
@@ -574,11 +586,17 @@ export const Redemption = () => {
           className="relative"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-[960px] mx-auto relative z-10">
-            <div onClick={() => setMode("cash")} className="cursor-pointer h-full">
+            <div
+              onClick={() => setMode("cash")}
+              className="cursor-pointer h-full"
+            >
               <CashCard active={mode === "cash"} />
             </div>
 
-            <div onClick={() => setMode("physical")} className="cursor-pointer h-full">
+            <div
+              onClick={() => setMode("physical")}
+              className="cursor-pointer h-full"
+            >
               <PhysicalCard active={mode === "physical"} />
             </div>
           </div>
@@ -633,7 +651,9 @@ export const Redemption = () => {
                   className="text-[11px] text-[#8A8FA8] mt-1 text-right leading-[14px]"
                   style={mona}
                 >
-                  This is just a visual<br />representation
+                  This is just a visual
+                  <br />
+                  representation
                 </p>
               </motion.div>
             )}

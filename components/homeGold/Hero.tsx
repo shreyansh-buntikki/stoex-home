@@ -267,7 +267,7 @@ function GoldInvestCard({
   };
 
   const valueInputClass =
-    "min-w-0 flex-1 border-none bg-transparent p-0 text-[28px] font-bold leading-none tracking-tight outline-none ring-0 focus:ring-0 sm:text-[32px]";
+    "min-w-0 flex-1 border-none bg-transparent p-0 text-[28px] font-medium leading-none tracking-tight outline-none ring-0 focus:ring-0 sm:text-[32px]";
 
   return (
     <div
@@ -342,7 +342,7 @@ function GoldInvestCard({
             </label>
             {goldFirst ? (
               <div
-                className="mb-0 text-[28px] font-bold leading-none tracking-tight text-[#6B7280] sm:text-[32px]"
+                className="mb-0 text-[28px] font-medium leading-none tracking-tight text-[#6B7280] sm:text-[32px]"
                 style={mona}
               >
                 ₹{amount.toLocaleString("en-IN")}

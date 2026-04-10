@@ -288,7 +288,7 @@ export const Steps = () => {
                   <motion.div variants={stepVariants} className="relative">
                     <div className="flex items-center mb-5 relative">
                       <div className="w-4 h-4 bg-white rounded-full border-2 border-white shadow-lg z-10" />
-                      <div className="flex-1 h-px bg-transparent ml-2 relative overflow-hidden">
+                      <div className="flex-1 h-px bg-transparent relative overflow-hidden">
                         <motion.div
                           initial={{ width: "0%" }}
                           animate={{ width: "100%" }}
@@ -297,7 +297,7 @@ export const Steps = () => {
                             duration: 0.9,
                             ease: "easeInOut",
                           }}
-                          className="absolute top-0 left-0 h-full bg-white"
+                          className="absolute top-0 left-0 h-full bg-white/[0.36]"
                         />
                       </div>
                     </div>
@@ -341,7 +341,7 @@ export const Steps = () => {
                   >
                     <div className="h-[16px] relative mb-5 w-full">
                       <div className="absolute left-[43px] w-4 h-4 bg-white rounded-full border-2 border-white shadow-lg z-10 top-[-1px]" />
-                      <div className="absolute h-px left-[0.33px] top-[8px] w-full bg-transparent overflow-hidden">
+                      <div className="absolute h-px left-0 top-[8px] w-full bg-transparent overflow-hidden">
                         <motion.div
                           initial={{ width: "0%" }}
                           animate={{ width: "100%" }}
@@ -350,7 +350,7 @@ export const Steps = () => {
                             duration: 0.9,
                             ease: "easeInOut",
                           }}
-                          className="absolute top-0 left-0 h-full bg-white"
+                          className="absolute top-0 left-0 h-full bg-white/[0.36]"
                         />
                       </div>
                     </div>
@@ -402,7 +402,7 @@ export const Steps = () => {
                             duration: 0.6,
                             ease: "easeInOut",
                           }}
-                          className="absolute top-0 left-0 h-full bg-white"
+                          className="absolute top-0 left-0 h-full bg-white/[0.36]"
                         />
                       </div>
                       <div className="absolute left-[102px] w-4 h-4 bg-white rounded-full border-2 border-white shadow-lg z-10 top-[-1px]" />
