@@ -46,13 +46,18 @@ function HeroGoldBackdrop() {
         aria-hidden
         style={{ background: HERO_GOLD_GLOW }}
       />
-      <Image
-        src={BackgroundCircles}
-        alt=""
-        height={720}
-        width={720}
-        className="pointer-events-none absolute right-0 top-1/2 z-[1] -translate-y-1/2 select-none rounded-[28px]"
-      />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-[1] hidden w-1/2 lg:flex items-center justify-end pr-8">
+        <div className="relative w-full max-w-[440px] h-full overflow-visible">
+          <Image
+            src={BackgroundCircles}
+            alt=""
+            height={720}
+            width={720}
+            sizes="(min-width: 1280px) 42vw, 56vw"
+            className="absolute left-1/2 top-1/2 h-auto w-[145%] max-w-none -translate-x-[73%] -translate-y-1/2 select-none rounded-[28px] opacity-85"
+          />
+        </div>
+      </div>
     </>
   );
 }
@@ -74,7 +79,7 @@ function GoldHeroLead() {
         </h1>
 
         <div
-          className="space-y-2 text-[20px] leading-[24px] text-[#3D3D3D]"
+          className="space-y-2 text-[18px] leading-[24px] text-[#3D3D3D]"
           style={mona}
         >
           <p>
@@ -586,14 +591,14 @@ export const HeroGold = () => {
     goldGrams >= 0.01 ? `${goldGrams.toFixed(2)}g gold` : "0.00g gold";
 
   return (
-    <div className="relative flex min-h-screen items-center overflow-hidden bg-white">
+    <div className="relative flex min-h-[calc(100dvh-5rem)] items-center overflow-hidden bg-white">
       <HeroGoldBackdrop />
       <div className="relative z-10 container mx-auto px-6 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <GoldHeroLead />
 
           <div className="relative flex w-full justify-center lg:justify-end">
-            <div className="w-full max-w-[420px] space-y-4">
+            <div className="w-full max-w-[440px] space-y-4">
               <GoldBuySellToggle active={activeTab} onSelect={setActiveTab} />
               <GoldInvestCard
                 mode={activeTab}

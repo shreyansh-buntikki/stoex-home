@@ -38,7 +38,7 @@ export function HomePageGold() {
 
 const Divider = () => {
   return (
-    <div className="container mx-auto px-6 mb-30">
+    <div className="container mx-auto px-6 mt-8 mb-30">
       <hr
         className="border-none h-px w-full"
         style={{
