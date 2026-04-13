@@ -125,7 +125,7 @@ function GoldHeroLead() {
       </div>
 
       {/* Trust items: 2x2 grid on mobile, horizontal row on desktop */}
-      <div className="grid grid-cols-2 gap-x-4 gap-y-2 pt-2 lg:flex lg:flex-nowrap lg:gap-0 lg:overflow-x-auto lg:pt-8 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+      <div className="grid grid-cols-2 gap-x-4 gap-y-2 pt-2 lg:flex lg:flex-nowrap lg:gap-0 lg:overflow-x-auto lg:pt-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
         {TRUST_ITEMS.map((item, index) => (
           <div className="flex items-center gap-2 lg:shrink-0" key={item}>
             {/* Bullet dot on mobile */}

@@ -182,7 +182,7 @@ export const FAQs = () => {
   };
 
   return (
-    <section className="bg-white py-[60px] lg:py-[80px] px-6">
+    <section className="bg-white py-[60px] lg:py-[100px] px-6">
       <div className="container mx-auto max-w-[1100px]">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

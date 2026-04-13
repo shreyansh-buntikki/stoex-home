@@ -62,19 +62,20 @@ export const Comparison = () => {
             </p>
           </motion.div>
 
+          {/* Desktop: 3 separate cards */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-full max-w-[1100px]"
+            className="w-full max-w-[1100px] hidden lg:block"
           >
-            <div className="flex items-stretch gap-4 lg:gap-6">
+            <div className="flex items-stretch gap-6">
               {/* Card 1: Feature — no border, no bg */}
               <div className="flex-1 flex flex-col">
                 <div className="px-5 py-5 h-[58px] flex items-center">
                   <p
-                    className="text-[12px] lg:text-[14px] leading-[16px] text-[#8A8FA8] font-bold tracking-[0.525px] uppercase"
+                    className="text-[14px] leading-[16px] text-[#8A8FA8] font-bold tracking-[0.525px] uppercase"
                     style={mona}
                   >
                     FEATURE
@@ -85,7 +86,7 @@ export const Comparison = () => {
                     key={row.feature}
                     className="px-5 py-5 h-[64px] flex items-center border-t border-[#E5E7EF]"
                   >
-                    <p className="text-[12px] lg:text-[14px] leading-[20px] text-[#3D3D3D]" style={mona}>
+                    <p className="text-[14px] leading-[20px] text-[#3D3D3D]" style={mona}>
                       {row.feature}
                     </p>
                   </div>
@@ -96,7 +97,7 @@ export const Comparison = () => {
               <div className="flex-1 flex flex-col border border-[#E5E7EF] rounded-[14px] overflow-hidden">
                 <div className="bg-[#F7F8FC] px-5 py-5 h-[58px] flex items-center justify-center">
                   <p
-                    className="text-[12px] lg:text-[14px] leading-[16px] text-[#8A8FA8] font-bold tracking-[0.525px] uppercase"
+                    className="text-[14px] leading-[16px] text-[#8A8FA8] font-bold tracking-[0.525px] uppercase"
                     style={mona}
                   >
                     TRADITIONAL
@@ -107,7 +108,7 @@ export const Comparison = () => {
                     key={row.feature}
                     className="bg-white px-5 py-5 h-[64px] flex items-center justify-center border-t border-[#E5E7EF]"
                   >
-                    <p className="text-[12px] lg:text-[14px] leading-[20px] text-[#3d3d3d] text-center" style={mona}>
+                    <p className="text-[14px] leading-[20px] text-[#3d3d3d] text-center" style={mona}>
                       {row.traditional}
                     </p>
                   </div>
@@ -116,9 +117,9 @@ export const Comparison = () => {
 
               {/* Card 3: Stoex Gold — navy border+header, green values */}
               <div className="flex-1 flex flex-col rounded-[14px] overflow-hidden border-2 border-[#00007F] shadow-[0px_0px_16px_0px_rgba(191,155,103,0.4)]">
-                <div className="bg-[#00007F] px-3 lg:px-5 py-5 h-[58px] flex items-center justify-center">
+                <div className="bg-[#00007F] px-5 py-5 h-[58px] flex items-center justify-center">
                   <p
-                    className="text-[12px] lg:text-[14px] leading-[16px] text-white font-bold tracking-[0.525px] uppercase"
+                    className="text-[14px] leading-[16px] text-white font-bold tracking-[0.525px] uppercase"
                     style={mona}
                   >
                     STOEX GOLD
@@ -130,7 +131,7 @@ export const Comparison = () => {
                     className="bg-white px-5 py-5 h-[64px] flex items-center justify-center border-t border-[#E5E7EF]"
                   >
                     <p
-                      className="text-[12px] lg:text-[14px] leading-[20px] text-[#1A9E5C] font-semibold text-center"
+                      className="text-[14px] leading-[20px] text-[#1A9E5C] font-semibold text-center"
                       style={mona}
                     >
                       {row.stoex}
@@ -139,6 +140,76 @@ export const Comparison = () => {
                 ))}
               </div>
             </div>
+          </motion.div>
+
+          {/* Mobile: single table card */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="w-full lg:hidden rounded-2xl border border-[#E5E7EF] overflow-hidden shadow-[0px_0px_16px_0px_#BF9B6766]"
+          >
+            {/* Table header */}
+            <div className="flex items-center bg-[#F7F8FC] border-b border-[#E5E7EF]">
+              <div className="flex-1 px-4 py-4">
+                <p
+                  className="text-[11px] leading-[14px] text-[#8A8FA8] font-bold tracking-[0.5px] uppercase"
+                  style={mona}
+                >
+                  FEATURE
+                </p>
+              </div>
+              <div className="flex-1 px-4 py-4 text-center">
+                <p
+                  className="text-[11px] leading-[14px] text-[#8A8FA8] font-bold tracking-[0.5px] uppercase"
+                  style={mona}
+                >
+                  TRADITIONAL
+                </p>
+              </div>
+              <div className="flex-1 px-4 py-4 text-center">
+                <p
+                  className="text-[11px] leading-[14px] text-[#00007F] font-bold tracking-[0.5px] uppercase"
+                  style={mona}
+                >
+                  STOEX GOLD
+                </p>
+              </div>
+            </div>
+
+            {/* Table rows */}
+            {comparisonData.map((row) => (
+              <div
+                key={row.feature}
+                className="flex items-center border-b border-[#E5E7EF] last:border-b-0"
+              >
+                <div className="flex-1 px-4 py-5 text-center">
+                  <p
+                    className="text-[13px] leading-[18px] text-[#3D3D3D] font-medium"
+                    style={mona}
+                  >
+                    {row.feature}
+                  </p>
+                </div>
+                <div className="flex-1 px-4 py-5 text-center">
+                  <p
+                    className="text-[13px] leading-[18px] text-[#8A8FA8]"
+                    style={mona}
+                  >
+                    {row.traditional}
+                  </p>
+                </div>
+                <div className="flex-1 px-4 py-5 text-center">
+                  <p
+                    className="text-[13px] leading-[18px] text-[#1A9E5C] font-semibold"
+                    style={mona}
+                  >
+                    {row.stoex}
+                  </p>
+                </div>
+              </div>
+            ))}
           </motion.div>
         </div>
       </div>

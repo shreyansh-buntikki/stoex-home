@@ -288,7 +288,7 @@ function StepMockup({ step, index }: { step: any; index: number }) {
 
 export const Steps = () => {
   return (
-    <section className="relative py-[90px] lg:py-[170px] px-6 overflow-hidden">
+    <section className="relative py-[90px] lg:py-[100px] px-6 overflow-hidden">
       <Image
         src={Background}
         alt="Background Image"

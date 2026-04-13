@@ -28,7 +28,7 @@ export const Assets = () => {
           className="text-center mb-12"
         >
           <h2
-            className="text-[26px] lg:text-[40px] font-semibold leading-[32px] lg:leading-[46px] text-[#0A0A0A] mb-4"
+            className="text-[26px] lg:text-[40px] font-semibold leading-[32px] lg:leading-[46px] text-[#0A0A0A] mb-6"
             style={sansation}
           >
             More real assets coming to{" "}

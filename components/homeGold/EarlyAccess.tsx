@@ -20,7 +20,7 @@ const benefits = [
 
 export const EarlyAccess = () => {
   return (
-    <section className="bg-white  py-[60px] lg:py-[90px] lg:pb-0 pb-0 px-0">
+    <section className="bg-white  py-[60px] lg:py-[100px] lg:pb-0 pb-0 px-0">
       <div className="mx-auto w-full max-w-none">
         <div className="relative w-full overflow-hidden bg-[#fff] px-6 py-12 md:px-12 md:py-16">
           {/* Looper — desktop: left/right full height; mobile: top-right & bottom-left corners */}
@@ -73,7 +73,7 @@ export const EarlyAccess = () => {
             </h2>
 
             <p
-              className="mt-5 text-[15px] leading-[22px] text-[#616161]"
+              className="mt-6 text-[15px] leading-[22px] text-[#616161]"
               style={mona}
             >
               Join the waitlist and get exclusive early access when we launch in

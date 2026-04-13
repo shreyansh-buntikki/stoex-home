@@ -9,8 +9,7 @@ import AmrapaliLogo from "@/public/assets/logos/amrapali-2.svg";
 import SequelLogo from "@/public/assets/logos/sequel.svg";
 import RRBPLogo from "@/public/assets/logos/rrbp.webp";
 import VistraLogo from "@/public/assets/logos/vistara.svg";
-import CompaniesEllipse from "@/public/assets/images/companies-ellipse.png";
-import CompaniesEllipseFlipped from "@/public/assets/images/company-eclispe-flipped.webp";
+import StripLogo from "@/public/assets/logos/stoex-strip-logo.webp";
 
 const mona: CSSProperties = { fontFamily: "Mona Sans, sans-serif" };
 const sansation: CSSProperties = {
@@ -43,7 +42,7 @@ const securityFeatures = [
   {
     logo: VistraLogo,
     logoAlt: "Vistra",
-    title: "Vistra – Administrator",
+    title: "Vistra –\nAdministrator",
     description:
       "Manages and administers gold holdings in line with regulatory requirements.",
   },
@@ -53,13 +52,6 @@ export default function Secure() {
   return (
     <section className=" relative bg-white py-[60px] lg:py-[100px] px-6">
       {/* CompaniesEllipse: desktop — absolute top-left; mobile — hidden here, shown inline below */}
-      <Image
-        src={CompaniesEllipse}
-        alt="Partner Companies"
-        width={150}
-        height={150}
-        className="object-contain absolute top-0 left-0 hidden lg:block"
-      />
       <div className="container mx-auto max-w-[1200px]">
         <div className="flex items-start justify-center gap-8 mb-6 lg:mb-10">
           <motion.div
@@ -67,7 +59,7 @@ export default function Secure() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="space-y-3 text-center"
+            className="space-y-6 text-center"
           >
             <h2
               className="text-[28px] leading-[34px] lg:text-[40px] font-semibold lg:leading-[44px] text-[#0A0A0A]"
@@ -85,13 +77,6 @@ export default function Secure() {
             </p>
 
             {/* CompaniesEllipse: mobile only, rotated 90deg, centered */}
-            <div className="flex justify-center pt-4 lg:hidden">
-              <Image
-                src={CompaniesEllipseFlipped}
-                alt="Partner Companies"
-                className="object-contain w-auto h-auto"
-              />
-            </div>
           </motion.div>
         </div>
 
@@ -108,7 +93,7 @@ export default function Secure() {
                 background: "linear-gradient(to bottom, #FEFEFE, #FBF5E6)",
               }}
             >
-              <div className="w-[70px] h-[54px] self-center flex items-center">
+              <div className="w-[70px] h-[54px] self-start flex items-center">
                 <Image
                   src={feature.logo}
                   alt={feature.logoAlt}
@@ -119,13 +104,13 @@ export default function Secure() {
               </div>
               <div className="space-y-1.5">
                 <h3
-                  className="lg:text-[20px] text-[16px] font-bold leading-[24px] text-[#0A0A0A]"
+                  className="lg:text-[20px] text-start text-[16px] font-bold leading-[24px] text-[#0A0A0A] whitespace-pre-line"
                   style={sansation}
                 >
                   {feature.title}
                 </h3>
                 <p
-                  className="text-[12px] lg:text-[14px] leading-[20px] text-[#3D3D3D]"
+                  className="text-[12px] text-start lg:text-[14px] leading-[20px] text-[#3D3D3D]"
                   style={mona}
                 >
                   {feature.description}
@@ -162,13 +147,42 @@ export default function Secure() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="relative w-full flex justify-center rounded-2xl overflow-hidden"
+            className="w-full flex justify-center"
           >
-            <Image
-              src={PassbookImage}
-              alt="Digital Gold Passbook"
-              className="object-contain w-[950px] max-w-full"
-            />
+            <div className="relative inline-block w-[950px] max-w-full rounded-2xl overflow-hidden  shadow-[0px_4px_16px_0px_#BF9B6766]">
+              <Image
+                src={PassbookImage}
+                alt="Digital Gold Passbook"
+                className="object-contain w-full shadow-[0px_4px_16px_0px_#BF9B6766]"
+              />
+              <div
+                className="absolute top-[95%] left-0 right-0 -translate-y-1/2 overflow-hidden pointer-events-none py-1 lg:py-1"
+                style={{
+                  background:
+                    "linear-gradient(90deg, #F7EBC6 0%, #C3A662 6%, #F8EDC9 12%, #B98F5D 18%, #C5A06C 24%, #FBEAB1 30%, #C3A661 36%, #FEF6D9 42%, #BC9360 48%, #D8BA84 54%, #F4E2A7 60%, #D1B672 66%, #F6E8C4 72%, #B88E5B 78%, #FCEBB3 84%, #C3A662 90%, #F7EBC6 100%)",
+                }}
+              >
+                <motion.div
+                  className="flex whitespace-nowrap gap-5 lg:gap-8"
+                  animate={{ x: ["0%", "-50%"] }}
+                  transition={{
+                    duration: 30,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                >
+                  {Array.from({ length: 20 }).map((_, i) => (
+                    <Image
+                      key={i}
+                      src={StripLogo}
+                      alt=""
+                      height={20}
+                      className="h-[8px] lg:h-[18px] w-auto shrink-0"
+                    />
+                  ))}
+                </motion.div>
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>

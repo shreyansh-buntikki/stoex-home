@@ -1,17 +1,16 @@
 "use client";
 
+import { Assets } from "./Assets";
+import { Comparison } from "./Comparison";
+import { EarlyAccess } from "./EarlyAccess";
+import { FAQs } from "./Faq";
+import { Footer } from "./Footer";
 import { HeaderGold } from "./Header";
 import { HeroGold } from "./Hero";
-import Secure from "./Secure";
-import { Comparison } from "./Comparison";
-import { Steps } from "./Steps";
 import { Protection } from "./Protection";
-import { PriceGraph } from "./PriceGraph";
 import { Redemption } from "./Redemption";
-import { FAQs } from "./Faq";
-import { Assets } from "./Assets";
-import { EarlyAccess } from "./EarlyAccess";
-import { Footer } from "./Footer";
+import Secure from "./Secure";
+import { Steps } from "./Steps";
 
 export function HomePageGold() {
   return (
@@ -23,8 +22,8 @@ export function HomePageGold() {
         <Comparison />
         <Steps />
         <Protection />
-        <Divider />
-        <PriceGraph />
+        {/* <Divider /> */}
+        {/* <PriceGraph /> */}
         <Redemption />
         <FAQs />
         <Assets />
