@@ -272,7 +272,7 @@ function CashCard({ active }: { active: boolean }) {
             </div>
             {goldFirst && (
               <p
-                className={`absolute -bottom-7 z-0 left-0 right-0 flex w-full items-end justify-center rounded-b-xl px-4 pt-3 pb-2 text-center text-[13px] leading-[18px] ${
+                className={`absolute -bottom-7 z-0 left-0 right-0 flex w-full items-end justify-center rounded-b-xl px-4 pt-1 pb-2 text-center text-[13px] leading-[18px] ${
                   greyed
                     ? "bg-[#F1F1F6] text-[#C8C8D6]"
                     : "bg-[#E6E6F2] text-[#3F4656]"
@@ -402,7 +402,7 @@ function CashCard({ active }: { active: boolean }) {
             </div>
             {!goldFirst && (
               <p
-                className={`absolute -bottom-7 z-0 left-0 right-0 flex w-full items-end justify-center rounded-b-xl px-4 pt-3 pb-2 text-center text-[13px] leading-[18px] ${
+                className={`absolute -bottom-7 z-0 left-0 right-0 flex w-full items-end justify-center rounded-b-xl px-4 pt-1 pb-2 text-center text-[13px] leading-[18px] ${
                   greyed
                     ? "bg-[#F1F1F6] text-[#C8C8D6]"
                     : "bg-[#E6E6F2] text-[#3F4656]"
@@ -688,10 +688,10 @@ export const Redemption = () => {
                 <motion.div
                   key="coin-img"
                   initial={{ opacity: 0, y: 100 }}
-                  animate={{ opacity: 1, y: 30 }}
+                  animate={{ opacity: 1, y: 40 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
-                  className="flex items-start gap-3 mb-4"
+                  className="flex items-start gap-3 mb-4 flex-row-reverse"
                 >
                   <Image
                     src={CoinImage}
@@ -701,7 +701,7 @@ export const Redemption = () => {
                     className="object-contain"
                   />
                   <p
-                    className="text-[11px] text-[#8A8FA8] mt-2 leading-[14px]"
+                    className="text-[11px] text-[#8A8FA8] mt-2 leading-[14px] text-right"
                     style={mona}
                   >
                     This is just a visual representation

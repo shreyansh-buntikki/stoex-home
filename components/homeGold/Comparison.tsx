@@ -39,7 +39,7 @@ const comparisonData = [
 
 export const Comparison = () => {
   return (
-    <section className="bg-white py-8 lg:py-[100px] px-6">
+    <section className="bg-white py-8 lg:py-[0px] lg:pb-[100px] px-6">
       <div className="container mx-auto">
         <div className="flex flex-col gap-8 items-center">
           <motion.div

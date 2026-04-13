@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   AreaChart,
@@ -171,9 +171,18 @@ function CustomTooltip({
 
 export const PriceGraph = () => {
   const [activePeriod, setActivePeriod] = useState<Period>("1 M");
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 1024);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const { data, xKey } = getDataForPeriod(activePeriod);
   const stats = getPeriodStats(activePeriod);
+  const xInterval = isMobile ? Math.floor((data.length - 1) / 3) : 0;
 
   return (
     <section className="bg-white lg:py-[100px] py-[0px] px-6">
@@ -256,9 +265,10 @@ export const PriceGraph = () => {
 
                 <XAxis
                   dataKey={xKey}
-                  tick={{ fontSize: 16, fill: "#bcbcbc", fontWeight: 600 }}
+                  tick={{ fontSize: isMobile ? 12 : 16, fill: "#bcbcbc", fontWeight: 600 }}
                   axisLine={{ stroke: "#bcbcbc", strokeWidth: 1 }}
                   tickLine={false}
+                  interval={xInterval}
                   style={mona}
                 />
 

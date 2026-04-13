@@ -110,14 +110,14 @@ function GoldHeroLead() {
       <div className="flex flex-row gap-3 lg:flex-col lg:gap-4 xl:flex-row">
         <button
           type="button"
-          className="flex-1 lg:flex-none rounded-full bg-[#00007F] px-6 py-3 text-[14px] lg:px-8 lg:text-[16px] font-medium text-white transition-colors hover:bg-[#0f0f3a]"
+          className="flex-1 lg:flex-none rounded-full bg-[#00007F] px-3 lg:px-6 py-3 text-[14px] lg:px-8 lg:text-[16px] font-semibold text-white transition-colors hover:bg-[#0f0f3a]"
           style={mona}
         >
           Reserve Your Gold
         </button>
         <button
           type="button"
-          className="flex-1 lg:flex-none rounded-full border border-[#00007F] px-6 py-3 text-[14px] lg:px-8 lg:text-[16px] font-medium text-[#00007F] transition-colors hover:bg-[#1a1a5c] hover:text-white"
+          className="flex-1 lg:flex-none rounded-full border border-[#00007F] px-3 lg:px-6 py-3 text-[14px] lg:px-8 lg:text-[16px] font-semibold text-[#00007F] transition-colors hover:bg-[#1a1a5c] hover:text-white"
           style={mona}
         >
           Learn how it works

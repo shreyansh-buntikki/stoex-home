@@ -61,13 +61,13 @@ export default function Secure() {
         className="object-contain absolute top-0 left-0 hidden lg:block"
       />
       <div className="container mx-auto max-w-[1200px]">
-        <div className="flex items-start gap-8 mb-6 lg:mb-10">
+        <div className="flex items-start justify-center gap-8 mb-6 lg:mb-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="space-y-3"
+            className="space-y-3 text-center"
           >
             <h2
               className="text-[28px] leading-[34px] lg:text-[40px] font-semibold lg:leading-[44px] text-[#0A0A0A]"
@@ -77,7 +77,7 @@ export default function Secure() {
               every level
             </h2>
             <p
-              className="text-[15px] leading-[22px] lg:text-[18px] lg:leading-[28px] text-[#3D3D3D] max-w-[600px]"
+              className="text-[15px] leading-[22px] lg:text-[18px] lg:leading-[28px] text-[#3D3D3D] max-w-[600px] mx-auto"
               style={mona}
             >
               Every gram of gold is securely stored, independently audited, and
@@ -95,7 +95,7 @@ export default function Secure() {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-row sm:gap-4 mb-8 lg:mb-12">
+        <div className="grid grid-cols-2 self-center justify-center gap-3 sm:flex sm:flex-row sm:gap-4 mb-8 lg:mb-12">
           {securityFeatures.map((feature, index) => (
             <motion.div
               key={feature.title}

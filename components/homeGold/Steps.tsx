@@ -336,7 +336,7 @@ export const Steps = () => {
                       <div className="flex-1 h-px bg-transparent relative overflow-hidden">
                         <motion.div
                           variants={connectorVariants}
-                          className="absolute top-0 left-0 h-full bg-white/[0.36]"
+                          className="absolute top-0 left-0 h-full bg-[#5C5C94]"
                         />
                       </div>
                     </div>
@@ -378,7 +378,7 @@ export const Steps = () => {
                       <div className="absolute h-px left-[-2px] top-[7.5px] w-[calc(100%+2px)] bg-transparent overflow-hidden">
                         <motion.div
                           variants={connectorVariants}
-                          className="absolute top-0 left-0 h-full bg-white/[0.36]"
+                          className="absolute top-0 left-0 h-full bg-[#5C5C94]"
                         />
                       </div>
                     </div>
@@ -419,7 +419,7 @@ export const Steps = () => {
                       <div className="absolute h-px left-[-2px] top-[8px] w-[389px] bg-transparent overflow-hidden">
                         <motion.div
                           variants={connectorVariants}
-                          className="absolute top-0 left-0 h-full bg-white/[0.36]"
+                          className="absolute top-0 left-0 h-full bg-[#5C5C94]"
                         />
                       </div>
                       <div className="absolute left-[102px] w-4 h-4 bg-white rounded-full border-2 border-white shadow-lg z-10 top-[-1px]" />
@@ -470,15 +470,13 @@ export const Steps = () => {
                   {/* Timeline dot */}
                   <div className="absolute -left-6 top-[6px] w-3 h-3 bg-white rounded-full border-2 border-white shadow-lg z-10" />
 
-                  {/* Vertical connector below dot */}
-                  {index < stepData.length - 1 && (
-                    <div className="absolute -left-[19.5px] top-[18px] bottom-0 w-px overflow-hidden">
-                      <motion.div
-                        variants={mobileConnectorVariants}
-                        className="w-full bg-white/30"
-                      />
-                    </div>
-                  )}
+                  {/* Vertical connector below dot — continues through all steps including last */}
+                  <div className="absolute -left-[19.5px] top-[18px] bottom-[-12px] w-px overflow-hidden">
+                    <motion.div
+                      variants={mobileConnectorVariants}
+                      className="w-full bg-[#5C5C94]"
+                    />
+                  </div>
 
                   {/* Step number + title on same line */}
                   <div className="flex items-baseline gap-3 mb-2">

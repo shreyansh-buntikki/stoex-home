@@ -137,7 +137,7 @@ function FaqItem({
           <Plus
             className={`w-5 h-5  transition-transform duration-200 ${
               isOpen ? "rotate-45" : "rotate-0"
-            }`}
+            } ${isOpen ? "text-[#00007F]" : "text-[#8A8FA8]"}`}
             strokeWidth={2.2}
           />
         </div>
