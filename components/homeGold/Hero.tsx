@@ -1,19 +1,18 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Coin from "@/public/assets/images/coin.webp";
+import GoldBars from "@/public/assets/images/gold-bars.webp";
+import BackgroundCircles from "@/public/assets/images/hero-circles.webp";
+import AmprapaliLogo from "@/public/assets/logos/amprapali-logo.svg";
+import CoinFlipped from "@/public/assets/images/coin-flipped.webp";
 import Image from "next/image";
 import {
-  useEffect,
   useLayoutEffect,
   useRef,
   useState,
   type CSSProperties,
   type ReactNode,
 } from "react";
-import Coin from "@/public/assets/images/coin.webp";
-import AmprapaliLogo from "@/public/assets/logos/amprapali-logo.svg";
-import GoldBars from "@/public/assets/images/gold-bars.webp";
-import BackgroundCircles from "@/public/assets/images/hero-circles.webp";
 
 const GOLD_PRICE_PER_GRAM = 4762;
 const GOLD_WIDGET_SHADOW =
@@ -64,69 +63,86 @@ function HeroGoldBackdrop() {
 
 function GoldHeroLead() {
   return (
-    <div className="space-y-8">
-      <div className="space-y-6">
-        <h1 className="text-5xl font-[700] text-[56px] leading-[55px]">
-          <span className="block text-[#B8860B]" style={sansation}>
-            Gold at live price.
-          </span>
-          <span
-            className="block font-[700] text-[#0A0A0A] text-[56px] leading-[55px]"
-            style={{ ...mona, letterSpacing: "1px" }}
-          >
-            Yours in 3 clicks.
-          </span>
-        </h1>
-
-        <div
-          className="space-y-2 text-[18px] leading-[24px] text-[#3D3D3D]"
-          style={mona}
-        >
-          <p>
-            Buy, sell, and own verified 24-karat gold starting from just ₹15*.
-          </p>
-          <p>Backed by real gold, digitally secured, and redeemable anytime.</p>
-        </div>
-
-        <p className="text-[10px] text-[#8A8FA8]" style={mona}>
-          *The figure is subject to the gold rate.
-        </p>
+    <div className="space-y-6 lg:space-y-8">
+      {/* CoinFlipped: mobile only, in normal flow at top */}
+      <div className="flex justify-start lg:hidden">
+        <Image
+          src={CoinFlipped}
+          alt="Gold Coin"
+          width={120}
+          height={120}
+          className="object-contain"
+        />
       </div>
 
-      <div className="flex flex-col gap-4 sm:flex-row">
+      <div className="relative">
+        <div className="space-y-4 lg:space-y-6">
+          <h1 className="font-[700] text-[44px] leading-[42px] lg:text-[56px] lg:leading-[55px]">
+            <span className="block text-[#B8860B]" style={sansation}>
+              Gold at live price.
+            </span>
+            <span
+              className="block font-[700] text-[#0A0A0A] text-[44px] leading-[42px] lg:text-[56px] lg:leading-[55px]"
+              style={{ ...mona, letterSpacing: "1px" }}
+            >
+              Yours in 3 clicks.
+            </span>
+          </h1>
+
+          <div
+            className="space-y-1.5 text-[15px] leading-[22px] lg:text-[18px] lg:leading-[24px] text-[#3D3D3D]"
+            style={mona}
+          >
+            <p>
+              Buy, sell, and own verified 24-karat gold starting from just ₹15*.
+            </p>
+            <p>
+              Backed by real gold, digitally secured, and redeemable anytime.
+            </p>
+          </div>
+
+          <p className="text-[10px] text-[#8A8FA8]" style={mona}>
+            *The figure is subject to the gold rate.
+          </p>
+        </div>
+      </div>
+
+      <div className="flex flex-row gap-3 lg:flex-col lg:gap-4 xl:flex-row">
         <button
           type="button"
-          className="rounded-full bg-[#00007F] px-8 py-3 text-[16px] font-medium text-white transition-colors hover:bg-[#0f0f3a]"
+          className="flex-1 lg:flex-none rounded-full bg-[#00007F] px-6 py-3 text-[14px] lg:px-8 lg:text-[16px] font-medium text-white transition-colors hover:bg-[#0f0f3a]"
           style={mona}
         >
           Reserve Your Gold
         </button>
         <button
           type="button"
-          className="rounded-full border border-[#00007F] px-8 py-3 text-[16px] font-medium text-[#00007F] transition-colors hover:bg-[#1a1a5c] hover:text-white"
+          className="flex-1 lg:flex-none rounded-full border border-[#00007F] px-6 py-3 text-[14px] lg:px-8 lg:text-[16px] font-medium text-[#00007F] transition-colors hover:bg-[#1a1a5c] hover:text-white"
           style={mona}
         >
           Learn how it works
         </button>
       </div>
 
-      <div className="flex flex-nowrap gap-0 overflow-x-auto pt-8 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+      {/* Trust items: 2x2 grid on mobile, horizontal row on desktop */}
+      <div className="grid grid-cols-2 gap-x-4 gap-y-2 pt-2 lg:flex lg:flex-nowrap lg:gap-0 lg:overflow-x-auto lg:pt-8 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
         {TRUST_ITEMS.map((item, index) => (
-          <div className="flex shrink-0" key={item}>
+          <div className="flex items-center gap-2 lg:shrink-0" key={item}>
+            {/* Bullet dot on mobile */}
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#B8860B] lg:hidden" />
+            {/* Divider on desktop */}
             {index > 0 && (
               <div
                 aria-hidden
-                className="mx-3 h-3 w-px sm:mx-5 sm:h-4"
+                className="hidden lg:block mx-3 h-3 w-px sm:mx-5 sm:h-4"
                 style={{ background: DIVIDER_GRADIENT_GOLD }}
               />
             )}
-            <div className="text-center">
-              <div
-                className="text-[12px] font-medium text-[#8A8FA8]"
-                style={mona}
-              >
-                {item}
-              </div>
+            <div
+              className="text-[12px] font-medium text-[#8A8FA8]"
+              style={mona}
+            >
+              {item}
             </div>
           </div>
         ))}
@@ -490,10 +506,10 @@ export const HeroGold = () => {
     goldGrams >= 0.01 ? `${goldGrams.toFixed(2)}g gold` : "0.00g gold";
 
   return (
-    <div className="relative flex min-h-[calc(100dvh-5rem)] items-center overflow-hidden bg-white">
+    <div className="relative pb-10 lg:pb-0 flex min-h-[calc(100dvh-5rem)] items-center overflow-hidden bg-white">
       <HeroGoldBackdrop />
       <div className="relative z-10 container mx-auto px-6 lg:px-8">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+        <div className="flex flex-col items-center gap-10 lg:grid lg:grid-cols-2 lg:items-center lg:gap-20">
           <GoldHeroLead />
 
           <div className="relative flex w-full justify-center lg:justify-end">

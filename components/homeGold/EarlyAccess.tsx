@@ -20,10 +20,11 @@ const benefits = [
 
 export const EarlyAccess = () => {
   return (
-    <section className="bg-white  py-[90px] pb-0 px-0">
+    <section className="bg-white  py-[60px] lg:py-[90px] pb-0 px-0">
       <div className="mx-auto w-full max-w-none">
         <div className="relative w-full overflow-hidden bg-[#fff] px-6 py-12 md:px-12 md:py-16">
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-[48%]">
+          {/* Looper — desktop: left/right full height; mobile: top-right & bottom-left corners */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-[48%] hidden lg:block">
             <Image
               src={Looper}
               alt=""
@@ -32,7 +33,7 @@ export const EarlyAccess = () => {
               className="object-cover object-left opacity-80"
             />
           </div>
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-[48%]">
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-[48%] hidden lg:block">
             <Image
               src={Looper}
               alt=""
@@ -41,10 +42,30 @@ export const EarlyAccess = () => {
               className="scale-x-[-1] scale-y-[-1] object-cover object-right opacity-80"
             />
           </div>
+          {/* Mobile: top-right corner */}
+          <div className="pointer-events-none absolute top-0 right-0 w-[70%] h-[40%] lg:hidden">
+            <Image
+              src={Looper}
+              alt=""
+              fill
+              sizes="50vw"
+              className="object-cover object-left-bottom opacity-80 rotate-180"
+            />
+          </div>
+          {/* Mobile: bottom-left corner */}
+          <div className="pointer-events-none absolute bottom-0 left-0 w-[70%] h-[40%] lg:hidden">
+            <Image
+              src={Looper}
+              alt=""
+              fill
+              sizes="55vw"
+              className="object-cover object-left-bottom opacity-80 scale-y-[-1] -rotate-90"
+            />
+          </div>
 
           <div className="relative z-10 mx-auto max-w-[900px] pt-20 text-center">
             <h2
-              className="text-[36px] leading-[46px] font-bold text-[#0A0A0A] md:text-[40px] md:leading-[48px]"
+              className="text-[26px] leading-[36px] font-bold text-[#0A0A0A] lg:text-[40px] lg:leading-[48px]"
               style={sansation}
             >
               Be among the first to own publicly verifiable, permanently

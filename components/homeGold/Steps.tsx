@@ -26,6 +26,16 @@ const containerVariants = {
   },
 };
 
+const mobileContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.8,
+    },
+  },
+};
+
 const stepVariants = {
   hidden: { opacity: 0, x: -50 },
   visible: {
@@ -37,10 +47,32 @@ const stepVariants = {
   },
 };
 
+const mobileStepVariants: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+    },
+  },
+};
+
 const connectorVariants: Variants = {
   hidden: { width: "0%" },
   visible: {
     width: "100%",
+    transition: {
+      duration: 0.9,
+      ease: cubicBezier(0.42, 0, 0.58, 1),
+    },
+  },
+};
+
+const mobileConnectorVariants: Variants = {
+  hidden: { height: "0%" },
+  visible: {
+    height: "100%",
     transition: {
       duration: 0.9,
       ease: cubicBezier(0.42, 0, 0.58, 1),
@@ -128,7 +160,7 @@ const stepData = [
 function StepMockup({ step, index }: { step: any; index: number }) {
   if (index === 0) {
     return (
-      <div className="relative mt-8 w-full max-w-[300px] min-h-fit">
+      <div className="relative mt-4 lg:mt-8 w-full max-w-[300px] h-[110px] lg:min-h-fit">
         {/* Phone card - appears first, then gets pushed back */}
         <motion.div
           initial={{ opacity: 0, y: 20, scale: 1 }}
@@ -139,11 +171,11 @@ function StepMockup({ step, index }: { step: any; index: number }) {
           }}
           viewport={{ once: true, amount: 0.6 }}
           transition={{
-            opacity: { delay: 1.2, duration: 0.6 },
-            y: { delay: 1.2, duration: 0.6 },
-            scale: { delay: 2.0, duration: 0.3 },
+            opacity: { delay: 0.3, duration: 0.6 },
+            y: { delay: 0.3, duration: 0.6 },
+            scale: { delay: 1.0, duration: 0.3 },
           }}
-          className="absolute top-0 left-[19px] w-[263px] backdrop-blur-md border border-white/10 rounded-2xl bg-white/5 z-10"
+          className="absolute top-0 left-[19px] w-[calc(100%-19px)] lg:w-[263px] backdrop-blur-md border border-white/10 rounded-2xl bg-white/5 z-10"
         >
           <div className="flex items-center gap-4 p-4">
             <div className="p-2 rounded-xl bg-white/10 border border-white/20">
@@ -168,10 +200,10 @@ function StepMockup({ step, index }: { step: any; index: number }) {
           }}
           viewport={{ once: true, amount: 0.6 }}
           transition={{
-            delay: 2.0,
+            delay: 1.0,
             duration: 0.5,
           }}
-          className="absolute top-[50px] left-0 w-[300px] backdrop-blur-md border border-white/10 rounded-2xl bg-white/5 z-20"
+          className="absolute top-[50px] left-0 w-full lg:w-[300px] backdrop-blur-md border border-white/10 rounded-2xl bg-white/5 z-20"
         >
           <div className="flex items-center gap-4 p-4">
             <div className="p-2 rounded-xl bg-white/10 border border-white/20">
@@ -256,7 +288,7 @@ function StepMockup({ step, index }: { step: any; index: number }) {
 
 export const Steps = () => {
   return (
-    <section className="relative py-[170px] px-6 overflow-hidden">
+    <section className="relative py-[90px] lg:py-[170px] px-6 overflow-hidden">
       <Image
         src={Background}
         alt="Background Image"
@@ -276,12 +308,12 @@ export const Steps = () => {
             transition={{ duration: 0.8 }}
             className="text-center mb-20 max-w-[911px] mx-auto"
           >
-            <h2 className="text-[40px] font-semibold leading-[40px] mb-6" style={sansation}>
+            <h2 className="text-[26px] lg:text-[40px] font-semibold leading-[32px] lg:leading-[40px] mb-6" style={sansation}>
               <span className="text-white">Three Steps. </span>
               <span className="text-[#B8943F]">Real Gold.</span>
             </h2>
             <p
-              className="text-[20px] leading-[28px] text-white"
+              className="text-[15px] lg:text-[20px] leading-[22px] lg:leading-[28px] text-white"
               style={mona}
             >
               No demat. No brokers. No waiting. From signup to gold ownership in minutes.
@@ -422,50 +454,61 @@ export const Steps = () => {
               </div>
             </div>
 
-            <div className="lg:hidden space-y-12">
+            <motion.div
+              className="lg:hidden relative pl-6"
+              variants={mobileContainerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+            >
               {stepData.map((step, index) => (
                 <motion.div
                   key={index}
-                  variants={stepVariants}
-                  className="relative"
+                  variants={mobileStepVariants}
+                  className="relative pb-12 last:pb-0"
                 >
-                  <div className="flex items-start gap-6">
-                    <div className="w-4 h-4 bg-white rounded-full border-2 border-white shadow-lg mt-2 flex-shrink-0" />
+                  {/* Timeline dot */}
+                  <div className="absolute -left-6 top-[6px] w-3 h-3 bg-white rounded-full border-2 border-white shadow-lg z-10" />
 
-                    <div className="flex-1">
-                      <div className="mb-4">
-                        <div
-                          className="text-[20px] leading-[24px] text-white/90 mb-2"
-                          style={mona}
-                        >
-                          {step.number}
-                        </div>
-                        <h3
-                          className="text-[20px] leading-[26px] text-white mb-3"
-                          style={sansation}
-                        >
-                          {step.title}
-                        </h3>
-                        <p
-                          className="text-[14px] leading-[20px] text-white/70 whitespace-pre-line"
-                          style={mona}
-                        >
-                          {step.description}
-                        </p>
-                      </div>
-
-                      <StepMockup step={step} index={index} />
-                    </div>
-                  </div>
-
+                  {/* Vertical connector below dot */}
                   {index < stepData.length - 1 && (
-                    <div className="ml-2 mt-6">
-                      <div className="w-px h-8 bg-white/30" />
+                    <div className="absolute -left-[19.5px] top-[18px] bottom-0 w-px overflow-hidden">
+                      <motion.div
+                        variants={mobileConnectorVariants}
+                        className="w-full bg-white/30"
+                      />
                     </div>
                   )}
+
+                  {/* Step number + title on same line */}
+                  <div className="flex items-baseline gap-3 mb-2">
+                    <span
+                      className="text-[16px] leading-[20px] text-white/60"
+                      style={mona}
+                    >
+                      {step.number}
+                    </span>
+                    <h3
+                      className="text-[18px] font-semibold leading-[24px] text-white"
+                      style={sansation}
+                    >
+                      {step.title}
+                    </h3>
+                  </div>
+
+                  {/* Description — no forced line breaks on mobile */}
+                  <p
+                    className="text-[14px] leading-[20px] text-white/70 mb-4"
+                    style={mona}
+                  >
+                    {step.description.replace(/\n/g, " ")}
+                  </p>
+
+                  {/* Mockup */}
+                  <StepMockup step={step} index={index} />
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

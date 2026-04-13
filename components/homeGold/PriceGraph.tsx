@@ -176,7 +176,7 @@ export const PriceGraph = () => {
   const stats = getPeriodStats(activePeriod);
 
   return (
-    <section className="bg-white py-[100px] px-6">
+    <section className="bg-white lg:py-[100px] py-[0px] px-6">
       <div className="container mx-auto max-w-[1440px]">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -196,7 +196,7 @@ export const PriceGraph = () => {
                   <button
                     key={period}
                     onClick={() => setActivePeriod(period)}
-                    className={`px-5.5 py-2.5 rounded-[10px] text-[16px] font-semibold transition-all ${
+                    className={`px-5.5 py-2.5 rounded-[10px] text-[12px] lg:text-[16px] font-semibold transition-all ${
                       activePeriod === period
                         ? "border border-[#BF9B67]/40 text-[#BF9B67]"
                         : "bg-white border border-[#DFE0EB] text-[#5b5b5b]"
@@ -217,18 +217,18 @@ export const PriceGraph = () => {
               </div>
             </div>
 
-            <div className="flex flex-col gap-2" style={mona}>
-              <p className="text-[20px] leading-[36px] text-[#0A0A0A]">
+            <div className="flex flex-col gap-0 lg:gap-2" style={mona}>
+              <p className="text-[14px] lg:text-[20px] leading-[36px] text-[#0A0A0A]">
                 5g of 24k gold (99.99%)
               </p>
               <div className="flex mb-4 items-center gap-3">
-                <p className="text-[32px] font-bold leading-[36px] text-[#0A0A0A]">
+                <p className="text-[26px] lg:text-[32px] font-bold leading-[36px] text-[#0A0A0A]">
                   ₹1,63,165.00
                 </p>
-                <span className="text-[20px] font-semibold text-[#34C759] bg-[#34C759]/5 px-1.5 py-0.5 rounded-md">
+                <span className="text-[16px] lg:text-[20px] font-semibold text-[#34C759] bg-[#34C759]/5 px-1.5 py-0.5 rounded-md">
                   {stats.change}
                 </span>
-                <p className="text-[20px] leading-[36px] text-[#0A0A0A]">
+                <p className="text-[16px] lg:text-[20px] leading-[36px] text-[#0A0A0A]">
                   {stats.label}
                 </p>
               </div>

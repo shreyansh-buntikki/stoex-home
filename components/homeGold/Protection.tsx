@@ -76,14 +76,14 @@ function ProtectionCard({ item }: { item: typeof protectionData[0] }) {
       </div>
 
       <h3
-        className="text-[20px] font-bold leading-[22px] text-[#0A0A0A]"
+        className="text-[18px] lg:text-[20px] font-bold leading-[20px] lg:leading-[22px] text-[#0A0A0A]"
         style={sansation}
       >
         {item.title}
       </h3>
 
       <p
-        className="text-[16px] leading-[21px] text-[#0A0A0A]/50"
+        className="text-[14px] lg:text-[16px] leading-[20px] lg:leading-[21px] text-[#0A0A0A]/50"
         style={mona}
       >
         {item.description}
@@ -94,7 +94,7 @@ function ProtectionCard({ item }: { item: typeof protectionData[0] }) {
 
 export const Protection = () => {
   return (
-    <section className="bg-white py-[120px] px-6">
+    <section className="bg-white lg:py-[120px] py-[60px] px-6">
       <div className="container mx-auto max-w-[1340px]">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -104,16 +104,16 @@ export const Protection = () => {
           className="text-center mb-[60px] max-w-[516px] mx-auto"
         >
           <div className="mb-3">
-            <h2 className="text-[40px] font-normal leading-[46px] mb-1" style={sansation}>
+            <h2 className="text-[26px] lg:text-[40px] font-normal leading-[32px] lg:leading-[46px] mb-1" style={sansation}>
               <span className="text-[#0A0A0A]">Gold isn't just jewellery.</span>
             </h2>
-            <h2 className="text-[40px]  leading-[46px]" style={sansation}>
+            <h2 className="text-[26px] lg:text-[40px] font-normal leading-[32px] lg:leading-[46px]" style={sansation}>
               <span className="text-[#0A0A0A]">It's </span>
               <span className="text-[#D4A843] italic font-semibold">financial protection.</span>
             </h2>
           </div>
           <p
-            className="text-[14.5px] leading-[25px] text-[#0A0A0A]/50"
+            className="text-[15px] leading-[25px] text-[#0A0A0A]/50"
             style={mona}
           >
             For centuries, Indians have trusted gold to protect wealth across generations.
@@ -125,7 +125,7 @@ export const Protection = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="grid grid-cols-2 lg:grid-cols-4 lg:gap-8 gap-4"
         >
           {protectionData.map((item) => (
             <ProtectionCard key={item.title} item={item} />

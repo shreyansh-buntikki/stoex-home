@@ -153,7 +153,7 @@ function FaqItem({
             className="overflow-hidden"
           >
             <p
-              className="text-[16px] leading-[22px] text-[#3D3D3D] pb-5"
+              className="text-[14px] lg:text-[16px] leading-[18px] lg:leading-[22px] text-[#3D3D3D] pb-5"
               style={mona}
             >
               {item.answer}
@@ -174,13 +174,15 @@ export const FAQs = () => {
   const items = faqData[tab];
   const twoColumns = items.length >= 6;
 
-  const handleTabChange = (key: typeof tab) => {
+  const handleTabChange = (key: typeof tab, e: React.MouseEvent<HTMLButtonElement>) => {
     setTab(key);
     setOpenIndex(0);
+    const button = e.currentTarget;
+    button.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
   };
 
   return (
-    <section className="bg-white py-[100px] px-6">
+    <section className="bg-white py-[60px] lg:py-[80px] px-6">
       <div className="container mx-auto max-w-[1100px]">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -190,19 +192,19 @@ export const FAQs = () => {
           className="text-center mb-10"
         >
           <h2
-            className="text-[40px] font-semibold leading-[46px] text-[#0A0A0A] mb-8"
+            className="text-[26px] lg:text-[40px] font-semibold leading-[32px] lg:leading-[46px] text-[#0A0A0A] mb-8"
             style={sansation}
           >
             FAQ about Stoex Digital Gold
           </h2>
 
           {/* Tabs */}
-          <div className="flex items-center justify-center gap-1">
+          <div className="flex items-center justify-start lg:justify-center gap-1 overflow-x-auto whitespace-nowrap [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             {tabs.map((t) => (
               <button
                 key={t.key}
-                onClick={() => handleTabChange(t.key)}
-                className={`px-5 py-2 rounded-full text-[24px] font-semibold transition-colors cursor-pointer ${
+                onClick={(e) => handleTabChange(t.key, e)}
+                className={`shrink-0 px-3 lg:px-5 py-2 rounded-full text-[16px] lg:text-[24px] font-semibold transition-colors cursor-pointer ${
                   tab === t.key
                     ? " text-[#00007F] underline underline-[#00007F] underline-offset-4"
                     : "text-[#0A0A0A] "

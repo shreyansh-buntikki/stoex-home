@@ -51,14 +51,14 @@ function AvailableGoldBar({ greyed }: { greyed: boolean }) {
           />
         </div>
         <span
-          className={`text-[14px] ${greyed ? "text-[#BCBCBC]" : "text-[#3D3D3D]"}`}
+          className={`text-[13px] lg:text-[14px] ${greyed ? "text-[#BCBCBC]" : "text-[#3D3D3D]"}`}
           style={mona}
         >
           Available Balance
         </span>
       </div>
       <span
-        className={`text-[18px] font-bold ${greyed ? "text-[#BCBCBC]" : "text-[#0A0A0A]"}`}
+        className={`text-[16px] lg:text-[18px] font-bold ${greyed ? "text-[#BCBCBC]" : "text-[#0A0A0A]"}`}
         style={mona}
       >
         56.82g
@@ -145,7 +145,7 @@ function CashCard({ active }: { active: boolean }) {
       }`}
     >
       <h3
-        className={`text-center text-[22px] font-bold mb-2 ${
+        className={`text-center text-[18px] lg:text-[22px] font-bold mb-1 lg:mb-2 ${
           active ? "text-[#00007F]" : "text-[#0A0A0A]"
         }`}
         style={sansation}
@@ -153,7 +153,7 @@ function CashCard({ active }: { active: boolean }) {
         Sell gold for cash
       </h3>
       <p
-        className={`text-center text-[13px] leading-[18px] mb-6 max-w-[320px] mx-auto ${
+        className={`text-center text-[12px] lg:text-[13px] leading-[17px] lg:leading-[18px] mb-4 lg:mb-6 max-w-[320px] mx-auto ${
           greyed ? "text-[#BCBCBC]" : "text-[#8A8FA8]"
         }`}
         style={mona}
@@ -164,7 +164,7 @@ function CashCard({ active }: { active: boolean }) {
 
       <AvailableGoldBar greyed={greyed} />
       <p
-        className="text-[18px]  mt-3"
+        className="text-[15px] lg:text-[18px] mt-3"
         style={{
           color: greyed ? "#BCBCBC" : "#3D3D3D",
         }}
@@ -448,7 +448,7 @@ function PhysicalCard({ active }: { active: boolean }) {
     >
       {/* Title */}
       <h3
-        className={`text-center text-[22px] font-bold mb-2 ${
+        className={`text-center text-[18px] lg:text-[22px] font-bold mb-1 lg:mb-2 ${
           active ? "text-[#00007F]" : "text-[#0A0A0A]"
         }`}
         style={sansation}
@@ -456,7 +456,7 @@ function PhysicalCard({ active }: { active: boolean }) {
         Get physical gold
       </h3>
       <p
-        className={`text-center text-[13px] leading-[18px] mb-6 max-w-[320px] mx-auto ${
+        className={`text-center text-[12px] lg:text-[13px] leading-[17px] lg:leading-[18px] mb-4 lg:mb-6 max-w-[320px] mx-auto ${
           greyed ? "text-[#BCBCBC]" : "text-[#8A8FA8]"
         }`}
         style={mona}
@@ -467,7 +467,7 @@ function PhysicalCard({ active }: { active: boolean }) {
       {/* Available Gold */}
       <AvailableGoldBar greyed={greyed} />
       <p
-        className="text-[18px]  mt-3"
+        className="text-[15px] lg:text-[18px] mt-3"
         style={{
           color: greyed ? "#BCBCBC" : "#3D3D3D",
         }}
@@ -615,7 +615,7 @@ export const Redemption = () => {
           className="text-center mb-12"
         >
           <h2
-            className="text-[40px] font-bold leading-[46px] text-[#0A0A0A]"
+            className="text-[40px] font-bold leading-[46px] text-[#0A0A0A] hidden lg:block"
             style={sansation}
           >
             Your Gold, Your Choice
@@ -629,7 +629,115 @@ export const Redemption = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="relative"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-[960px] mx-auto relative z-10">
+          {/* Mobile tabs */}
+          <div className="lg:hidden flex items-center justify-center gap-0 mb-6 max-w-[960px] mx-auto">
+            <button
+              type="button"
+              onClick={() => setMode("cash")}
+              className={`flex-1 py-3 text-[16px] font-bold text-center transition-colors ${
+                mode === "cash"
+                  ? "text-[#00007F] border-b-2 border-[#00007F]"
+                  : "text-[#8A8FA8] border-b border-[#E5E7EB]"
+              }`}
+              style={sansation}
+            >
+              Sell gold for cash
+            </button>
+            <button
+              type="button"
+              onClick={() => setMode("physical")}
+              className={`flex-1 py-3 text-[16px] font-bold text-center transition-colors ${
+                mode === "physical"
+                  ? "text-[#00007F] border-b-2 border-[#00007F]"
+                  : "text-[#8A8FA8] border-b border-[#E5E7EB]"
+              }`}
+              style={sansation}
+            >
+              Get physical gold
+            </button>
+          </div>
+
+          {/* Mobile: image + active card only */}
+          <div className="lg:hidden max-w-[960px] mx-auto">
+            {/* Mobile image on top */}
+            <AnimatePresence mode="wait">
+              {mode === "cash" ? (
+                <motion.div
+                  key="mobile-img"
+                  initial={{ opacity: 0, y: 100 }}
+                  animate={{ opacity: 1, y: 60 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  transition={{ duration: 0.3 }}
+                  className="flex items-start gap-3 mb-4"
+                >
+                  <Image
+                    src={MobileImage}
+                    alt="Mobile showing bank credit"
+                    width={140}
+                    height={260}
+                    className="object-contain"
+                  />
+                  <p
+                    className="text-[11px] text-[#8A8FA8] mt-2 leading-[14px]"
+                    style={mona}
+                  >
+                    This is just a visual representation
+                  </p>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="coin-img"
+                  initial={{ opacity: 0, y: 100 }}
+                  animate={{ opacity: 1, y: 30 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="flex items-start gap-3 mb-4"
+                >
+                  <Image
+                    src={CoinImage}
+                    alt="Gold Coin"
+                    width={120}
+                    height={120}
+                    className="object-contain"
+                  />
+                  <p
+                    className="text-[11px] text-[#8A8FA8] mt-2 leading-[14px]"
+                    style={mona}
+                  >
+                    This is just a visual representation
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Active card */}
+            <AnimatePresence mode="wait">
+              {mode === "cash" ? (
+                <motion.div
+                  key="cash-card"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <CashCard active />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="physical-card"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <PhysicalCard active />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Desktop: both cards side by side */}
+          <div className="hidden lg:grid grid-cols-2 gap-6 max-w-[960px] mx-auto relative z-10">
             <div
               onClick={() => setMode("cash")}
               className="cursor-pointer h-full"
@@ -645,7 +753,7 @@ export const Redemption = () => {
             </div>
           </div>
 
-          {/* Mobile image - bottom left when cash is selected */}
+          {/* Desktop: Mobile image - bottom left when cash is selected */}
           <AnimatePresence>
             {mode === "cash" && (
               <motion.div
