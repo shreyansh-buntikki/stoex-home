@@ -541,7 +541,7 @@ function PhysicalCard({ active }: { active: boolean }) {
           </div>
         </div>
         <p
-          className={`absolute -bottom-9 z-0 left-0 right-0 flex w-full items-end justify-center rounded-b-xl px-4 pt-4 pb-2 text-center text-[13px] leading-[18px] ${
+          className={`absolute -bottom-9 z-0 left-0 right-0 flex w-full items-end justify-center rounded-b-xl px-0 pt-4 pb-2 text-center text-[13px] leading-[18px] ${
             greyed
               ? "bg-[#F1F1F6] text-[#C8C8D6]"
               : "bg-[#E6E6F2] text-[#3F4656]"

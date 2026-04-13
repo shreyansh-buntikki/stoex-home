@@ -17,7 +17,7 @@ const sansation: CSSProperties = {
 
 export const Assets = () => {
   return (
-    <section className="bg-white py-[80px] lg:py-[100px] px-6">
+    <section className="bg-white py-[80px] pt-0 lg:py-[100px] px-6">
       <div className="container mx-auto max-w-[980px]">
         {/* Header */}
         <motion.div
