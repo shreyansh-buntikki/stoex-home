@@ -28,7 +28,7 @@ const comparisonData = [
   {
     feature: "Purity verification",
     traditional: "Manual testing",
-    stoex: "Blockchain verified",
+    stoex: "Amrapali Hallmark",
   },
   {
     feature: "Physical redemption",
@@ -39,7 +39,7 @@ const comparisonData = [
 
 export const Comparison = () => {
   return (
-    <section className="bg-white py-8 lg:py-[0px] lg:pb-[100px] px-6">
+    <section className="bg-white py-[80px]  lg:py-[0px] lg:pb-[100px] px-6">
       <div className="container mx-auto">
         <div className="flex flex-col gap-8 items-center">
           <motion.div
@@ -47,18 +47,21 @@ export const Comparison = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8 }}
-            className="flex flex-col gap-6 items-start lg:items-center text-start lg:text-center lg:max-w-[800px]"
+            className="flex flex-col gap-4 lg:gap-6 items-start lg:items-center text-start lg:text-center lg:max-w-[800px]"
           >
-            <h2 className="text-[26px] lg:text-[40px] font-semibold leading-[32px] lg:leading-[40px] text-[#0A0A0A]" style={sansation}>
-              Gold you can understand{" "}
-              <br />
+            <h2
+              className="text-[26px] lg:text-[40px] font-semibold leading-[32px] lg:leading-[40px] text-[#0A0A0A]"
+              style={sansation}
+            >
+              Gold you can understand <br />
               in <span className="text-[#B8943F]">plain language</span>
             </h2>
             <p
               className="text-[15px] lg:text-[20px] leading-[22px] lg:leading-[28px] text-[#3D3D3D] max-w-[609px]"
               style={mona}
             >
-              We've stripped away the complexity of traditional gold investing. No hidden fees, no confusing paperwork, no minimum lock-ins.
+              We've stripped away the complexity of traditional gold investing.
+              No hidden fees, no confusing paperwork, no minimum lock-ins.
             </p>
           </motion.div>
 
@@ -86,7 +89,10 @@ export const Comparison = () => {
                     key={row.feature}
                     className="px-5 py-5 h-[64px] flex items-center border-t border-[#E5E7EF]"
                   >
-                    <p className="text-[14px] leading-[20px] text-[#3D3D3D]" style={mona}>
+                    <p
+                      className="text-[14px] leading-[20px] text-[#3D3D3D]"
+                      style={mona}
+                    >
                       {row.feature}
                     </p>
                   </div>
@@ -108,7 +114,10 @@ export const Comparison = () => {
                     key={row.feature}
                     className="bg-white px-5 py-5 h-[64px] flex items-center justify-center border-t border-[#E5E7EF]"
                   >
-                    <p className="text-[14px] leading-[20px] text-[#3d3d3d] text-center" style={mona}>
+                    <p
+                      className="text-[14px] leading-[20px] text-[#3d3d3d] text-center"
+                      style={mona}
+                    >
                       {row.traditional}
                     </p>
                   </div>
@@ -152,7 +161,7 @@ export const Comparison = () => {
           >
             {/* Table header */}
             <div className="flex items-center bg-[#F7F8FC] border-b border-[#E5E7EF]">
-              <div className="flex-1 px-4 py-4">
+              <div className="flex-1 px-4 py-5">
                 <p
                   className="text-[11px] leading-[14px] text-[#8A8FA8] font-bold tracking-[0.5px] uppercase"
                   style={mona}
@@ -160,7 +169,7 @@ export const Comparison = () => {
                   FEATURE
                 </p>
               </div>
-              <div className="flex-1 px-4 py-4 text-center">
+              <div className="flex-1 px-4 py-5 text-center">
                 <p
                   className="text-[11px] leading-[14px] text-[#8A8FA8] font-bold tracking-[0.5px] uppercase"
                   style={mona}
@@ -168,7 +177,7 @@ export const Comparison = () => {
                   TRADITIONAL
                 </p>
               </div>
-              <div className="flex-1 px-4 py-4 text-center">
+              <div className="flex-1 px-4 py-5 text-center">
                 <p
                   className="text-[11px] leading-[14px] text-[#00007F] font-bold tracking-[0.5px] uppercase"
                   style={mona}

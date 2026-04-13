@@ -17,7 +17,7 @@ const sansation: CSSProperties = {
 
 export const Assets = () => {
   return (
-    <section className="bg-white py-[0px] lg:py-[100px] px-6">
+    <section className="bg-white py-[80px] lg:py-[100px] px-6">
       <div className="container mx-auto max-w-[980px]">
         {/* Header */}
         <motion.div
@@ -28,7 +28,7 @@ export const Assets = () => {
           className="text-center mb-12"
         >
           <h2
-            className="text-[26px] lg:text-[40px] font-semibold leading-[32px] lg:leading-[46px] text-[#0A0A0A] mb-6"
+            className="text-[26px] lg:text-[40px] font-semibold leading-[32px] lg:leading-[46px] text-[#0A0A0A] mb-4 lg:mb-6"
             style={sansation}
           >
             More real assets coming to{" "}
@@ -237,7 +237,7 @@ export const Assets = () => {
               style={mona}
             >
               Access curated pre-IPO equity, private credit, and alternative
-              funds previously available only to institutional investors.
+              funds previously available only to institutional <br/> investors.
             </p>
 
             {/* Divider */}

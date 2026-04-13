@@ -5,10 +5,10 @@ import Image from "next/image";
 import type { CSSProperties } from "react";
 
 import PassbookImage from "@/public/assets/images/passbook.webp";
-import AmrapaliLogo from "@/public/assets/logos/amrapali-2.svg";
-import SequelLogo from "@/public/assets/logos/sequel.svg";
+import AmrapaliLogo from "@/public/assets/logos/amrapali-2.webp";
+import SequelLogo from "@/public/assets/logos/sequel.webp";
 import RRBPLogo from "@/public/assets/logos/rrbp.webp";
-import VistraLogo from "@/public/assets/logos/vistara.svg";
+import VistraLogo from "@/public/assets/logos/vistara.webp";
 import StripLogo from "@/public/assets/logos/stoex-strip-logo.webp";
 
 const mona: CSSProperties = { fontFamily: "Mona Sans, sans-serif" };
@@ -50,7 +50,7 @@ const securityFeatures = [
 
 export default function Secure() {
   return (
-    <section className=" relative bg-white py-[60px] lg:py-[100px] px-6">
+    <section className=" relative bg-white py-[80px] lg:py-[100px] px-6">
       {/* CompaniesEllipse: desktop — absolute top-left; mobile — hidden here, shown inline below */}
       <div className="container mx-auto max-w-[1200px]">
         <div className="flex items-start justify-center gap-8 mb-6 lg:mb-10">
@@ -59,7 +59,7 @@ export default function Secure() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="space-y-6 text-center"
+            className="space-y-4 lg:space-y-6 text-center"
           >
             <h2
               className="text-[28px] leading-[34px] lg:text-[40px] font-semibold lg:leading-[44px] text-[#0A0A0A]"
@@ -93,12 +93,10 @@ export default function Secure() {
                 background: "linear-gradient(to bottom, #FEFEFE, #FBF5E6)",
               }}
             >
-              <div className="w-[70px] h-[54px] self-start flex items-center">
+              <div className="w-[80px] h-[60px] self-start flex items-end">
                 <Image
                   src={feature.logo}
                   alt={feature.logoAlt}
-                  width={60}
-                  height={44}
                   className="object-contain"
                 />
               </div>

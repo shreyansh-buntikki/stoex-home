@@ -288,7 +288,7 @@ function StepMockup({ step, index }: { step: any; index: number }) {
 
 export const Steps = () => {
   return (
-    <section className="relative py-[90px] lg:py-[100px] px-6 overflow-hidden">
+    <section className="relative py-[80px] lg:py-[100px] px-6 overflow-hidden">
       <Image
         src={Background}
         alt="Background Image"
@@ -308,7 +308,7 @@ export const Steps = () => {
             transition={{ duration: 0.8 }}
             className="text-center mb-20 max-w-[911px] mx-auto"
           >
-            <h2 className="text-[26px] lg:text-[40px] font-semibold leading-[32px] lg:leading-[40px] mb-6" style={sansation}>
+            <h2 className="text-[26px] lg:text-[40px] font-semibold leading-[32px] lg:leading-[40px] mb-4 lg:mb-6" style={sansation}>
               <span className="text-white">Three Steps. </span>
               <span className="text-[#B8943F]">Real Gold.</span>
             </h2>
