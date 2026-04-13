@@ -5,9 +5,9 @@ import Image from "next/image";
 import { Bell } from "lucide-react";
 import type { CSSProperties } from "react";
 
-import CoinIcon from "@/public/assets/images/coin.webp";
-import HomeImage from "@/public/assets/images/home.png";
-import CoinsGraphImage from "@/public/assets/images/coins-graph.png";
+import CoinIcon from "@/public/assets/icons/money.png";
+import KeysImage from "@/public/assets/icons/keys.png";
+import GraphImage from "@/public/assets/icons/graph.png";
 
 const mona: CSSProperties = { fontFamily: "Mona Sans, sans-serif" };
 const sansation: CSSProperties = {
@@ -32,13 +32,13 @@ export const Assets = () => {
             style={sansation}
           >
             More real assets coming to{" "}
-            <span className="text-[#00007F]">STOEX</span>
+            <span className="text-[#0A0A0A]">STOEX</span>
           </h2>
           <p
             className="text-[16px] leading-[24px] text-[#6B7280] max-w-[640px] mx-auto"
             style={mona}
           >
-            Gold is just the beginning. We're bringing fractional ownership of India's most valuable real-world assets — from real estate to private markets — all on one platform.
+           Gold is just the beginning. We're bringing fractional ownership of India's most valuable real-world assets — from real estate to private markets — all on one platform.
           </p>
         </motion.div>
 
@@ -159,11 +159,11 @@ export const Assets = () => {
             {/* Image */}
             <div className="absolute top-6 right-6">
               <Image
-                src={HomeImage}
+                src={KeysImage}
                 alt="Fractional Real Estate"
-                width={90}
-                height={90}
-                className="h-auto w-auto object-contain object-right-top"
+                width={60}
+                height={60}
+                className="object-contain object-right-top"
               />
             </div>
 
@@ -215,11 +215,11 @@ export const Assets = () => {
             {/* Image */}
             <div className="absolute top-6 right-6">
               <Image
-                src={CoinsGraphImage}
+                src={GraphImage}
                 alt="Private Markets"
                 width={90}
                 height={90}
-                className="h-auto w-auto object-contain object-right-top"
+                className=" object-contain object-right-top"
               />
             </div>
 

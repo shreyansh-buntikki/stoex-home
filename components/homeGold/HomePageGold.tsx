@@ -19,7 +19,6 @@ export function HomePageGold() {
       <HeaderGold />
       <main className="overflow-x-hidden">
         <HeroGold />
-        <Divider />
         <Secure />
         <Comparison />
         <Steps />

@@ -24,7 +24,7 @@ type RedeemMode = "cash" | "physical";
 const QUICK_GRAMS_CASH = [0.01, 0.02, 0.03, 0.04];
 const QUICK_AMOUNTS = [15, 100, 500, 1000, 5000] as const;
 const CASH_PRICE_PER_GRAM = 9345;
-const CARD_GAP = 16;
+const CARD_GAP = 40;
 const swapDuration = 0.45;
 const swapEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const GOLD_WEIGHTS = [
@@ -54,7 +54,7 @@ function AvailableGoldBar({ greyed }: { greyed: boolean }) {
           className={`text-[14px] ${greyed ? "text-[#BCBCBC]" : "text-[#3D3D3D]"}`}
           style={mona}
         >
-          Available Gold
+          Available Balance
         </span>
       </div>
       <span
@@ -132,7 +132,9 @@ function CashCard({ active }: { active: boolean }) {
   const goldTop = goldFirst ? 0 : h.amount + CARD_GAP;
   const amountTop = goldFirst ? h.gold + CARD_GAP : 0;
   const stackMinH = h.gold + CARD_GAP + h.amount;
-  const swapSeamY = goldFirst ? h.gold + CARD_GAP / 2 : h.amount + CARD_GAP / 2;
+  const swapSeamY = goldFirst
+    ? h.gold + CARD_GAP * 1.1
+    : h.amount + CARD_GAP * 1.1;
 
   return (
     <div
@@ -148,7 +150,7 @@ function CashCard({ active }: { active: boolean }) {
         }`}
         style={sansation}
       >
-        Redeem in Cash
+        Sell gold for cash
       </h3>
       <p
         className={`text-center text-[13px] leading-[18px] mb-6 max-w-[320px] mx-auto ${
@@ -156,13 +158,24 @@ function CashCard({ active }: { active: boolean }) {
         }`}
         style={mona}
       >
-        Convert your gold tokens to cash at live market rates. Get money in your
-        bank within seconds.
+        Sell your gold instantly at live market rates. Funds are credited to
+        your bank account within seconds.
       </p>
 
       <AvailableGoldBar greyed={greyed} />
+      <p
+        className="text-[18px]  mt-3"
+        style={{
+          color: greyed ? "#BCBCBC" : "#3D3D3D",
+        }}
+      >
+        Select denomination
+      </p>
 
-      <div className="relative mt-4 w-full" style={{ minHeight: stackMinH }}>
+      <div
+        className="relative mt-4 mb-9 w-full"
+        style={{ minHeight: stackMinH }}
+      >
         <motion.div
           className={`absolute left-0 right-0 w-full ${goldFirst ? "z-[30]" : "z-[10]"}`}
           initial={false}
@@ -171,7 +184,7 @@ function CashCard({ active }: { active: boolean }) {
         >
           <div
             ref={goldRef}
-            className={`rounded-xl border p-6 ${
+            className={`relative rounded-xl border p-6 overflow-visible ${
               goldFirst
                 ? greyed
                   ? "border-[#E5E7EB] bg-[#F9FAFB]"
@@ -257,6 +270,18 @@ function CashCard({ active }: { active: boolean }) {
                 );
               })}
             </div>
+            {goldFirst && (
+              <p
+                className={`absolute -bottom-7 z-0 left-0 right-0 flex w-full items-end justify-center rounded-b-xl px-4 pt-3 pb-2 text-center text-[13px] leading-[18px] ${
+                  greyed
+                    ? "bg-[#F1F1F6] text-[#C8C8D6]"
+                    : "bg-[#E6E6F2] text-[#3F4656]"
+                }`}
+                style={mona}
+              >
+                Fractional selling supported
+              </p>
+            )}
           </div>
         </motion.div>
 
@@ -305,7 +330,7 @@ function CashCard({ active }: { active: boolean }) {
         >
           <div
             ref={amountRef}
-            className={`rounded-xl border p-6 ${
+            className={`relative rounded-xl border p-6 overflow-visible ${
               !goldFirst
                 ? greyed
                   ? "border-[#E5E7EB] bg-[#F9FAFB]"
@@ -319,7 +344,7 @@ function CashCard({ active }: { active: boolean }) {
               }`}
               style={mona}
             >
-              Amount (INR)
+              Amount you receive (INR)
             </label>
             <p
               className={`text-[28px] font-bold leading-none ${
@@ -361,7 +386,7 @@ function CashCard({ active }: { active: boolean }) {
                   key={qa}
                   type="button"
                   onClick={() => setFromAmount(qa)}
-                  className={`shrink-0 flex-1 rounded-lg px-2 py-2 text-[12px] font-medium transition-colors ${
+                  className={`shrink-0 flex-1 rounded-lg px-4 py-2 text-[12px] font-medium transition-colors ${
                     greyed
                       ? "border border-[#E5E7EB] bg-[#F3F4F6] text-[#BCBCBC] cursor-default"
                       : amountInr === qa
@@ -375,6 +400,18 @@ function CashCard({ active }: { active: boolean }) {
                 </button>
               ))}
             </div>
+            {!goldFirst && (
+              <p
+                className={`absolute -bottom-7 z-0 left-0 right-0 flex w-full items-end justify-center rounded-b-xl px-4 pt-3 pb-2 text-center text-[13px] leading-[18px] ${
+                  greyed
+                    ? "bg-[#F1F1F6] text-[#C8C8D6]"
+                    : "bg-[#E6E6F2] text-[#3F4656]"
+                }`}
+                style={mona}
+              >
+                Fractional selling supported
+              </p>
+            )}
           </div>
         </motion.div>
       </div>
@@ -389,7 +426,7 @@ function CashCard({ active }: { active: boolean }) {
           style={mona}
           disabled={!active}
         >
-          Sell For Cash
+          Sell gold for cash
           <ArrowRight className="w-4 h-4" />
         </button>
       </div>
@@ -416,7 +453,7 @@ function PhysicalCard({ active }: { active: boolean }) {
         }`}
         style={sansation}
       >
-        Redeem physical gold
+        Get physical gold
       </h3>
       <p
         className={`text-center text-[13px] leading-[18px] mb-6 max-w-[320px] mx-auto ${
@@ -424,15 +461,22 @@ function PhysicalCard({ active }: { active: boolean }) {
         }`}
         style={mona}
       >
-        Exchange your digital gold units for certified gold delivered to your
-        address.
+        Get certified gold coin or bar securely delivered to your doorstep.
       </p>
 
       {/* Available Gold */}
       <AvailableGoldBar greyed={greyed} />
+      <p
+        className="text-[18px]  mt-3"
+        style={{
+          color: greyed ? "#BCBCBC" : "#3D3D3D",
+        }}
+      >
+        Select denomination
+      </p>
 
       {/* Gold (grams) */}
-<div className="mt-4 mb-9 relative rounded-xl border border-[#E5E7EB] overflow-visible">
+      <div className="mt-4 mb-9 relative rounded-xl border border-[#E5E7EB] overflow-visible">
         <div
           className={`relative z-10 rounded-xl p-4 ${greyed ? "bg-[#F9FAFB]" : "bg-white"}`}
         >
@@ -519,7 +563,7 @@ function PhysicalCard({ active }: { active: boolean }) {
           }`}
           style={mona}
         >
-          Delivery Address
+          Select delivery address
         </label>
         <div className="flex items-center justify-between">
           <p
@@ -539,9 +583,9 @@ function PhysicalCard({ active }: { active: boolean }) {
       </div>
 
       {/* Redeem Button */}
-      <div className="mt-auto pt-8">
+      <div className="mt-auto pt-8 flex justify-center">
         <button
-          className={`w-full flex items-center justify-center gap-2 rounded-full py-3.5 text-[15px] font-bold transition-colors ${
+          className={`w-fit px-4 flex items-center justify-center gap-2 rounded-full py-3.5 text-[15px] font-bold transition-colors ${
             active
               ? "bg-[#00007F] text-white hover:bg-[#000066]"
               : "bg-[#D9D9D9] text-[#A0A0A0] cursor-default"
@@ -549,7 +593,7 @@ function PhysicalCard({ active }: { active: boolean }) {
           style={mona}
           disabled={!active}
         >
-          Redeem Physical Gold
+          Get physical gold
           <ArrowRight className="w-4 h-4" />
         </button>
       </div>
@@ -608,14 +652,14 @@ export const Redemption = () => {
                 key="mobile"
                 initial={{ x: 60 }}
                 animate={{ x: 0 }}
-                exit={{ x: 60 }}
+                exit={{ x: 120 }}
                 transition={{ duration: 0.5 }}
-                className="hidden lg:block absolute -bottom-[60px] left-[20px] z-0"
+                className="hidden lg:block absolute -bottom-[60px] left-[0px] z-0"
               >
                 <Image
                   src={MobileImage}
                   alt="Mobile showing bank credit"
-                  width={240}
+                  width={250}
                   height={480}
                   className="object-contain"
                 />
@@ -629,14 +673,13 @@ export const Redemption = () => {
             )}
           </AnimatePresence>
 
-          {/* Coin image - bottom right when physical is selected */}
           <AnimatePresence>
             {mode === "physical" && (
               <motion.div
                 key="coin"
                 initial={{ x: -60 }}
                 animate={{ x: 0 }}
-                exit={{ x: -60 }}
+                exit={{ x: -120 }}
                 transition={{ duration: 0.5 }}
                 className="hidden lg:block absolute -bottom-[30px] right-[20px] z-0"
               >
@@ -647,8 +690,9 @@ export const Redemption = () => {
                   height={180}
                   className="object-contain"
                 />
+                <div className="h-6"></div>
                 <p
-                  className="text-[11px] text-[#8A8FA8] mt-1 text-right leading-[14px]"
+                  className="text-[11px] text-[#8A8FA8] text-right leading-[14px]"
                   style={mona}
                 >
                   This is just a visual

@@ -121,7 +121,10 @@ function GoldHeroLead() {
               />
             )}
             <div className="text-center">
-              <div className="text-[12px] font-medium text-[#8A8FA8]" style={mona}>
+              <div
+                className="text-[12px] font-medium text-[#8A8FA8]"
+                style={mona}
+              >
                 {item}
               </div>
             </div>
@@ -204,39 +207,14 @@ function GoldInvestCard({
   youGetLabel: string;
   onAmountChange: (n: number) => void;
 }) {
-  const [goldFirst, setGoldFirst] = useState(mode === "Sell");
-
-  useEffect(() => {
-    setGoldFirst(mode === "Sell");
-  }, [mode]);
-  const amtRef = useRef<HTMLDivElement>(null);
-  const goldRef = useRef<HTMLDivElement>(null);
+  const goldFirst = mode === "Sell";
   const gramsFocusedRef = useRef(false);
   const [gramsEdit, setGramsEdit] = useState("");
-  const [h, setH] = useState({ amt: 220, gold: 120 });
-
-  useLayoutEffect(() => {
-    const measure = () => {
-      const amt = amtRef.current?.offsetHeight ?? 220;
-      const gold = goldRef.current?.offsetHeight ?? 120;
-      setH({ amt, gold });
-    };
-    measure();
-    const ro = new ResizeObserver(measure);
-    if (amtRef.current) ro.observe(amtRef.current);
-    if (goldRef.current) ro.observe(goldRef.current);
-    return () => ro.disconnect();
-  }, [goldFirst, amount, goldGrams]);
 
   useLayoutEffect(() => {
     if (!goldFirst || gramsFocusedRef.current) return;
     setGramsEdit(formatGramsInputDisplay(goldGrams));
   }, [goldFirst, goldGrams]);
-
-  const amtTop = goldFirst ? h.gold + CARD_GAP : 0;
-  const goldTop = goldFirst ? 0 : h.amt + CARD_GAP;
-  const stackMinH = h.amt + CARD_GAP + h.gold;
-  const swapSeamY = goldFirst ? h.gold + CARD_GAP / 2 : h.amt + CARD_GAP / 2;
 
   const footerRows: {
     k: string;
@@ -313,205 +291,126 @@ function GoldInvestCard({
         </div>
         <div className="flex shrink-0 items-center gap-1.5 rounded-full border border-[#C08514] bg-[#FAF3E8] px-3.5 py-1">
           <Image src={GoldBars} alt="Gold Bars" width={18} height={18} />
-          <span className="text-[12px] font-semibold text-[#C08514]" style={mona}>
+          <span
+            className="text-[12px] font-semibold text-[#C08514]"
+            style={mona}
+          >
             Gold
           </span>
         </div>
       </div>
 
-      <div
-        className="relative mx-auto w-full"
-        style={{ minHeight: stackMinH }}
-      >
-        <motion.div
-          className={`absolute left-0 right-0 w-full ${goldFirst ? "z-[10]" : "z-[30]"}`}
-          initial={false}
-          animate={{ top: amtTop }}
-          transition={{ duration: swapDuration, ease: swapEase }}
-        >
-          <div
-            ref={amtRef}
-            className={`rounded-2xl border px-4 py-3 ${
-              goldFirst
-                ? "border-[#E5E7EB] bg-[#F3F4F6] pb-5"
-                : "border-[#F3F4F6] bg-white pb-3"
-            }`}
-          >
+      <div className="space-y-4">
+        {mode === "Buy" ? (
+          <div className="rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3">
             <label
-              className={`mb-1 block text-[14px] font-medium ${
-                goldFirst ? "text-[#6B7280]" : "text-[#101828]"
-              }`}
+              className="mb-1 block text-[14px] font-medium text-[#101828]"
               style={mona}
             >
               Amount (INR)
             </label>
-            {goldFirst ? (
-              <div
-                className="mb-0 text-[28px] font-medium leading-none tracking-tight text-[#6B7280] sm:text-[28px]"
+            <div
+              className="mb-1 flex min-w-0 items-baseline gap-0.5"
+              style={mona}
+            >
+              <span className="shrink-0 text-[28px] font-medium leading-none tracking-tight text-[#111827] sm:text-[28px]">
+                ₹
+              </span>
+              <input
+                type="text"
+                name="gold-invest-amount-inr"
+                inputMode="numeric"
+                autoComplete="off"
+                aria-label="Amount in Indian rupees"
+                className={`${valueInputClass} text-[#111827]`}
                 style={mona}
-              >
-                ₹{amount.toLocaleString("en-IN")}
-              </div>
-            ) : (
-              <div
-                className="mb-1 flex min-w-0 items-baseline gap-0.5"
-                style={mona}
-              >
-                <span className="shrink-0 text-[28px] font-medium leading-none tracking-tight text-[#111827] sm:text-[28px]">
-                  ₹
-                </span>
-                <input
-                  type="text"
-                  name="gold-invest-amount-inr"
-                  inputMode="numeric"
-                  autoComplete="off"
-                  aria-label="Amount in Indian rupees"
-                  className={`${valueInputClass} text-[#111827]`}
+                value={amount === 0 ? "" : String(amount)}
+                onChange={(e) => onAmountChange(parseInrDigits(e.target.value))}
+              />
+            </div>
+            <div className="mt-2 flex flex-nowrap items-center justify-between gap-1.5 overflow-x-auto pb-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+              {QUICK_AMOUNTS.map((qa) => (
+                <button
+                  key={qa}
+                  type="button"
+                  onClick={() => onAmountChange(qa)}
+                  className={`shrink-0 rounded-lg flex-1 px-1.5 py-1.5 text-[11px] font-medium transition-colors sm:px-2 sm:text-[12px] sm:py-2 md:text-[13px] ${
+                    amount === qa
+                      ? "border border-[#C5CAD3] bg-[#E8EAEF] text-[#1D1D1D]"
+                      : "border border-[#E5E7EB] bg-white text-[#6B7280] hover:bg-[#F9FAFB]"
+                  }`}
                   style={mona}
-                  value={amount === 0 ? "" : String(amount)}
-                  onChange={(e) => onAmountChange(parseInrDigits(e.target.value))}
-                />
-              </div>
-            )}
-            {!goldFirst && (
-              <div className="mt-2 flex flex-nowrap items-center justify-between gap-1.5 overflow-x-auto pb-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-                {QUICK_AMOUNTS.map((qa) => (
+                >
+                  ₹{qa.toLocaleString("en-IN")}
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3">
+            <label
+              className="mb-1 block text-[14px] font-medium text-[#101828]"
+              style={mona}
+            >
+              Gold (grams)
+            </label>
+            <div
+              className="mt-1 flex min-w-0 items-baseline gap-1"
+              style={mona}
+            >
+              <input
+                type="text"
+                name="gold-invest-grams"
+                inputMode="decimal"
+                autoComplete="off"
+                aria-label="Gold in grams"
+                pattern="[0-9]*[.]?[0-9]*"
+                className={`${valueInputClass} text-[#111827]`}
+                style={mona}
+                value={gramsEdit}
+                onChange={(e) => {
+                  const cleaned = sanitizeGramsInput(e.target.value);
+                  setGramsEdit(cleaned);
+                  applyGramsFromString(cleaned);
+                }}
+                onFocus={() => {
+                  gramsFocusedRef.current = true;
+                }}
+                onBlur={() => {
+                  gramsFocusedRef.current = false;
+                  setGramsEdit(formatGramsInputDisplay(goldGrams));
+                }}
+              />
+              <span className="shrink-0 text-[28px] font-bold leading-none tracking-tight text-[#111827] sm:text-28px]">
+                g
+              </span>
+            </div>
+            <div className="mt-2 flex flex-nowrap items-center justify-between gap-1.5 overflow-x-auto pb-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+              {QUICK_GRAMS.map((g) => {
+                const selected =
+                  goldGrams > 0 && Math.abs(goldGrams - g) < 0.02;
+                return (
                   <button
-                    key={qa}
+                    key={g}
                     type="button"
-                    onClick={() => onAmountChange(qa)}
-                    className={`shrink-0 rounded-lg flex-1 px-1.5 py-1.5 text-[11px] font-medium transition-colors sm:px-2 sm:text-[12px] sm:py-2 md:text-[13px] ${
-                      amount === qa
+                    onClick={() => {
+                      setFromGrams(g);
+                      setGramsEdit(formatGramsInputDisplay(g));
+                    }}
+                    className={`shrink-0 flex-1 rounded-lg px-1.5 py-1.5 text-[11px] font-medium transition-colors sm:px-2 sm:text-[12px] sm:py-2 md:text-[13px] ${
+                      selected
                         ? "border border-[#C5CAD3] bg-[#E8EAEF] text-[#1D1D1D]"
                         : "border border-[#E5E7EB] bg-white text-[#6B7280] hover:bg-[#F9FAFB]"
                     }`}
                     style={mona}
                   >
-                    ₹{qa.toLocaleString("en-IN")}
+                    {g}g
                   </button>
-                ))}
-              </div>
-            )}
+                );
+              })}
+            </div>
           </div>
-        </motion.div>
-
-        <motion.div
-          className="pointer-events-none absolute left-1/2 z-[40] -translate-x-1/2 -translate-y-1/2"
-          initial={false}
-          animate={{ top: swapSeamY }}
-          transition={{ duration: swapDuration, ease: swapEase }}
-        >
-          <div className="pointer-events-auto rounded-[10px] border-[2px] border-[#F5F5F7] bg-white shadow-sm">
-            <button
-              type="button"
-              onClick={() => setGoldFirst((v) => !v)}
-              className="flex h-10 w-10 items-center justify-center rounded-[10px] border-none"
-              aria-label="Swap amount and gold"
-            >
-              <svg
-                className="h-5 w-5 text-[#64748B]"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"
-                />
-              </svg>
-            </button>
-          </div>
-        </motion.div>
-
-        <motion.div
-          className={`absolute left-0 right-0 w-full ${goldFirst ? "z-[30]" : "z-[10]"}`}
-          initial={false}
-          animate={{ top: goldTop }}
-          transition={{ duration: swapDuration, ease: swapEase }}
-        >
-          <div
-            ref={goldRef}
-            className={`rounded-2xl border px-4 py-3 ${
-              goldFirst
-                ? "border-[#F3F4F6] bg-white pb-3"
-                : "border-[#E5E7EB] bg-[#F3F4F6] pb-5"
-            }`}
-          >
-            <label
-              className={`mb-1 block text-[14px] font-medium ${
-                goldFirst ? "text-[#101828]" : "text-[#6B7280]"
-              }`}
-              style={mona}
-            >
-              Gold (grams)
-            </label>
-            {!goldFirst ? (
-              <div
-                className="mt-1 text-[28px] font-medium leading-none tracking-tight text-[#6B7280] sm:text-[28px]"
-                style={mona}
-              >
-                {goldGrams > 0 ? goldGrams.toFixed(3) : "0"}
-              </div>
-            ) : (
-              <div className="mt-1 flex min-w-0 items-baseline gap-1" style={mona}>
-                <input
-                  type="text"
-                  name="gold-invest-grams"
-                  inputMode="decimal"
-                  autoComplete="off"
-                  aria-label="Gold in grams"
-                  pattern="[0-9]*[.]?[0-9]*"
-                  className={`${valueInputClass} text-[#111827]`}
-                  style={mona}
-                  value={gramsEdit}
-                  onChange={(e) => {
-                    const cleaned = sanitizeGramsInput(e.target.value);
-                    setGramsEdit(cleaned);
-                    applyGramsFromString(cleaned);
-                  }}
-                  onFocus={() => {
-                    gramsFocusedRef.current = true;
-                  }}
-                  onBlur={() => {
-                    gramsFocusedRef.current = false;
-                    setGramsEdit(formatGramsInputDisplay(goldGrams));
-                  }}
-                />
-                <span className="shrink-0 text-[28px] font-bold leading-none tracking-tight text-[#111827] sm:text-28px]">
-                  g
-                </span>
-              </div>
-            )}
-            {goldFirst && (
-              <div className="mt-2 flex flex-nowrap items-center justify-between gap-1.5 overflow-x-auto pb-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-                {QUICK_GRAMS.map((g) => {
-                  const selected =
-                    goldGrams > 0 && Math.abs(goldGrams - g) < 0.02;
-                  return (
-                    <button
-                      key={g}
-                      type="button"
-                      onClick={() => {
-                        setFromGrams(g);
-                        setGramsEdit(formatGramsInputDisplay(g));
-                      }}
-                      className={`shrink-0 flex-1 rounded-lg px-1.5 py-1.5 text-[11px] font-medium transition-colors sm:px-2 sm:text-[12px] sm:py-2 md:text-[13px] ${
-                        selected
-                          ? "border border-[#C5CAD3] bg-[#E8EAEF] text-[#1D1D1D]"
-                          : "border border-[#E5E7EB] bg-white text-[#6B7280] hover:bg-[#F9FAFB]"
-                      }`}
-                      style={mona}
-                    >
-                      {g}g
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        </motion.div>
+        )}
       </div>
 
       <div className="mt-3 space-y-3">

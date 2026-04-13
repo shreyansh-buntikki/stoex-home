@@ -37,53 +37,6 @@ const comparisonData = [
   },
 ];
 
-function ComparisonRow({
-  feature,
-  traditional,
-  stoex,
-  index,
-}: {
-  feature: string;
-  traditional: string;
-  stoex: string;
-  index: number;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="bg-white border-t border-[#E5E7EF] flex items-center justify-between px-[18px] py-4 w-full"
-    >
-      <div className="flex-1 min-w-0">
-        <p
-          className="text-[14px] leading-[20px] text-[#3D3D3D]"
-          style={mona}
-        >
-          {feature}
-        </p>
-      </div>
-      <div className="flex-1 min-w-0 text-center">
-        <p
-          className="text-[14px] leading-[20px] text-[#8A8FA8]"
-          style={mona}
-        >
-          {traditional}
-        </p>
-      </div>
-      <div className="flex-1 min-w-0 text-right">
-        <p
-          className="text-[14px] leading-[20px] text-[#1A9E5C] font-semibold"
-          style={mona}
-        >
-          {stoex}
-        </p>
-      </div>
-    </motion.div>
-  );
-}
-
 export const Comparison = () => {
   return (
     <section className="bg-white py-[100px] px-6">
@@ -114,11 +67,12 @@ export const Comparison = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-full max-w-[920px] shadow-[0px_0px_16px_0px_rgba(191,155,103,0.4)] rounded-[14px] overflow-hidden"
+            className="w-full max-w-[1100px]"
           >
-            <div className="border border-[#E5E7EF] rounded-[14px] overflow-hidden">
-              <div className="bg-[#F7F8FC] flex items-center justify-between px-[18px] py-5 w-full">
-                <div className="flex-1 min-w-0">
+            <div className="flex items-stretch gap-6">
+              {/* Card 1: Feature — no border, no bg */}
+              <div className="flex-1 flex flex-col">
+                <div className="px-5 py-5 h-[58px] flex items-center">
                   <p
                     className="text-[14px] leading-[16px] text-[#8A8FA8] font-bold tracking-[0.525px] uppercase"
                     style={mona}
@@ -126,7 +80,21 @@ export const Comparison = () => {
                     FEATURE
                   </p>
                 </div>
-                <div className="flex-1 min-w-0 text-center">
+                {comparisonData.map((row) => (
+                  <div
+                    key={row.feature}
+                    className="px-5 py-5 h-[64px] flex items-center border-t border-[#E5E7EF]"
+                  >
+                    <p className="text-[14px] leading-[20px] text-[#3D3D3D]" style={mona}>
+                      {row.feature}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Card 2: Traditional — border, #F7F8FC header */}
+              <div className="flex-1 flex flex-col border border-[#E5E7EF] rounded-[14px] overflow-hidden">
+                <div className="bg-[#F7F8FC] px-5 py-5 h-[58px] flex items-center justify-center">
                   <p
                     className="text-[14px] leading-[16px] text-[#8A8FA8] font-bold tracking-[0.525px] uppercase"
                     style={mona}
@@ -134,25 +102,42 @@ export const Comparison = () => {
                     TRADITIONAL
                   </p>
                 </div>
-                <div className="flex-1 min-w-0 text-right">
+                {comparisonData.map((row) => (
+                  <div
+                    key={row.feature}
+                    className="bg-white px-5 py-5 h-[64px] flex items-center justify-center border-t border-[#E5E7EF]"
+                  >
+                    <p className="text-[14px] leading-[20px] text-[#3d3d3d] text-center" style={mona}>
+                      {row.traditional}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Card 3: Stoex Gold — navy border+header, green values */}
+              <div className="flex-1 flex flex-col rounded-[14px] overflow-hidden border-2 border-[#00007F] shadow-[0px_0px_16px_0px_rgba(191,155,103,0.4)]">
+                <div className="bg-[#00007F] px-5 py-5 h-[58px] flex items-center justify-center">
                   <p
-                    className="text-[14px] leading-[16px] text-[#00007F] font-bold tracking-[0.525px] uppercase"
+                    className="text-[14px] leading-[16px] text-white font-bold tracking-[0.525px] uppercase"
                     style={mona}
                   >
                     STOEX GOLD
                   </p>
                 </div>
+                {comparisonData.map((row) => (
+                  <div
+                    key={row.feature}
+                    className="bg-white px-5 py-5 h-[64px] flex items-center justify-center border-t border-[#E5E7EF]"
+                  >
+                    <p
+                      className="text-[14px] leading-[20px] text-[#1A9E5C] font-semibold text-center"
+                      style={mona}
+                    >
+                      {row.stoex}
+                    </p>
+                  </div>
+                ))}
               </div>
-
-              {comparisonData.map((row, index) => (
-                <ComparisonRow
-                  key={row.feature}
-                  feature={row.feature}
-                  traditional={row.traditional}
-                  stoex={row.stoex}
-                  index={index}
-                />
-              ))}
             </div>
           </motion.div>
         </div>
