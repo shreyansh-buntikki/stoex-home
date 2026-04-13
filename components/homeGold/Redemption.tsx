@@ -24,7 +24,7 @@ type RedeemMode = "cash" | "physical";
 const QUICK_GRAMS_CASH = [0.01, 0.02, 0.03, 0.04];
 const QUICK_AMOUNTS = [15, 100, 500, 1000, 5000] as const;
 const CASH_PRICE_PER_GRAM = 9345;
-const CARD_GAP = 40;
+const CARD_GAP = 55;
 const swapDuration = 0.45;
 const swapEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const GOLD_WEIGHTS = [
@@ -272,7 +272,7 @@ function CashCard({ active }: { active: boolean }) {
             </div>
             {goldFirst && (
               <p
-                className={`absolute -bottom-7 z-0 left-0 right-0 flex w-full items-end justify-center rounded-b-xl px-4 pt-1 pb-2 text-center text-[13px] leading-[18px] ${
+                className={`absolute -bottom-9 z-[-1] left-0 right-0 flex w-full items-end justify-center rounded-b-xl px-4 pt-4 pb-2 text-center text-[13px] leading-[18px] ${
                   greyed
                     ? "bg-[#F1F1F6] text-[#C8C8D6]"
                     : "bg-[#E6E6F2] text-[#3F4656]"
@@ -402,7 +402,7 @@ function CashCard({ active }: { active: boolean }) {
             </div>
             {!goldFirst && (
               <p
-                className={`absolute -bottom-7 z-0 left-0 right-0 flex w-full items-end justify-center rounded-b-xl px-4 pt-1 pb-2 text-center text-[13px] leading-[18px] ${
+                className={`absolute -bottom-9 z-[-1] left-0 right-0 flex w-full items-end justify-center rounded-b-xl px-4 pt-4 pb-2 text-center text-[13px] leading-[18px] ${
                   greyed
                     ? "bg-[#F1F1F6] text-[#C8C8D6]"
                     : "bg-[#E6E6F2] text-[#3F4656]"
@@ -541,7 +541,7 @@ function PhysicalCard({ active }: { active: boolean }) {
           </div>
         </div>
         <p
-          className={`absolute -bottom-7 z-0 left-0 right-0 flex w-full items-end justify-center rounded-b-xl px-4 pt-3 pb-1 text-center text-[13px] leading-[18px] ${
+          className={`absolute -bottom-9 z-0 left-0 right-0 flex w-full items-end justify-center rounded-b-xl px-4 pt-4 pb-2 text-center text-[13px] leading-[18px] ${
             greyed
               ? "bg-[#F1F1F6] text-[#C8C8D6]"
               : "bg-[#E6E6F2] text-[#3F4656]"
