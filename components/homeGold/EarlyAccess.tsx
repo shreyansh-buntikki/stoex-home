@@ -43,7 +43,7 @@ export const EarlyAccess = () => {
             />
           </div>
           {/* Mobile: top-right corner */}
-          <div className="pointer-events-none absolute top-0 right-0 w-[70%] h-[40%] lg:hidden">
+          <div className="pointer-events-none absolute top-[-20px] right-0 w-[100%] h-[50%] lg:hidden">
             <Image
               src={Looper}
               alt=""
@@ -53,7 +53,7 @@ export const EarlyAccess = () => {
             />
           </div>
           {/* Mobile: bottom-left corner */}
-          <div className="pointer-events-none absolute bottom-0 left-0 w-[70%] h-[40%] lg:hidden">
+          <div className="pointer-events-none absolute bottom-0 left-0 w-[100%] h-[50%] lg:hidden">
             <Image
               src={Looper}
               alt=""
