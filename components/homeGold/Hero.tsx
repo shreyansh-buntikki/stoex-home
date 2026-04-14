@@ -74,7 +74,7 @@ const STRIP_DIVIDER =
 function MobileMarqueeStrip() {
   const items = [...StripContent, ...StripContent];
   return (
-    <div className="lg:hidden w-screen overflow-hidden -mx-6">
+    <div className="lg:hidden w-screen overflow-hidden -mx-6 -mt-2">
       <div
         className="flex w-max"
         style={{
@@ -142,7 +142,7 @@ function HeroGoldBackdrop() {
 
 function GoldHeroLead() {
   return (
-    <div className="space-y-6 lg:space-y-8">
+    <div className="space-y-4 lg:space-y-8">
       <div className="relative">
         <div className="space-y-4 lg:space-y-6">
           <h1 className="text-center mx-auto lg:mx-0 max-w-[350px] lg:max-w-none lg:text-left font-[700] text-[44px] leading-[42px] lg:text-[56px] lg:leading-[55px]">
@@ -592,13 +592,13 @@ export const HeroGold = () => {
       </div>
       
       <div className="relative pt-35 lg:pt-0 z-10 container mx-auto px-6 lg:px-8">
-        <div className="flex flex-col items-center gap-10 lg:grid lg:grid-cols-2 lg:items-center lg:gap-20">
+        <div className="flex flex-col items-center gap-4 lg:grid lg:grid-cols-2 lg:items-center lg:gap-20">
           <GoldHeroLead />
 
           <MobileMarqueeStrip />
 
-          <div className="relative flex w-full justify-center lg:justify-end">
-            <div className="w-full max-w-[440px] space-y-4">
+          <div className="relative flex w-full justify-center mt-6 lg:mt-0 lg:justify-end">
+            <div className="w-full max-w-[440px] space-y-4 ">
               <GoldBuySellToggle active={activeTab} onSelect={setActiveTab} />
               <GoldInvestCard
                 mode={activeTab}
