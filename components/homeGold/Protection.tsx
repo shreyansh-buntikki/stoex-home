@@ -125,7 +125,7 @@ export const Protection = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-2 lg:grid-cols-4 lg:gap-8 gap-4 mt-8 lg:mt-10"
+          className="grid grid-cols-1 lg:grid-cols-4 lg:gap-8 gap-4 mt-8 lg:mt-10"
         >
           {protectionData.map((item) => (
             <ProtectionCard key={item.title} item={item} />

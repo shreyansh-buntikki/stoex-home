@@ -42,7 +42,7 @@ const securityFeatures = [
   {
     logo: VistraLogo,
     logoAlt: "Vistra",
-    title: "Vistra –\nAdministrator",
+    title: "Vistra – Administrator",
     description:
       "Manages and administers gold holdings in line with regulatory requirements.",
   },
@@ -80,7 +80,7 @@ export default function Secure() {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-2 self-center justify-center gap-3 sm:flex sm:flex-row sm:gap-4 mb-8 lg:mb-12">
+        <div className="grid grid-cols-1 self-center justify-center gap-3 sm:flex sm:flex-row sm:gap-4 mb-8 lg:mb-12">
           {securityFeatures.map((feature, index) => (
             <motion.div
               key={feature.title}
@@ -102,10 +102,20 @@ export default function Secure() {
               </div>
               <div className="space-y-1.5">
                 <h3
-                  className="lg:text-[20px] text-start text-[16px] font-bold leading-[24px] text-[#0A0A0A] whitespace-pre-line"
+                  className="lg:text-[20px] text-start text-[16px] font-bold leading-[24px] text-[#0A0A0A]"
                   style={sansation}
                 >
-                  {feature.title}
+                  {feature.logoAlt === "Vistra" ? (
+                    <>
+                      <span className="hidden lg:inline">
+                        Vistra –<br />
+                        Administrator
+                      </span>
+                      <span className="lg:hidden">Vistra – Administrator</span>
+                    </>
+                  ) : (
+                    feature.title
+                  )}
                 </h3>
                 <p
                   className="text-[12px] text-start lg:text-[14px] leading-[20px] text-[#3D3D3D]"
