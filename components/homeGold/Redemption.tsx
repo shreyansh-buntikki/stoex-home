@@ -739,14 +739,14 @@ export const Redemption = () => {
           {/* Desktop: both cards side by side */}
           <div className="hidden lg:grid grid-cols-2 gap-6 max-w-[960px] mx-auto relative z-10">
             <div
-              onClick={() => setMode("cash")}
+              onMouseEnter={() => setMode("cash")}
               className="cursor-pointer h-full"
             >
               <CashCard active={mode === "cash"} />
             </div>
 
             <div
-              onClick={() => setMode("physical")}
+              onMouseEnter={() => setMode("physical")}
               className="cursor-pointer h-full"
             >
               <PhysicalCard active={mode === "physical"} />
