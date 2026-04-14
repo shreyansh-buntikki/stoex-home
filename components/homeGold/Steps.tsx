@@ -264,9 +264,9 @@ function StepMockup({ step, index }: { step: any; index: number }) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 2.9, duration: 0.6 }}
-        className="backdrop-blur-md border border-white/10 rounded-2xl bg-white/5 mt-8 w-full max-w-[284px] h-[161px] relative overflow-hidden"
+        className="backdrop-blur-md border border-white/10 rounded-2xl bg-white/5 mt-8 w-full max-w-[293px] h-[122px] relative overflow-hidden"
       >
-        <div className="absolute inset-0 flex flex-col items-center justify-center p-2 text-center">
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center pb-3">
           <div className="w-16 h-16 flex-shrink-0">
             {playLottie && (
               <Lottie animationData={CheckAnimation} loop={false} initialSegment={[0, 50]} />
