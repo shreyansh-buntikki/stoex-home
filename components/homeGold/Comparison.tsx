@@ -177,9 +177,9 @@ export const Comparison = () => {
                   TRADITIONAL
                 </p>
               </div>
-              <div className="flex-1 px-4 py-5 text-center">
+              <div className="flex-1 px-4 bg-[#00007F] py-5 text-center">
                 <p
-                  className="text-[11px] leading-[14px] text-[#00007F] font-bold tracking-[0.5px] uppercase"
+                  className="text-[11px] leading-[14px] text-[#fff] font-bold tracking-[0.5px] uppercase"
                   style={mona}
                 >
                   STOEX GOLD
@@ -195,7 +195,7 @@ export const Comparison = () => {
               >
                 <div className="flex-1 px-4 py-5 text-center">
                   <p
-                    className="text-[13px] leading-[18px] text-[#3D3D3D] font-medium"
+                    className="text-[12px] leading-[18px] text-[#3D3D3D] font-medium"
                     style={mona}
                   >
                     {row.feature}
@@ -203,7 +203,7 @@ export const Comparison = () => {
                 </div>
                 <div className="flex-1 px-4 py-5 text-center">
                   <p
-                    className="text-[13px] leading-[18px] text-[#8A8FA8]"
+                    className="text-[12px] leading-[18px] text-[#8A8FA8]"
                     style={mona}
                   >
                     {row.traditional}
@@ -211,7 +211,7 @@ export const Comparison = () => {
                 </div>
                 <div className="flex-1 px-4 py-5 text-center">
                   <p
-                    className="text-[13px] leading-[18px] text-[#1A9E5C] font-semibold"
+                    className="text-[14px] leading-[18px] text-[#00007F] font-semibold"
                     style={mona}
                   >
                     {row.stoex}

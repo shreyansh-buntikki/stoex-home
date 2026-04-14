@@ -4,7 +4,6 @@ import Coin from "@/public/assets/images/coin.webp";
 import GoldBars from "@/public/assets/images/gold-bars.webp";
 import BackgroundCircles from "@/public/assets/images/hero-circles.webp";
 import AmprapaliLogo from "@/public/assets/logos/amprapali-logo.svg";
-import CoinFlipped from "@/public/assets/images/coin-flipped.webp";
 import Image from "next/image";
 import {
   useLayoutEffect,
@@ -13,6 +12,38 @@ import {
   type CSSProperties,
   type ReactNode,
 } from "react";
+
+import AmrapaliLogo from "@/public/assets/logos/amrapali-3.svg";
+import SequelLogo from "@/public/assets/logos/sequel.webp";
+import RRBPLogo from "@/public/assets/logos/rrbp.webp";
+import VistraLogo from "@/public/assets/logos/vistara.webp";
+
+const StripContent = [
+  {
+    logo: AmrapaliLogo,
+    alt: "Amrapali Logo",
+    content: "Backed by Amrapali",
+    logoClass: "h-5 w-auto",
+  },
+  {
+    logo: SequelLogo,
+    alt: "Sequel Logo",
+    content: "Secured in Sequel Vaults",
+    logoClass: "h-6 w-auto",
+  },
+  {
+    logo: VistraLogo,
+    alt: "Vistra Logo",
+    content: "Vistra – Administrator",
+    logoClass: "h-5 w-auto",
+  },
+  {
+    logo: RRBPLogo,
+    alt: "RRBP Logo",
+    content: "Audited by RRBP",
+    logoClass: "h-12 w-auto",
+  },
+];
 
 const GOLD_PRICE_PER_GRAM = 4762;
 const GOLD_WIDGET_SHADOW =
@@ -36,6 +67,54 @@ const sansation: CSSProperties = {
   fontFamily: "Sansation, sans-serif",
   letterSpacing: "1px",
 };
+
+const STRIP_DIVIDER =
+  "linear-gradient(to bottom, #CCA763 0%, #F1D592 50%, #CCA763 100%)";
+
+function MobileMarqueeStrip() {
+  const items = [...StripContent, ...StripContent];
+  return (
+    <div className="lg:hidden w-screen overflow-hidden -mx-6">
+      <div
+        className="flex w-max"
+        style={{
+          animation: "marquee-scroll 14s linear infinite",
+        }}
+      >
+        {items.map((item, i) => (
+          <div key={i} className="flex shrink-0 items-center">
+            <div className="flex items-center gap-2 px-4">
+              <Image
+                src={item.logo}
+                alt={item.alt}
+                height={32}
+                width={80}
+                className={`${item.logoClass} object-contain`}
+              />
+              <span
+                className="text-[12px] font-medium text-[#8A8FA8] whitespace-nowrap"
+                style={mona}
+              >
+                {item.content}
+              </span>
+            </div>
+            <div
+              aria-hidden
+              className="h-4 w-px shrink-0"
+              style={{ background: STRIP_DIVIDER }}
+            />
+          </div>
+        ))}
+      </div>
+      <style>{`
+        @keyframes marquee-scroll {
+          0%   { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+      `}</style>
+    </div>
+  );
+}
 
 function HeroGoldBackdrop() {
   return (
@@ -64,25 +143,14 @@ function HeroGoldBackdrop() {
 function GoldHeroLead() {
   return (
     <div className="space-y-6 lg:space-y-8">
-      {/* CoinFlipped: mobile only, in normal flow at top */}
-      <div className="flex justify-start lg:hidden">
-        <Image
-          src={CoinFlipped}
-          alt="Gold Coin"
-          width={120}
-          height={120}
-          className="object-contain"
-        />
-      </div>
-
       <div className="relative">
         <div className="space-y-4 lg:space-y-6">
-          <h1 className="font-[700] text-[44px] leading-[42px] lg:text-[56px] lg:leading-[55px]">
-            <span className="block text-[#B8860B]" style={sansation}>
-              Gold at live price.
+          <h1 className="text-center mx-auto lg:mx-0 max-w-[350px] lg:max-w-none lg:text-left font-[700] text-[44px] leading-[42px] lg:text-[56px] lg:leading-[55px]">
+            <span className="inline lg:block text-[#B8860B]" style={sansation}>
+              Gold at live price.{" "}
             </span>
             <span
-              className="block font-[700] text-[#0A0A0A] text-[44px] leading-[42px] lg:text-[56px] lg:leading-[55px]"
+              className="inline lg:block font-[700] text-[#0A0A0A] text-[44px] leading-[42px] lg:text-[56px] lg:leading-[55px]"
               style={{ ...mona, letterSpacing: "1px" }}
             >
               Yours in 3 clicks.
@@ -90,34 +158,41 @@ function GoldHeroLead() {
           </h1>
 
           <div
-            className="space-y-1.5 text-[15px] leading-[22px] lg:text-[18px] lg:leading-[24px] text-[#3D3D3D]"
+            className="text-center lg:text-left text-[15px] leading-[22px] lg:text-[18px] lg:leading-[24px] text-[#3D3D3D]"
             style={mona}
           >
-            <p>
+            <span className="lg:hidden">
+              Buy, sell, and own verified 24-karat gold starting from just ₹15*.
+              Backed by real gold, digitally secured, and redeemable anytime.
+            </span>
+            <p className="hidden lg:block">
               Buy, sell, and own verified 24-karat gold starting from just ₹15*.
             </p>
-            <p>
+            <p className="hidden lg:block">
               Backed by real gold, digitally secured, and redeemable anytime.
             </p>
           </div>
 
-          <p className="text-[10px] text-[#8A8FA8]" style={mona}>
+          <p
+            className="text-center lg:text-left text-[10px] text-[#8A8FA8]"
+            style={mona}
+          >
             *The figure is subject to the gold rate.
           </p>
         </div>
       </div>
 
-      <div className="flex flex-row gap-3 lg:flex-col lg:gap-4 xl:flex-row">
+      <div className="flex flex-col gap-3 lg:flex-col lg:gap-4 xl:flex-row">
         <button
           type="button"
-          className="flex-1 lg:flex-none rounded-full bg-[#00007F] px-3 lg:px-6 py-3 text-[14px] lg:px-8 lg:text-[16px] font-semibold text-white transition-colors hover:bg-[#0f0f3a]"
+          className="flex-1 lg:flex-none rounded-full bg-[#00007F] px-3 lg:px-6 py-3 text-[14px] lg:px-8 lg:text-[16px] font-bold text-white transition-colors hover:bg-[#0f0f3a]"
           style={mona}
         >
           Reserve Your Gold
         </button>
         <button
           type="button"
-          className="flex-1 lg:flex-none rounded-full border border-[#00007F] px-3 lg:px-6 py-3 text-[14px] lg:px-8 lg:text-[16px] font-semibold text-[#00007F] transition-colors hover:bg-[#1a1a5c] hover:text-white"
+          className="flex-1 lg:flex-none rounded-full border-none lg:border lg:border-[#00007F] px-3 lg:px-6 py-3 text-[14px] lg:px-8 lg:text-[16px] font-bold text-[#00007F] transition-colors hover:bg-[#1a1a5c] hover:text-white"
           style={mona}
         >
           Learn how it works
@@ -125,7 +200,7 @@ function GoldHeroLead() {
       </div>
 
       {/* Trust items: 2x2 grid on mobile, horizontal row on desktop */}
-      <div className="grid grid-cols-2 gap-x-4 gap-y-2 pt-2 lg:flex lg:flex-nowrap lg:gap-0 lg:overflow-x-auto lg:pt-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+      <div className="hidden lg:block grid grid-cols-2 gap-x-4 gap-y-2 pt-2 lg:flex lg:flex-nowrap lg:gap-0 lg:overflow-x-auto lg:pt-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
         {TRUST_ITEMS.map((item, index) => (
           <div className="flex items-center gap-2 lg:shrink-0" key={item}>
             {/* Bullet dot on mobile */}
@@ -508,9 +583,19 @@ export const HeroGold = () => {
   return (
     <div className="relative pb-10 lg:pb-0 flex min-h-[calc(100dvh-5rem)] items-center overflow-hidden bg-white">
       <HeroGoldBackdrop />
-      <div className="relative z-10 container mx-auto px-6 lg:px-8">
+
+      <div className="absolute top-6 right-4 lg:hidden block bg-white w-fit rounded-full px-4 py-2 flex items-center gap-2 shadow-sm">
+        <div className="w-2 h-2 bg-[#1A9E5C] rounded-full"></div>
+        <span className="text-[#0000000] text-[13px] font-semibold">
+          ₹9,846.98/g
+        </span>
+      </div>
+      
+      <div className="relative pt-35 lg:pt-0 z-10 container mx-auto px-6 lg:px-8">
         <div className="flex flex-col items-center gap-10 lg:grid lg:grid-cols-2 lg:items-center lg:gap-20">
           <GoldHeroLead />
+
+          <MobileMarqueeStrip />
 
           <div className="relative flex w-full justify-center lg:justify-end">
             <div className="w-full max-w-[440px] space-y-4">
@@ -522,6 +607,29 @@ export const HeroGold = () => {
                 youGetLabel={youGetLabel}
                 onAmountChange={setAmount}
               />
+              <div className="block lg:hidden grid grid-cols-2 gap-x-4 gap-y-2 pt-2 lg:flex lg:flex-nowrap lg:gap-0 lg:overflow-x-auto lg:pt-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+                {TRUST_ITEMS.map((item, index) => (
+                  <div
+                    className="flex items-center gap-2 lg:shrink-0"
+                    key={item}
+                  >
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#B8860B] lg:hidden" />
+                    {index > 0 && (
+                      <div
+                        aria-hidden
+                        className="hidden lg:block mx-3 h-3 w-px sm:mx-5 sm:h-4"
+                        style={{ background: DIVIDER_GRADIENT_GOLD }}
+                      />
+                    )}
+                    <div
+                      className="text-[12px] font-medium text-[#8A8FA8]"
+                      style={mona}
+                    >
+                      {item}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

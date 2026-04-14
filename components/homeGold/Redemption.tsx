@@ -630,7 +630,7 @@ export const Redemption = () => {
           className="relative"
         >
           {/* Mobile tabs */}
-          <div className="lg:hidden flex items-center justify-center gap-0 mb-6 max-w-[960px] mx-auto">
+          <div className="lg:hidden flex items-center justify-center gap-0 -mb-4 max-w-[960px] mx-auto">
             <button
               type="button"
               onClick={() => setMode("cash")}
@@ -677,12 +677,7 @@ export const Redemption = () => {
                     height={260}
                     className="object-contain"
                   />
-                  <p
-                    className="text-[11px] text-[#8A8FA8] mt-2 leading-[14px]"
-                    style={mona}
-                  >
-                    This is just a visual representation
-                  </p>
+                
                 </motion.div>
               ) : (
                 <motion.div
@@ -700,12 +695,7 @@ export const Redemption = () => {
                     height={120}
                     className="object-contain"
                   />
-                  <p
-                    className="text-[11px] text-[#8A8FA8] mt-2 leading-[14px] text-right"
-                    style={mona}
-                  >
-                    This is just a visual representation
-                  </p>
+                 
                 </motion.div>
               )}
             </AnimatePresence>
@@ -771,12 +761,7 @@ export const Redemption = () => {
                   height={480}
                   className="object-contain"
                 />
-                <p
-                  className="text-[11px] text-[#8A8FA8] mt-2 max-w-[120px] leading-[14px]"
-                  style={mona}
-                >
-                  This is just a visual representation
-                </p>
+               
               </motion.div>
             )}
           </AnimatePresence>
@@ -798,15 +783,7 @@ export const Redemption = () => {
                   height={180}
                   className="object-contain"
                 />
-                <div className="h-6"></div>
-                <p
-                  className="text-[11px] text-[#8A8FA8] text-right leading-[14px]"
-                  style={mona}
-                >
-                  This is just a visual
-                  <br />
-                  representation
-                </p>
+                
               </motion.div>
             )}
           </AnimatePresence>

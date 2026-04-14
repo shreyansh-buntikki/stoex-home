@@ -74,7 +74,7 @@ export const Assets = () => {
                 className="text-[14px] lg:text-[16px] leading-[20px] lg:leading-[24px] text-[#3D3D3D]"
                 style={mona}
               >
-                Own verified 24-karat gold starting from ₹10. Backed 1:1,
+                Own verified 24-karat gold starting from ₹15. Backed 1:1,
                 independently verifiable, redeemable anytime.
               </p>
             </div>
@@ -237,7 +237,7 @@ export const Assets = () => {
               style={mona}
             >
               Access curated pre-IPO equity, private credit, and alternative
-              funds previously available only to institutional <br/> investors.
+              funds previously available only to institutional <br /> investors.
             </p>
 
             {/* Divider */}

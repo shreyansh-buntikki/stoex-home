@@ -195,7 +195,7 @@ export const FAQs = () => {
             className="text-[26px] lg:text-[40px] font-semibold leading-[32px] lg:leading-[46px] text-[#0A0A0A] mb-8"
             style={sansation}
           >
-            FAQ about Stoex Digital Gold
+            Stoex Gold
           </h2>
 
           {/* Tabs */}
