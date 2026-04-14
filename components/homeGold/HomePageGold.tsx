@@ -16,24 +16,47 @@ import { useEffect, useRef, useState } from "react";
 
 const mona = { fontFamily: "Mona Sans, sans-serif" };
 
-function MobileStickyBar({ footerRef }: { footerRef: React.RefObject<HTMLElement | null> }) {
-  const [visible, setVisible] = useState(true);
+function MobileStickyBar({
+  footerRef,
+  heroRef,
+}: {
+  footerRef: React.RefObject<HTMLElement | null>;
+  heroRef: React.RefObject<HTMLElement | null>;
+}) {
+  const [footerVisible, setFooterVisible] = useState(false);
+  const [heroVisible, setHeroVisible] = useState(true);
 
   useEffect(() => {
-    const el = footerRef.current;
-    if (!el) return;
+    const footerEl = footerRef.current;
+    if (!footerEl) return;
     const observer = new IntersectionObserver(
-      ([entry]) => setVisible(!entry.isIntersecting),
+      ([entry]) => setFooterVisible(entry.isIntersecting),
       { threshold: 0 }
     );
-    observer.observe(el);
+    observer.observe(footerEl);
     return () => observer.disconnect();
   }, [footerRef]);
 
+  useEffect(() => {
+    const heroEl = heroRef.current;
+    if (!heroEl) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setHeroVisible(entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(heroEl);
+    return () => observer.disconnect();
+  }, [heroRef]);
+
+  const show = !footerVisible && !heroVisible;
+
   return (
     <div
-      className={`lg:hidden fixed bottom-0 left-0 right-0 z-50 px-4 py-4 transition-transform duration-300 ${visible ? "translate-y-0" : "translate-y-full"}`}
-      style={{ backgroundColor: "#F7F8FC" }}
+      className={`lg:hidden fixed bottom-0 left-0 right-0 z-50 px-4 pt-4 transition-transform duration-300 ${show ? "translate-y-0" : "translate-y-full"}`}
+      style={{
+        backgroundColor: "#F7F8FC",
+        paddingBottom: "max(1rem, env(safe-area-inset-bottom))",
+      }}
     >
       <button
         type="button"
@@ -54,12 +77,15 @@ function MobileStickyBar({ footerRef }: { footerRef: React.RefObject<HTMLElement
 
 export function HomePageGold() {
   const footerRef = useRef<HTMLElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <HeaderGold />
       <main className="overflow-x-hidden pb-[88px] lg:pb-0">
-        <HeroGold />
+        <section ref={heroRef}>
+          <HeroGold />
+        </section>
         <Secure />
         <Comparison />
         <Steps />
@@ -74,7 +100,7 @@ export function HomePageGold() {
       <footer ref={footerRef}>
         <Footer />
       </footer>
-      <MobileStickyBar footerRef={footerRef} />
+      <MobileStickyBar footerRef={footerRef} heroRef={heroRef} />
     </div>
   );
 }
