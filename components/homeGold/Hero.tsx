@@ -578,7 +578,7 @@ export const HeroGold = () => {
 
   const goldGrams = amount / GOLD_PRICE_PER_GRAM;
   const youGetLabel =
-    goldGrams >= 0.01 ? `${goldGrams.toFixed(2)}g gold` : "0.00g gold";
+    goldGrams >= 0.00001 ? `${goldGrams.toFixed(4)}g gold` : "0.00g gold";
 
   return (
     <div className="relative pb-10 lg:pb-0 flex min-h-[calc(100dvh-5rem)] items-center overflow-hidden bg-white">
