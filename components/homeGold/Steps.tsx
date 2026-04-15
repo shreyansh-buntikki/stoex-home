@@ -146,7 +146,7 @@ const stepData = [
     description: "Link your bank. Pay with UPI,\nnet banking, or card.\nInstant credit.",
     icon: CreditCard,
     amount: "₹4965",
-    upiId: "Johndow*344@hdfc",
+    upiId: "rohit.jain@okhdfcbank",
   },
   {
     number: "03",
@@ -238,7 +238,7 @@ function StepMockup({ step, index }: { step: any; index: number }) {
           <div className="flex items-center gap-3 mb-6">
            <Image src={UPI} alt="UPI" width={40} height={40} />
             <span className="text-white flex gap-2 items-center text-[15px]" style={mona}>
-              {step.upiId || "Johndow*344@hdfc"}
+              {step.upiId || "rohit.jain@okhdfcbank"}
             <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center ml-auto">
               <Check className="w-3 h-3 text-white" />
             </div>
@@ -405,7 +405,7 @@ export const Steps = () => {
                         </p>
                       </div>
 
-                      <StepMockup step={{ upiId: "Johndow*344@hdfc" }} index={1} />
+                      <StepMockup step={{ upiId: "rohit.jain@okhdfcbank" }} index={1} />
                     </div>
                   </motion.div>
                 </div>

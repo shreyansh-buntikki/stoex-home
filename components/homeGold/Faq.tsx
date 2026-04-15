@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus } from "lucide-react";
+import { Plus, ChevronLeft, ChevronRight } from "lucide-react";
 import type { CSSProperties } from "react";
 
 const mona: CSSProperties = { fontFamily: "Mona Sans, sans-serif" };
@@ -16,12 +16,12 @@ const faqData = {
     {
       question: "What is STOEX Gold?",
       answer:
-        "Stoex is a gold investment platform that lets you buy, sell, and verify fractional gold ownership starting from {PRICE_0.001g}. Your gold is physically stored in audited, insured vaults under independent trustee custody, and every gram is recorded on a tamper-proof digital ledger.",
+        "Stoex is a gold investment platform that lets you buy, sell, and verify fractional gold ownership starting from ₹15. Your gold is physically stored in audited, insured vaults under independent trustee custody, and every gram is recorded on a tamper-proof digital ledger.",
     },
     {
       question: "How much do I need to start?",
       answer:
-        "You can start with as little as {PRICE_0.001g}, which buys one gold token representing a fraction of a gram. There is no maximum limit.",
+        "You can start with as little as ₹15, which buys one gold token representing a fraction of a gram. There is no maximum limit.",
     },
     {
       question: "Do I need a demat account?",
@@ -65,7 +65,7 @@ const faqData = {
     {
       question: "What is a gold token?",
       answer:
-        "A gold token is a digital representation of a fraction of physical gold. Each token is dynamically priced at {PRICE_0.001g} (the real-time cost of 0.001g gold) and represents a verified quantity of gold stored in insured vaults. You can own as many tokens as you like.",
+        "A gold token is a digital representation of a fraction of physical gold. Each token is dynamically priced at ₹15 (the real-time cost of 0.001g gold) and represents a verified quantity of gold stored in insured vaults. You can own as many tokens as you like.",
     },
     {
       question: "Can I sell my gold anytime?",
@@ -133,11 +133,11 @@ function FaqItem({
         >
           {item.question}
         </h3>
-        <div className="flex-shrink-0 flex items-center justify-center text-[#00007F]">
+        <div className="flex-shrink-0 flex items-center justify-center text-[#B8922A]">
           <Plus
             className={`w-5 h-5  transition-transform duration-200 ${
               isOpen ? "rotate-45" : "rotate-0"
-            } ${isOpen ? "text-[#00007F]" : "text-[#8A8FA8]"}`}
+            }`}
             strokeWidth={2.2}
           />
         </div>
@@ -174,11 +174,9 @@ export const FAQs = () => {
   const items = faqData[tab];
   const twoColumns = items.length >= 6;
 
-  const handleTabChange = (key: typeof tab, e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleTabChange = (key: typeof tab) => {
     setTab(key);
     setOpenIndex(0);
-    const button = e.currentTarget;
-    button.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
   };
 
   return (
@@ -192,28 +190,63 @@ export const FAQs = () => {
           className="text-center mb-10"
         >
           <h2
-            className="text-[26px] lg:text-[40px] font-semibold leading-[32px] lg:leading-[46px] text-[#0A0A0A] mb-8"
+            className="text-[26px] lg:text-[40px] font-bold leading-[32px] lg:leading-[46px] text-[#0A0A0A] mb-8"
             style={sansation}
           >
-            Stoex Gold
+            FAQs about <br className="block lg:hidden"/> Stoex Gold
           </h2>
 
-          {/* Tabs */}
-          <div className="flex items-center justify-start lg:justify-center gap-1 overflow-x-auto whitespace-nowrap [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          {/* Tabs — desktop: all in a row; mobile: arrow navigation */}
+          <div className="hidden lg:flex items-center justify-center gap-1">
             {tabs.map((t) => (
               <button
                 key={t.key}
-                onClick={(e) => handleTabChange(t.key, e)}
-                className={`shrink-0 px-3 lg:px-5 py-2 rounded-full text-[16px] lg:text-[24px] font-semibold transition-colors cursor-pointer ${
+                onClick={(e) => handleTabChange(t.key)}
+                className={`shrink-0 px-5 py-2 rounded-full text-[24px] font-semibold transition-colors cursor-pointer ${
                   tab === t.key
-                    ? " text-[#00007F] underline underline-[#00007F] underline-offset-4"
-                    : "text-[#0A0A0A] "
+                    ? "text-[#00007F] underline underline-[#00007F] underline-offset-4"
+                    : "text-[#0A0A0A]"
                 }`}
                 style={sansation}
               >
                 {t.label}
               </button>
             ))}
+          </div>
+
+          <div className="lg:hidden flex items-center justify-center gap-6">
+            <button
+              type="button"
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => {
+                const idx = tabs.findIndex((t) => t.key === tab);
+                setTab(tabs[(idx - 1 + tabs.length) % tabs.length].key);
+                setOpenIndex(0);
+              }}
+              className="text-[#0A0A0A] cursor-pointer flex-shrink-0"
+              aria-label="Previous tab"
+            >
+              <ChevronLeft className="w-6 h-6" strokeWidth={2.5} />
+            </button>
+            <span
+              className="text-[16px] font-semibold text-[#00007F] underline underline-offset-4 w-[160px] text-center"
+              style={sansation}
+            >
+              {tabs.find((t) => t.key === tab)?.label}
+            </span>
+            <button
+              type="button"
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => {
+                const idx = tabs.findIndex((t) => t.key === tab);
+                setTab(tabs[(idx + 1) % tabs.length].key);
+                setOpenIndex(0);
+              }}
+              className="text-[#0A0A0A] cursor-pointer flex-shrink-0"
+              aria-label="Next tab"
+            >
+              <ChevronRight className="w-6 h-6" strokeWidth={2.5} />
+            </button>
           </div>
         </motion.div>
 
@@ -228,29 +261,39 @@ export const FAQs = () => {
             {twoColumns ? (
               <div className="grid grid-cols-2 gap-x-12">
                 <div>
-                  {items.slice(0, Math.ceil(items.length / 2)).map((item, index) => (
-                    <FaqItem
-                      key={item.question}
-                      item={item}
-                      index={index}
-                      isOpen={openIndex === index}
-                      onToggle={() => setOpenIndex(openIndex === index ? null : index)}
-                    />
-                  ))}
-                </div>
-                <div>
-                  {items.slice(Math.ceil(items.length / 2)).map((item, index) => {
-                    const globalIndex = Math.ceil(items.length / 2) + index;
-                    return (
+                  {items
+                    .slice(0, Math.ceil(items.length / 2))
+                    .map((item, index) => (
                       <FaqItem
                         key={item.question}
                         item={item}
                         index={index}
-                        isOpen={openIndex === globalIndex}
-                        onToggle={() => setOpenIndex(openIndex === globalIndex ? null : globalIndex)}
+                        isOpen={openIndex === index}
+                        onToggle={() =>
+                          setOpenIndex(openIndex === index ? null : index)
+                        }
                       />
-                    );
-                  })}
+                    ))}
+                </div>
+                <div>
+                  {items
+                    .slice(Math.ceil(items.length / 2))
+                    .map((item, index) => {
+                      const globalIndex = Math.ceil(items.length / 2) + index;
+                      return (
+                        <FaqItem
+                          key={item.question}
+                          item={item}
+                          index={index}
+                          isOpen={openIndex === globalIndex}
+                          onToggle={() =>
+                            setOpenIndex(
+                              openIndex === globalIndex ? null : globalIndex,
+                            )
+                          }
+                        />
+                      );
+                    })}
                 </div>
               </div>
             ) : (
@@ -261,7 +304,9 @@ export const FAQs = () => {
                     item={item}
                     index={index}
                     isOpen={openIndex === index}
-                    onToggle={() => setOpenIndex(openIndex === index ? null : index)}
+                    onToggle={() =>
+                      setOpenIndex(openIndex === index ? null : index)
+                    }
                   />
                 ))}
               </div>

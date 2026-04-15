@@ -73,14 +73,14 @@ export const EarlyAccess = () => {
             </h2>
 
             <p
-              className="mt-4 lg:mt-6 text-[15px] leading-[22px] text-[#616161]"
+              className="mt-4 lg:mt-6 text-[15px] leading-[22px] text-[#3D3D3D]"
               style={mona}
             >
               Join the waitlist and get exclusive early access when we launch in
               April 2026
             </p>
 
-            <div className="mx-auto mt-6 flex w-full max-w-[470px] flex-col gap-3 sm:flex-row">
+            <div className=" mx-auto mt-6 hidden w-full max-w-[470px] flex-col gap-3 sm:flex sm:flex-row">
               <input
                 type="email"
                 placeholder="Enter your email"

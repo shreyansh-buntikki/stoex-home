@@ -145,12 +145,12 @@ function GoldHeroLead() {
     <div className="space-y-4 lg:space-y-8">
       <div className="relative">
         <div className="space-y-4 lg:space-y-6">
-          <h1 className="text-center mx-auto lg:mx-0 max-w-[350px] lg:max-w-none lg:text-left font-[700] text-[44px] leading-[42px] lg:text-[56px] lg:leading-[55px]">
-            <span className="inline lg:block text-[#B8860B]" style={sansation}>
+          <h1 className="text-center mx-auto lg:mx-0 max-w-[350px] lg:max-w-none lg:text-left font-[700] text-[40px] leading-[42px] lg:text-[56px] lg:leading-[55px]">
+            <span className="block text-[#B8860B]" style={sansation}>
               Gold at live price.{" "}
             </span>
             <span
-              className="inline lg:block font-[700] text-[#0A0A0A] text-[44px] leading-[42px] lg:text-[56px] lg:leading-[55px]"
+              className="block font-[700] text-[#0A0A0A] text-[40px] leading-[46px] lg:text-[56px] lg:leading-[55px]"
               style={{ ...mona, letterSpacing: "1px" }}
             >
               Yours in 3 clicks.
@@ -584,13 +584,13 @@ export const HeroGold = () => {
     <div className="relative pb-10 lg:pb-0 flex min-h-[calc(100dvh-5rem)] items-center overflow-hidden bg-white">
       <HeroGoldBackdrop />
 
-      <div className="absolute top-6 right-4 lg:hidden block bg-white w-fit rounded-full px-4 py-2 flex items-center gap-2 shadow-sm">
-        <div className="w-2 h-2 bg-[#1A9E5C] rounded-full"></div>
+      <div className="absolute top-6 right-[50%] translate-x-[50%] lg:hidden block bg-white w-fit rounded-full px-4 py-2 flex items-center gap-2 shadow-sm">
+        <div className="w-2 h-2 bg-[#1A9E5C] rounded-full animate-pulse"></div>
         <span className="text-[#0000000] text-[13px] font-semibold">
           ₹9,846.98/g
         </span>
       </div>
-      
+
       <div className="relative pt-35 lg:pt-0 z-10 container mx-auto px-6 lg:px-8">
         <div className="flex flex-col items-center gap-4 lg:grid lg:grid-cols-2 lg:items-center lg:gap-20">
           <GoldHeroLead />
@@ -599,14 +599,6 @@ export const HeroGold = () => {
 
           <div className="relative flex w-full justify-center mt-6 lg:mt-0 lg:justify-end">
             <div className="w-full max-w-[440px] space-y-4 ">
-              <GoldBuySellToggle active={activeTab} onSelect={setActiveTab} />
-              <GoldInvestCard
-                mode={activeTab}
-                amount={amount}
-                goldGrams={goldGrams}
-                youGetLabel={youGetLabel}
-                onAmountChange={setAmount}
-              />
               <div className="block lg:hidden grid grid-cols-2 gap-x-4 gap-y-2 pt-2 lg:flex lg:flex-nowrap lg:gap-0 lg:overflow-x-auto lg:pt-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                 {TRUST_ITEMS.map((item, index) => (
                   <div
@@ -630,6 +622,14 @@ export const HeroGold = () => {
                   </div>
                 ))}
               </div>
+              <GoldBuySellToggle active={activeTab} onSelect={setActiveTab} />
+              <GoldInvestCard
+                mode={activeTab}
+                amount={amount}
+                goldGrams={goldGrams}
+                youGetLabel={youGetLabel}
+                onAmountChange={setAmount}
+              />
             </div>
           </div>
         </div>

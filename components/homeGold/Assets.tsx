@@ -25,17 +25,17 @@ export const Assets = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-12"
+          className="text-center flex flex-col items-center mb-12"
         >
           <h2
-            className="text-[26px] lg:text-[40px] font-semibold leading-[32px] lg:leading-[46px] text-[#0A0A0A] mb-4 lg:mb-6"
+            className="text-[26px] max-w-[300px]  lg:max-w-none lg:text-[40px] font-semibold leading-[32px] lg:leading-[46px] text-[#0A0A0A] mb-4 lg:mb-6"
             style={sansation}
           >
             More real assets coming to{" "}
             <span className="text-[#0A0A0A]">STOEX</span>
           </h2>
           <p
-            className="text-[15px] lg:text-[16px] leading-[24px] text-[#6B7280] max-w-[640px] mx-auto"
+            className="text-[15px] lg:text-[16px] leading-[24px] text-[#3D3D3D] max-w-[640px] mx-auto"
             style={mona}
           >
             Gold is just the beginning. We're bringing fractional ownership of

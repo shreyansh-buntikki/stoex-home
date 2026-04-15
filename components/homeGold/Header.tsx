@@ -127,13 +127,13 @@ export const HeaderGold = () => {
 
           <div className="hidden md:flex items-center gap-4">
             <div className="bg-white rounded-full px-4 py-2 flex items-center gap-2 shadow-sm">
-              <div className="w-2 h-2 bg-[#1A9E5C] rounded-full"></div>
+              <div className="w-2 h-2 bg-[#1A9E5C] rounded-full animate-pulse"></div>
               <span className="text-[#0000000] text-[13px] font-semibold">₹9,846.98/g</span>
             </div>
 
             <button
               onClick={() => setIsModalOpen(true)}
-              className="bg-lime-400 hover:bg-lime-500 text-black font-semibold px-6 py-2.5 rounded-full shadow hover:scale-105 transition-all duration-200 text-[13px]"
+              className="bg-[#86EA6B] hover:bg-[#7AD85E] text-black font-bold px-6 py-2.5 rounded-full shadow hover:scale-105 transition-all duration-200 text-[13px]"
             >
               Get Early Access
             </button>

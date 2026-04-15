@@ -25,6 +25,8 @@ function MobileStickyBar({
 }) {
   const [footerVisible, setFooterVisible] = useState(false);
   const [heroVisible, setHeroVisible] = useState(true);
+  const [scrollingDown, setScrollingDown] = useState(true);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const footerEl = footerRef.current;
@@ -48,7 +50,19 @@ function MobileStickyBar({
     return () => observer.disconnect();
   }, [heroRef]);
 
-  const show = !footerVisible && !heroVisible;
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      if (Math.abs(currentY - lastScrollY.current) > 4) {
+        setScrollingDown(currentY > lastScrollY.current);
+        lastScrollY.current = currentY;
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const show = !footerVisible && !heroVisible && scrollingDown;
 
   return (
     <div

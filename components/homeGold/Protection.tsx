@@ -104,16 +104,16 @@ export const Protection = () => {
           className="text-center mb-[60px] max-w-[550px] mx-auto"
         >
           <div className="mb-4 lg:mb-6">
-            <h2 className="text-[26px] lg:text-[40px] font-normal leading-[32px] lg:leading-[46px] mb-1" style={sansation}>
+            <h2 className="text-[26px] lg:text-[40px] font-bold leading-[32px] lg:leading-[46px] mb-1" style={sansation}>
               <span className="text-[#0A0A0A]">Gold isn't just jewellery.</span>
             </h2>
-            <h2 className="text-[26px] lg:text-[40px] font-normal leading-[32px] lg:leading-[46px]" style={sansation}>
+            <h2 className="text-[26px] lg:text-[40px] font-bold leading-[32px] lg:leading-[46px]" style={sansation}>
               <span className="text-[#0A0A0A]">It's </span>
-              <span className="text-[#D4A843] italic font-semibold">financial protection.</span>
+              <span className="text-[#D4A843] italic font-bold">financial protection.</span>
             </h2>
           </div>
           <p
-            className="text-[15px] leading-[25px] text-[#0A0A0A]/50"
+            className="text-[15px] leading-[22px] lg:leading-[25px] text-[#3D3D3D]"
             style={mona}
           >
             For centuries, Indians have trusted gold to protect wealth across generations.

@@ -75,7 +75,7 @@ export function Footer() {
         </div>
 
       </section> */}
-    <section className="bg-[#fff] pt-16 pb-10 border border-top">
+    <section className="bg-[#fff] pt-16 pb-10">
 
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">

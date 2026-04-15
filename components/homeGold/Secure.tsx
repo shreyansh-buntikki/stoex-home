@@ -127,7 +127,7 @@ export default function Secure() {
             </motion.div>
           ))}
         </div>
-        <div className="flex flex-col-reverse lg:flex-col gap-2 ">
+        <div className="flex flex-col pt-[20px] lg:flex-col gap-2 ">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -136,7 +136,7 @@ export default function Secure() {
             className="mb-4 space-y-2 flex flex-col items-center justify-center mt-10 lg:mt-20"
           >
             <h3
-              className="text-[22px] text-center  font-bold leading-[28px] text-[#0A0A0A]"
+              className="text-[26px] text-center font-bold leading-[28px] text-[#0A0A0A]"
               style={sansation}
             >
               Verifiable Ownership

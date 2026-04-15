@@ -200,7 +200,6 @@ function CashCard({ active }: { active: boolean }) {
             >
               Gold (grams)
             </label>
-            {goldFirst && !greyed ? (
               <div className="flex min-w-0 items-baseline gap-0.5" style={mona}>
                 <input
                   type="text"
@@ -209,7 +208,7 @@ function CashCard({ active }: { active: boolean }) {
                   autoComplete="off"
                   aria-label="Gold in grams"
                   pattern="[0-9]*[.]?[0-9]*"
-                  className={`${valueInputClass} text-[#0A0A0A]`}
+                  className={`${valueInputClass} ${goldFirst && !greyed ? "text-[#0A0A0A]" : "text-[#BCBCBC]"}`}
                   style={mona}
                   value={gramsEdit}
                   onChange={(e) => {
@@ -230,22 +229,15 @@ function CashCard({ active }: { active: boolean }) {
                     setGramsEdit(formatGramsInputDisplay(goldGrams))
                   }
                 />
-                <span className="shrink-0 text-[28px] font-bold leading-none text-[#0A0A0A]">
+                <span className={`shrink-0 text-[28px] font-bold leading-none ${goldFirst && !greyed ? "text-[#0A0A0A]" : "text-[#BCBCBC]"}`}>
                   g
                 </span>
               </div>
-            ) : (
-              <p
-                className="text-[28px] font-bold leading-none text-[#BCBCBC]"
-                style={mona}
-              >
-                {goldGrams.toFixed(2)}g
-              </p>
-            )}
+            
 
             <div
-              className={`flex gap-2 mt-4 transition-opacity ${
-                goldFirst ? "opacity-100" : "opacity-0 pointer-events-none"
+              className={`flex gap-2 transition-all ${
+                goldFirst ? "opacity-100 mt-4 h-auto" : "opacity-0 pointer-events-none h-0 overflow-hidden mt-0"
               }`}
             >
               {QUICK_GRAMS_CASH.map((g) => {
@@ -377,8 +369,8 @@ function CashCard({ active }: { active: boolean }) {
             </p>
 
             <div
-              className={`mt-4 flex flex-nowrap items-center justify-between gap-1.5 overflow-x-auto pb-1.5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden transition-opacity ${
-                !goldFirst ? "opacity-100" : "opacity-0 pointer-events-none"
+              className={`flex flex-nowrap items-center justify-between gap-1.5 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden transition-all ${
+                !goldFirst ? "opacity-100 mt-4 pb-1.5 h-auto" : "opacity-0 pointer-events-none h-0 overflow-hidden mt-0 pb-0"
               }`}
             >
               {QUICK_AMOUNTS.map((qa) => (
@@ -416,7 +408,7 @@ function CashCard({ active }: { active: boolean }) {
         </motion.div>
       </div>
 
-      <div className="mt-auto pt-8 flex justify-center">
+      <div className="mt-auto  flex justify-center">
         <button
           className={`w-fit px-4 self-center flex items-center justify-center gap-2 rounded-full py-3.5 text-[15px] font-bold transition-colors ${
             active
@@ -630,7 +622,7 @@ export const Redemption = () => {
           className="relative"
         >
           {/* Mobile tabs */}
-          <div className="lg:hidden flex items-center justify-center gap-0 -mb-4 max-w-[960px] mx-auto">
+          <div className="lg:hidden flex items-center justify-center gap-0 mb-6 max-w-[960px] mx-auto">
             <button
               type="button"
               onClick={() => setMode("cash")}
@@ -657,49 +649,8 @@ export const Redemption = () => {
             </button>
           </div>
 
-          {/* Mobile: image + active card only */}
+          {/* Mobile: active card only */}
           <div className="lg:hidden max-w-[960px] mx-auto">
-            {/* Mobile image on top */}
-            <AnimatePresence mode="wait">
-              {mode === "cash" ? (
-                <motion.div
-                  key="mobile-img"
-                  initial={{ opacity: 0, y: 100 }}
-                  animate={{ opacity: 1, y: 60 }}
-                  exit={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.3 }}
-                  className="flex items-start gap-3 mb-4"
-                >
-                  <Image
-                    src={MobileImage}
-                    alt="Mobile showing bank credit"
-                    width={140}
-                    height={260}
-                    className="object-contain"
-                  />
-                
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="coin-img"
-                  initial={{ opacity: 0, y: 100 }}
-                  animate={{ opacity: 1, y: 40 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                  className="flex items-start gap-3 mb-4 flex-row-reverse"
-                >
-                  <Image
-                    src={CoinImage}
-                    alt="Gold Coin"
-                    width={120}
-                    height={120}
-                    className="object-contain"
-                  />
-                 
-                </motion.div>
-              )}
-            </AnimatePresence>
-
             {/* Active card */}
             <AnimatePresence mode="wait">
               {mode === "cash" ? (
@@ -752,7 +703,7 @@ export const Redemption = () => {
                 animate={{ x: 0 }}
                 exit={{ x: 120 }}
                 transition={{ duration: 0.5 }}
-                className="hidden lg:block absolute -bottom-[60px] left-[0px] z-0"
+                className="hidden lg:block absolute -bottom-[10px] left-[0px] z-0"
               >
                 <Image
                   src={MobileImage}
@@ -774,7 +725,7 @@ export const Redemption = () => {
                 animate={{ x: 0 }}
                 exit={{ x: -120 }}
                 transition={{ duration: 0.5 }}
-                className="hidden lg:block absolute -bottom-[30px] right-[20px] z-0"
+                className="hidden lg:block absolute -bottom-[0px] right-[20px] z-0"
               >
                 <Image
                   src={CoinImage}
