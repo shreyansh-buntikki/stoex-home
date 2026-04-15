@@ -193,7 +193,7 @@ export const FAQs = () => {
             className="text-[26px] lg:text-[40px] font-bold leading-[32px] lg:leading-[46px] text-[#0A0A0A] mb-8"
             style={sansation}
           >
-            FAQs about <br className="block lg:hidden"/> Stoex Gold
+            FAQs about Stoex Gold
           </h2>
 
           {/* Tabs — desktop: all in a row; mobile: arrow navigation */}
@@ -204,7 +204,7 @@ export const FAQs = () => {
                 onClick={(e) => handleTabChange(t.key)}
                 className={`shrink-0 px-5 py-2 rounded-full text-[24px] font-semibold transition-colors cursor-pointer ${
                   tab === t.key
-                    ? "text-[#00007F] underline underline-[#00007F] underline-offset-4"
+                    ? "text-[#00007F]"
                     : "text-[#0A0A0A]"
                 }`}
                 style={sansation}
@@ -226,10 +226,10 @@ export const FAQs = () => {
               className="text-[#0A0A0A] cursor-pointer flex-shrink-0"
               aria-label="Previous tab"
             >
-              <ChevronLeft className="w-6 h-6" strokeWidth={2.5} />
+              <ChevronLeft className="w-5 h-5" strokeWidth={2.5} />
             </button>
             <span
-              className="text-[16px] font-semibold text-[#00007F] underline underline-offset-4 w-[160px] text-center"
+              className="text-[16px] font-semibold text-[#00007F] w-[160px] text-center"
               style={sansation}
             >
               {tabs.find((t) => t.key === tab)?.label}
@@ -245,7 +245,7 @@ export const FAQs = () => {
               className="text-[#0A0A0A] cursor-pointer flex-shrink-0"
               aria-label="Next tab"
             >
-              <ChevronRight className="w-6 h-6" strokeWidth={2.5} />
+              <ChevronRight className="w-5 h-5" strokeWidth={2.5} />
             </button>
           </div>
         </motion.div>

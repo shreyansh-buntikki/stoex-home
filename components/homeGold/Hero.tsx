@@ -591,7 +591,7 @@ export const HeroGold = () => {
         </span>
       </div>
 
-      <div className="relative pt-35 lg:pt-0 z-10 container mx-auto px-6 lg:px-8">
+      <div className="relative pt-22 lg:pt-0 z-10 container mx-auto px-6 lg:px-8">
         <div className="flex flex-col items-center gap-4 lg:grid lg:grid-cols-2 lg:items-center lg:gap-20">
           <GoldHeroLead />
 

@@ -597,7 +597,7 @@ export const Redemption = () => {
   const [mode, setMode] = useState<RedeemMode>("cash");
 
   return (
-    <section className="bg-[#F9F8F6] py-[80px] pt-0 lg:py-[100px] px-6 overflow-hidden">
+    <section className="bg-[#F9F8F6] py-[85px] pt-2 lg:py-[100px] px-6 overflow-hidden">
       <div className="container mx-auto max-w-[1240px]">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

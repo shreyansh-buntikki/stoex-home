@@ -50,7 +50,7 @@ const securityFeatures = [
 
 export default function Secure() {
   return (
-    <section className=" relative bg-white py-[80px] pt-8  lg:py-[100px] px-6">
+    <section className=" relative bg-white py-[80px] lg:py-[100px] px-6">
       {/* CompaniesEllipse: desktop — absolute top-left; mobile — hidden here, shown inline below */}
       <div className="container mx-auto max-w-[1200px]">
         <div className="flex items-start justify-center gap-8 mb-6 lg:mb-10">
