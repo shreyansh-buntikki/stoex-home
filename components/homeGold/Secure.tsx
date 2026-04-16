@@ -136,10 +136,10 @@ export default function Secure() {
             className="mb-4 space-y-2 flex flex-col items-center justify-center mt-10 lg:mt-20"
           >
             <h3
-              className="text-[26px] lg:text-[40px] text-center font-bold leading-[32px] text-[#0A0A0A]"
+              className="text-[28px] lg:text-[40px] text-center font-bold leading-[32px] text-[#0A0A0A]"
               style={sansation}
             >
-              Your Digital Gold Passbook
+              Your Digital <br className="block lg:hidden"/> Gold Passbook
             </h3>
             <p
               className="text-[15px] lg:text-[16px] mt-2 text-center leading-[22px] text-[#3D3D3D]"
