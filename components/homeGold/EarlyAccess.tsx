@@ -21,9 +21,9 @@ const benefits = [
 
 export const EarlyAccess = () => {
   return (
-    <section className="bg-white  py-[80px] pt-0 lg:py-[100px] lg:pb-0 pb-0 px-0">
+    <section className="bg-white  py-[0px] pt-0 lg:py-[100px] lg:pb-0 pb-0 px-0">
       <div className="mx-auto w-full max-w-none">
-        <div className="relative w-full overflow-hidden bg-[#fff] px-6 py-12 md:px-12 md:py-16">
+        <div className="relative w-full overflow-hidden bg-[#fff] px-6 py-0 md:px-12 md:py-16">
           {/* Looper — desktop: left/right full height; mobile: top-right & bottom-left corners */}
           <div className="pointer-events-none absolute inset-y-0 left-0 w-[48%] hidden lg:block">
             <Image
@@ -64,7 +64,7 @@ export const EarlyAccess = () => {
             />
           </div>
 
-          <div className="relative z-10 mx-auto max-w-[1000px] pt-20 text-center">
+          <div className="relative z-10 mx-auto max-w-[1000px] pt-15 text-center">
             <h2
               className="text-[26px] leading-[36px] font-bold text-[#0A0A0A] lg:text-[40px] lg:leading-[48px]"
               style={sansation}
@@ -104,7 +104,7 @@ export const EarlyAccess = () => {
               </span>
             </p>
 
-            <div className="mt-6 flex flex-wrap pb-20 items-center justify-center gap-x-5 gap-y-2">
+            <div className="mt-6 flex flex-wrap pb-15 items-center justify-center gap-x-5 gap-y-2">
               {benefits.map((item) => (
                 <div key={item} className="inline-flex items-center gap-2">
                   <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-[#E9FAEF] text-[#34C759] text-[10px] font-bold">

@@ -122,7 +122,7 @@ export function HomePageGold() {
     <GoldRateProvider>
       <div className="min-h-screen bg-background overflow-x-hidden">
         <HeaderGold />
-        <main className="overflow-x-hidden pb-[88px] lg:pb-0">
+        <main className="overflow-x-hidden pb-[40px] lg:pb-0">
           <section ref={heroRef}>
             <HeroGold />
           </section>
