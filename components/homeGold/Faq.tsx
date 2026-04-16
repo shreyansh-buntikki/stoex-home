@@ -121,7 +121,7 @@ function FaqItem({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-30px" }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="border-b border-[#E5E7EB] first:border-t-0 last:border-b-0"
+      className="border-b border-[#E5E7EB] first:border-t-0 "
     >
       <button
         onClick={onToggle}

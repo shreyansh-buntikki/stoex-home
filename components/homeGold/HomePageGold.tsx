@@ -19,12 +19,15 @@ const mona = { fontFamily: "Mona Sans, sans-serif" };
 function MobileStickyBar({
   footerRef,
   heroRef,
+  earlyAccessRef,
 }: {
   footerRef: React.RefObject<HTMLElement | null>;
   heroRef: React.RefObject<HTMLElement | null>;
+  earlyAccessRef: React.RefObject<HTMLElement | null>;
 }) {
   const [footerVisible, setFooterVisible] = useState(false);
   const [heroVisible, setHeroVisible] = useState(true);
+  const [earlyAccessVisible, setEarlyAccessVisible] = useState(false);
   const [scrollingDown, setScrollingDown] = useState(true);
   const lastScrollY = useRef(0);
 
@@ -33,7 +36,7 @@ function MobileStickyBar({
     if (!footerEl) return;
     const observer = new IntersectionObserver(
       ([entry]) => setFooterVisible(entry.isIntersecting),
-      { threshold: 0 }
+      { threshold: 0 },
     );
     observer.observe(footerEl);
     return () => observer.disconnect();
@@ -44,11 +47,22 @@ function MobileStickyBar({
     if (!heroEl) return;
     const observer = new IntersectionObserver(
       ([entry]) => setHeroVisible(entry.isIntersecting),
-      { threshold: 0 }
+      { threshold: 0 },
     );
     observer.observe(heroEl);
     return () => observer.disconnect();
   }, [heroRef]);
+
+  useEffect(() => {
+    const earlyAccessEl = earlyAccessRef.current;
+    if (!earlyAccessEl) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setEarlyAccessVisible(entry.isIntersecting),
+      { threshold: 0 },
+    );
+    observer.observe(earlyAccessEl);
+    return () => observer.disconnect();
+  }, [earlyAccessRef]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -62,7 +76,8 @@ function MobileStickyBar({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const show = !footerVisible && !heroVisible && scrollingDown;
+  const show =
+    !footerVisible && !heroVisible && !earlyAccessVisible && scrollingDown;
 
   return (
     <div
@@ -92,6 +107,7 @@ function MobileStickyBar({
 export function HomePageGold() {
   const footerRef = useRef<HTMLElement>(null);
   const heroRef = useRef<HTMLElement>(null);
+  const earlyAccessRef = useRef<HTMLElement>(null);
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
@@ -109,12 +125,18 @@ export function HomePageGold() {
         <Redemption />
         <FAQs />
         <Assets />
-        <EarlyAccess />
+        <section ref={earlyAccessRef}>
+          <EarlyAccess />
+        </section>
       </main>
       <footer ref={footerRef}>
         <Footer />
       </footer>
-      <MobileStickyBar footerRef={footerRef} heroRef={heroRef} />
+      <MobileStickyBar
+        footerRef={footerRef}
+        heroRef={heroRef}
+        earlyAccessRef={earlyAccessRef}
+      />
     </div>
   );
 }

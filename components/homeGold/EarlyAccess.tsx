@@ -4,6 +4,7 @@ import Image from "next/image";
 import type { CSSProperties } from "react";
 
 import Looper from "@/public/assets/images/Looper.svg";
+import LooperMobile from "@/public/assets/images/Looper-mobile.svg";
 
 const mona: CSSProperties = { fontFamily: "Mona Sans, sans-serif" };
 const sansation: CSSProperties = {
@@ -43,22 +44,22 @@ export const EarlyAccess = () => {
             />
           </div>
           {/* Mobile: top-right corner */}
-          <div className="pointer-events-none absolute top-[-20px] right-0 w-[100%] h-[50%] lg:hidden">
+          <div className="pointer-events-none absolute top-[-20px] right-0 w-[60%] h-[40%] lg:hidden">
             <Image
-              src={Looper}
+              src={LooperMobile}
               alt=""
               fill
-              sizes="50vw"
+              sizes="15vw"
               className="object-cover object-left-bottom opacity-80 rotate-180"
             />
           </div>
           {/* Mobile: bottom-left corner */}
-          <div className="pointer-events-none absolute bottom-0 left-0 w-[100%] h-[50%] lg:hidden">
+          <div className="pointer-events-none absolute bottom-0 left-0 w-[60%] h-[40%] lg:hidden">
             <Image
-              src={Looper}
+              src={LooperMobile}
               alt=""
               fill
-              sizes="55vw"
+              sizes="15vw"
               className="object-cover object-left-bottom opacity-80 scale-y-[-1] -rotate-90"
             />
           </div>
@@ -80,7 +81,7 @@ export const EarlyAccess = () => {
               April 2026
             </p>
 
-            <div className=" mx-auto mt-6 hidden w-full max-w-[470px] flex-col gap-3 sm:flex sm:flex-row">
+            <div className=" mx-auto mt-6 flex-col w-full max-w-[470px] gap-3 sm:flex sm:flex-row">
               <input
                 type="email"
                 placeholder="Enter your email"
@@ -89,7 +90,7 @@ export const EarlyAccess = () => {
               />
               <button
                 type="button"
-                className="h-[52px] shrink-0 rounded-full bg-[#00007F] px-9 text-[18px] font-semibold text-white transition-colors hover:bg-[#000066]"
+                className="h-[52px] w-full lg:w-fit shrink-0 rounded-full bg-[#00007F] px-9 text-[14px] mt-4 lg:mt-0 lg:text-[18px] font-semibold text-white transition-colors hover:bg-[#000066]"
                 style={mona}
               >
                 Get Early Access

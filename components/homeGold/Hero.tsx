@@ -74,7 +74,7 @@ const STRIP_DIVIDER =
 function MobileMarqueeStrip() {
   const items = [...StripContent, ...StripContent];
   return (
-    <div className="lg:hidden w-screen overflow-hidden -mx-6 -mt-2">
+    <div className="lg:hidden w-screen overflow-hidden -mx-6 -mt-0">
       <div
         className="flex w-max"
         style={{
@@ -592,14 +592,14 @@ export const HeroGold = () => {
       </div>
 
       <div className="relative pt-22 lg:pt-0 z-10 container mx-auto px-6 lg:px-8">
-        <div className="flex flex-col items-center gap-4 lg:grid lg:grid-cols-2 lg:items-center lg:gap-20">
+        <div className="flex flex-col items-center gap-1 lg:grid lg:grid-cols-2 lg:items-center lg:gap-20">
           <GoldHeroLead />
 
           <MobileMarqueeStrip />
 
           <div className="relative flex w-full justify-center mt-6 lg:mt-0 lg:justify-end">
             <div className="w-full max-w-[440px] space-y-4 ">
-              <div className="block lg:hidden grid grid-cols-2 gap-x-4 gap-y-2 pt-2 lg:flex lg:flex-nowrap lg:gap-0 lg:overflow-x-auto lg:pt-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+              <div className="block lg:hidden grid grid-cols-2 gap-x-4 gap-y-2 pt-1 pb-5 lg:flex lg:flex-nowrap lg:gap-0 lg:overflow-x-auto lg:pt-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                 {TRUST_ITEMS.map((item, index) => (
                   <div
                     className="flex items-center gap-2 lg:shrink-0"
