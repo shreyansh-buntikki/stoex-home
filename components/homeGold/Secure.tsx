@@ -136,17 +136,16 @@ export default function Secure() {
             className="mb-4 space-y-2 flex flex-col items-center justify-center mt-10 lg:mt-20"
           >
             <h3
-              className="text-[26px] text-center font-bold leading-[28px] text-[#0A0A0A]"
+              className="text-[26px] lg:text-[40px] text-center font-bold leading-[32px] text-[#0A0A0A]"
               style={sansation}
             >
-              Verifiable Ownership
+              Your Digital Gold Passbook
             </h3>
             <p
-              className="text-[15px] text-center leading-[22px] text-[#3D3D3D]"
+              className="text-[15px] lg:text-[16px] mt-2 text-center leading-[22px] text-[#3D3D3D]"
               style={mona}
             >
-              Recorded on a public ledger - publicly verifiable, permanently
-              immutable
+             Every gram, every custodian, every audit - recorded on a tamper-proof ledger you can check anytime.
             </p>
           </motion.div>
 

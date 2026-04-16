@@ -12,6 +12,7 @@ import CoinIcon from "@/public/assets/images/coin.webp";
 import Gold1gm from "@/public/assets/images/gold-1g.png";
 import Gold5gm from "@/public/assets/images/gold-5g.png";
 import Gold10gm from "@/public/assets/images/gold-10g.png";
+import { useGoldRate } from "@/hooks/useGoldRate";
 
 const mona: CSSProperties = { fontFamily: "Mona Sans, sans-serif" };
 const sansation: CSSProperties = {
@@ -23,7 +24,6 @@ type RedeemMode = "cash" | "physical";
 
 const QUICK_GRAMS_CASH = [0.01, 0.02, 0.03, 0.04];
 const QUICK_AMOUNTS = [15, 100, 500, 1000, 5000] as const;
-const CASH_PRICE_PER_GRAM = 9345;
 const CARD_GAP = 55;
 const swapDuration = 0.45;
 const swapEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -88,9 +88,11 @@ function sanitizeGramsInput(raw: string): string {
 }
 
 function CashCard({ active }: { active: boolean }) {
+  const { goldRate } = useGoldRate();
+  const cashPricePerGram = parseFloat(String(goldRate));
   const [goldGrams, setGoldGrams] = useState(0.01);
   const [amountInr, setAmountInr] = useState(
-    Math.round(0.01 * CASH_PRICE_PER_GRAM),
+    0,
   );
   const [gramsEdit, setGramsEdit] = useState("0.01");
   const [goldFirst, setGoldFirst] = useState(true);
@@ -104,14 +106,14 @@ function CashCard({ active }: { active: boolean }) {
   const setFromGrams = (grams: number) => {
     const nextGrams = Math.max(0, grams);
     setGoldGrams(nextGrams);
-    setAmountInr(Math.round(nextGrams * CASH_PRICE_PER_GRAM));
+    setAmountInr(Math.round(nextGrams * cashPricePerGram));
     setGramsEdit(formatGramsInputDisplay(nextGrams));
   };
 
   const setFromAmount = (amount: number) => {
     const nextAmount = Math.max(0, amount);
     setAmountInr(nextAmount);
-    const nextGrams = nextAmount / CASH_PRICE_PER_GRAM;
+    const nextGrams = nextAmount / cashPricePerGram;
     setGoldGrams(nextGrams);
     setGramsEdit(formatGramsInputDisplay(nextGrams));
   };
@@ -222,7 +224,7 @@ function CashCard({ active }: { active: boolean }) {
                     const parsed = parseFloat(cleaned);
                     if (!Number.isNaN(parsed) && parsed >= 0) {
                       setGoldGrams(parsed);
-                      setAmountInr(Math.round(parsed * CASH_PRICE_PER_GRAM));
+                      setAmountInr(Math.round(parsed * cashPricePerGram));
                     }
                   }}
                   onBlur={() =>

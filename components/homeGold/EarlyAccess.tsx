@@ -64,7 +64,7 @@ export const EarlyAccess = () => {
             />
           </div>
 
-          <div className="relative z-10 mx-auto max-w-[900px] pt-20 text-center">
+          <div className="relative z-10 mx-auto max-w-[1000px] pt-20 text-center">
             <h2
               className="text-[26px] leading-[36px] font-bold text-[#0A0A0A] lg:text-[40px] lg:leading-[48px]"
               style={sansation}

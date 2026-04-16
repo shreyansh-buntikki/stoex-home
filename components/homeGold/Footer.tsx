@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import EarlyAccessModal from "./EarlyAccessModal";
-import { getImageUrl } from '@/config/images';
+import MainLogo from "@/public/assets/logos/mainlogo.webp"
 
 const YoutubeIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -85,7 +85,7 @@ export function Footer() {
             {/* Logo */}
             <div className="flex items-center gap-2 mb-5">
               <a href="/">
-              <img src={getImageUrl('mainlogo.png')} alt="STOEX" className="" />
+              <img src={MainLogo.src} alt="STOEX" className="h-10" />
               </a>
               {/* <span className="text-xl font-bold tracking-wide">STOEX</span> */}
             </div>

@@ -17,6 +17,7 @@ import AmrapaliLogo from "@/public/assets/logos/amrapali-3.svg";
 import SequelLogo from "@/public/assets/logos/sequel.webp";
 import RRBPLogo from "@/public/assets/logos/rrbp.webp";
 import VistraLogo from "@/public/assets/logos/vistara.webp";
+import { useGoldRate } from "@/hooks/useGoldRate";
 
 const StripContent = [
   {
@@ -45,7 +46,6 @@ const StripContent = [
   },
 ];
 
-const GOLD_PRICE_PER_GRAM = 4762;
 const GOLD_WIDGET_SHADOW =
   "0 4px 4px 0 rgba(0, 0, 0, 0.08), 0 0 16px 0 rgba(191, 155, 103, 0.4)";
 const HERO_GOLD_GLOW =
@@ -291,12 +291,14 @@ function GoldInvestCard({
   goldGrams,
   youGetLabel,
   onAmountChange,
+  goldPricePerGram,
 }: {
   mode: Tab;
   amount: number;
   goldGrams: number;
   youGetLabel: string;
   onAmountChange: (n: number) => void;
+  goldPricePerGram: number;
 }) {
   const goldFirst = mode === "Sell";
   const gramsFocusedRef = useRef(false);
@@ -326,7 +328,7 @@ function GoldInvestCard({
   ];
 
   const setFromGrams = (g: number) => {
-    onAmountChange(Math.round(g * GOLD_PRICE_PER_GRAM));
+    onAmountChange(Math.round(g * goldPricePerGram));
   };
 
   const applyGramsFromString = (sanitized: string) => {
@@ -575,8 +577,10 @@ function GoldInvestCard({
 export const HeroGold = () => {
   const [activeTab, setActiveTab] = useState<Tab>("Buy");
   const [amount, setAmount] = useState(5000);
+  const { goldRate } = useGoldRate();
 
-  const goldGrams = amount / GOLD_PRICE_PER_GRAM;
+  const goldPricePerGram = parseFloat(String(goldRate));
+  const goldGrams = amount / goldPricePerGram;
   const youGetLabel =
     goldGrams >= 0.00001 ? `${goldGrams.toFixed(4)}g gold` : "0.00g gold";
 
@@ -587,7 +591,7 @@ export const HeroGold = () => {
       <div className="absolute top-6 right-[50%] translate-x-[50%] lg:hidden block bg-white w-fit rounded-full px-4 py-2 flex items-center gap-2 shadow-sm">
         <div className="w-2 h-2 bg-[#1A9E5C] rounded-full animate-pulse"></div>
         <span className="text-[#0000000] text-[13px] font-semibold">
-          ₹9,846.98/g
+          ₹{goldRate}/g
         </span>
       </div>
 
@@ -629,6 +633,7 @@ export const HeroGold = () => {
                 goldGrams={goldGrams}
                 youGetLabel={youGetLabel}
                 onAmountChange={setAmount}
+                goldPricePerGram={goldPricePerGram}
               />
             </div>
           </div>

@@ -11,6 +11,7 @@ import { Protection } from "./Protection";
 import { Redemption } from "./Redemption";
 import Secure from "./Secure";
 import { Steps } from "./Steps";
+import { GoldRateProvider } from "@/hooks/useGoldRate";
 
 import { useEffect, useRef, useState } from "react";
 
@@ -81,12 +82,20 @@ function MobileStickyBar({
 
   return (
     <div
-      className={`lg:hidden fixed bottom-0 left-0 right-0 z-50 px-4 pt-4 transition-transform duration-300 ${show ? "translate-y-0" : "translate-y-full"}`}
+      className={`lg:hidden fixed bottom-0 left-0 right-0 z-50 px-4 py-3 transition-transform duration-300 ${show ? "translate-y-0" : "translate-y-full"}`}
       style={{
         backgroundColor: "#F7F8FC",
-        paddingBottom: "max(1rem, env(safe-area-inset-bottom))",
       }}
     >
+      {/* Extend background below the bar to cover the gap when mobile browser chrome hides */}
+      <div
+        className="absolute left-0 right-0 -z-10"
+        style={{
+          top: 0,
+          bottom: "-150px",
+          backgroundColor: "#F7F8FC",
+        }}
+      />
       <button
         type="button"
         className="w-full rounded-full py-3 text-[16px] font-bold text-white"
@@ -110,34 +119,36 @@ export function HomePageGold() {
   const earlyAccessRef = useRef<HTMLElement>(null);
 
   return (
-    <div className="min-h-screen bg-background overflow-x-hidden">
-      <HeaderGold />
-      <main className="overflow-x-hidden pb-[88px] lg:pb-0">
-        <section ref={heroRef}>
-          <HeroGold />
-        </section>
-        <Secure />
-        <Comparison />
-        <Steps />
-        <Protection />
-        {/* <Divider /> */}
-        {/* <PriceGraph /> */}
-        <Redemption />
-        <FAQs />
-        <Assets />
-        <section ref={earlyAccessRef}>
-          <EarlyAccess />
-        </section>
-      </main>
-      <footer ref={footerRef}>
-        <Footer />
-      </footer>
-      <MobileStickyBar
-        footerRef={footerRef}
-        heroRef={heroRef}
-        earlyAccessRef={earlyAccessRef}
-      />
-    </div>
+    <GoldRateProvider>
+      <div className="min-h-screen bg-background overflow-x-hidden">
+        <HeaderGold />
+        <main className="overflow-x-hidden pb-[88px] lg:pb-0">
+          <section ref={heroRef}>
+            <HeroGold />
+          </section>
+          <Secure />
+          <Comparison />
+          <Steps />
+          <Protection />
+          {/* <Divider /> */}
+          {/* <PriceGraph /> */}
+          <Redemption />
+          <FAQs />
+          <Assets />
+          <section ref={earlyAccessRef}>
+            <EarlyAccess />
+          </section>
+        </main>
+        <footer ref={footerRef}>
+          <Footer />
+        </footer>
+        <MobileStickyBar
+          footerRef={footerRef}
+          heroRef={heroRef}
+          earlyAccessRef={earlyAccessRef}
+        />
+      </div>
+    </GoldRateProvider>
   );
 }
 

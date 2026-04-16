@@ -3,9 +3,12 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import EarlyAccessModal from "./EarlyAccessModal";
-import { getImageUrl } from '@/config/images';
+import { useGoldRate } from "@/hooks/useGoldRate";
+import Logo1 from "@/public/assets/logos/logo1.webp";
+import MainLogo from "@/public/assets/logos/mainlogo.webp";
 
 export const HeaderGold = () => {
+  const { goldRate } = useGoldRate();
   const [scrolled, setScrolled] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -60,7 +63,7 @@ export const HeaderGold = () => {
         <div className="container mx-auto px-6 py-4 flex items-center">
           <Link href="/" className="flex-shrink-0">
             <img
-              src={scrolled ? getImageUrl('mainlogo.png') : getImageUrl('logo1.png')}
+              src={scrolled ? MainLogo.src : Logo1.src}
               alt="STOEX"
               className="h-8 cursor-pointer"
             />
@@ -128,7 +131,7 @@ export const HeaderGold = () => {
           <div className="hidden md:flex items-center gap-4">
             <div className="bg-white rounded-full px-4 py-2 flex items-center gap-2 shadow-sm">
               <div className="w-2 h-2 bg-[#1A9E5C] rounded-full animate-pulse"></div>
-              <span className="text-[#0000000] text-[13px] font-semibold">₹9,846.98/g</span>
+              <span className="text-[#0000000] text-[13px] font-semibold">₹{goldRate}/g</span>
             </div>
 
             <button
@@ -161,7 +164,7 @@ export const HeaderGold = () => {
           >
             <div className="sticky top-0 bg-gradient-to-r from-[#1a237e] to-[#283593] p-6 shadow-lg z-10">
               <div className="flex items-center justify-between">
-                <img src={getImageUrl('logo1.png')} alt="STOEX" className="h-7" />
+                <img src={Logo1.src} alt="STOEX" className="h-7" />
                 <button
                   className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 text-white text-xl transition-all duration-200 hover:rotate-90"
                   onClick={() => setIsMenuOpen(false)}
@@ -174,7 +177,7 @@ export const HeaderGold = () => {
             <div className="p-6 border-b border-gray-200">
               <div className="bg-[#1a237e] rounded-full px-4 py-3 flex items-center gap-2 justify-center">
                 <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-                <span className="text-white text-sm font-semibold">₹9,846.98/g</span>
+                <span className="text-white text-sm font-semibold">₹{goldRate}/g</span>
               </div>
             </div>
 
