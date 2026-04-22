@@ -187,10 +187,10 @@ export const FAQs = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-10"
+          className="text-center mb-4 lg:mb-10"
         >
           <h2
-            className="text-[26px] lg:text-[40px] font-bold leading-[32px] lg:leading-[46px] text-[#0A0A0A] mb-8"
+            className="text-[26px] lg:text-[40px] font-bold leading-[32px] lg:leading-[46px] text-[#0A0A0A] mb-6"
             style={sansation}
           >
             FAQs about Stoex Gold

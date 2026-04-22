@@ -55,7 +55,7 @@ export default function Secure() {
     <section className=" relative bg-white py-[80px] lg:py-[100px] px-6">
       {/* CompaniesEllipse: desktop — absolute top-left; mobile — hidden here, shown inline below */}
       <div className="container mx-auto max-w-[1200px]">
-        <div className="flex items-start justify-center gap-8 mb-6 lg:mb-10">
+        <div className="flex items-start justify-center gap-8 mb-8 lg:mb-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -129,7 +129,7 @@ export default function Secure() {
             </motion.div>
           ))}
         </div>
-        <div className="flex flex-col pt-[20px] lg:flex-col gap-2 ">
+        <div className="flex flex-col pt-[20px] lg:flex-col gap-3 ">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

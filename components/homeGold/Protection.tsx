@@ -101,7 +101,7 @@ export const Protection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-[60px] max-w-[550px] mx-auto"
+          className="text-center mb-[20px] max-w-[550px] mx-auto"
         >
           <div className="mb-4 lg:mb-6">
             <h2 className="text-[26px] lg:text-[40px] font-bold leading-[32px] lg:leading-[46px] mb-1" style={sansation}>

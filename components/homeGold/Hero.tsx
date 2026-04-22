@@ -585,7 +585,7 @@ export const HeroGold = () => {
     goldGrams >= 0.00001 ? `${goldGrams.toFixed(4)}g gold` : "0.00g gold";
 
   return (
-    <div className="relative pb-10 lg:pb-0 flex min-h-[calc(100dvh-5rem)] items-center overflow-hidden bg-white">
+    <div className="relative pb-3 lg:pb-0 flex min-h-[calc(100dvh-5rem)] items-center overflow-hidden bg-white">
       <HeroGoldBackdrop />
 
       <div className="absolute top-6 right-[50%] translate-x-[50%] lg:hidden block bg-[#F7F8FC] border border-[#E5E7EF] w-fit rounded-full px-4 py-2 flex items-center gap-2 ">

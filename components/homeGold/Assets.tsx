@@ -25,7 +25,7 @@ export const Assets = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8 }}
-          className="text-center flex flex-col items-center mb-12"
+          className="text-center flex flex-col items-center mb-8 lg:mb-12"
         >
           <h2
             className="text-[26px] max-w-[300px]  lg:max-w-none lg:text-[40px] font-semibold leading-[32px] lg:leading-[46px] text-[#0A0A0A] mb-4 lg:mb-6"
@@ -54,10 +54,10 @@ export const Assets = () => {
           <div className="flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
             <div className="flex-1 min-w-0">
               {/* Live Now badge */}
-              <div className="inline-flex items-center gap-2 border border-[#34C759] rounded-full px-4 py-1.5 mb-5">
-                <span className="w-2 h-2 rounded-full bg-[#34C759]" />
+              <div className="inline-flex items-center gap-2 border border-[#0A9B46] rounded-full px-4 py-1.5 mb-5">
+                <span className="w-2 h-2 rounded-full bg-[#0A9B46]" />
                 <span
-                  className="text-[14px] font-medium text-[#34C759]"
+                  className="text-[14px] font-medium text-[#0A9B46]"
                   style={mona}
                 >
                   Live Now

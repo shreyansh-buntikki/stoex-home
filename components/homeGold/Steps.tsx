@@ -306,7 +306,7 @@ export const Steps = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-20 max-w-[911px] mx-auto"
+            className="text-center mb-8 lg:mb-20 max-w-[911px] mx-auto"
           >
             <h2 className="text-[26px] lg:text-[40px] font-semibold leading-[32px] lg:leading-[40px] mb-4 lg:mb-6" style={sansation}>
               <span className="text-white">Three Steps. </span>
@@ -455,7 +455,7 @@ export const Steps = () => {
             </div>
 
             <motion.div
-              className="lg:hidden relative pl-6"
+              className="lg:hidden relative pl-6 pb-4"
               variants={mobileContainerVariants}
               initial="hidden"
               whileInView="visible"
@@ -471,7 +471,7 @@ export const Steps = () => {
                   <div className="absolute -left-6 top-[6px] w-3 h-3 bg-white rounded-full border-2 border-white shadow-lg z-10" />
 
                   {/* Vertical connector below dot — continues through all steps including last */}
-                  <div className="absolute -left-[19.5px] top-[18px] bottom-[-12px] w-px overflow-hidden">
+                  <div className={`absolute -left-[19.5px] top-[18px] w-px overflow-hidden ${index === stepData.length - 1 ? "bottom-[1%]" : "bottom-[-12px]"}`}>
                     <motion.div
                       variants={mobileConnectorVariants}
                       className="w-full bg-[#5C5C94]"

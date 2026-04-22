@@ -410,7 +410,7 @@ function CashCard({ active }: { active: boolean }) {
         </motion.div>
       </div>
 
-      <div className="mt-auto  flex justify-center">
+      <div className="-mt-3 lg:mt-auto flex justify-center">
         <button
           className={`w-fit px-4 self-center flex items-center justify-center gap-2 rounded-full py-3.5 text-[15px] font-bold transition-colors ${
             active
@@ -577,7 +577,7 @@ function PhysicalCard({ active }: { active: boolean }) {
       </div>
 
       {/* Redeem Button */}
-      <div className="mt-auto pt-8 flex justify-center">
+      <div className="mt-6 lg:mt-auto lg:pt-8 flex justify-center">
         <button
           className={`w-fit px-4 flex items-center justify-center gap-2 rounded-full py-3.5 text-[15px] font-bold transition-colors ${
             active

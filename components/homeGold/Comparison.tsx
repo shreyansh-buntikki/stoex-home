@@ -163,7 +163,7 @@ export const Comparison = () => {
             <div className="flex items-stretch bg-[#F7F8FC] border-b border-[#E5E7EF] divide-x divide-[#E5E7EF]">
               <div className="flex-1 px-2 py-4">
                 <p
-                  className="text-[10px] leading-[13px] text-[#8A8FA8] font-bold tracking-[0.5px] capitalize"
+                  className="text-[10px] leading-[13px] text-[#8A8FA8] font-bold text-center tracking-[0.5px] capitalize"
                   style={mona}
                 >
                   Feature
