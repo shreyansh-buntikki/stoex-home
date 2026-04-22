@@ -68,7 +68,7 @@ function MobileStickyBar({
   useEffect(() => {
     const handleScroll = () => {
       const currentY = window.scrollY;
-      if (Math.abs(currentY - lastScrollY.current) > 4) {
+      if (Math.abs(currentY - lastScrollY.current) > 40) {
         setScrollingDown(currentY > lastScrollY.current);
         lastScrollY.current = currentY;
       }
@@ -86,7 +86,7 @@ function MobileStickyBar({
       className={`lg:hidden fixed bottom-0 left-0 right-0 z-50 px-4 pt-3 transition-transform duration-300 ${show ? "translate-y-0" : "translate-y-full"}`}
       style={{
         backgroundColor: "#F7F8FC",
-        paddingBottom: "calc(12px + env(safe-area-inset-bottom))",
+        paddingBottom: "max(12px, env(safe-area-inset-bottom))",
       }}
     >
       <button
