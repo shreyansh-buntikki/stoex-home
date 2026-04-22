@@ -31,7 +31,6 @@ function MobileStickyBar({
   const [earlyAccessVisible, setEarlyAccessVisible] = useState(false);
   const [scrollingDown, setScrollingDown] = useState(true);
   const lastScrollY = useRef(0);
-  const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const footerEl = footerRef.current;
@@ -78,40 +77,16 @@ function MobileStickyBar({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    const vv = window.visualViewport;
-    if (!vv) return;
-
-    const update = () => {
-      const bar = barRef.current;
-      if (!bar) return;
-      // Only apply offset when keyboard is open (vv.height meaningfully smaller than window.innerHeight).
-      // Avoid pushing bar up by the browser chrome height on iOS when no keyboard.
-      const rawOffset = window.innerHeight - (vv.offsetTop + vv.height);
-      const keyboardOpen = rawOffset > 100;
-      bar.style.bottom = keyboardOpen ? `${rawOffset}px` : "0px";
-    };
-
-    vv.addEventListener("resize", update);
-    vv.addEventListener("scroll", update);
-    update();
-
-    return () => {
-      vv.removeEventListener("resize", update);
-      vv.removeEventListener("scroll", update);
-    };
-  }, []);
 
   const show =
     !footerVisible && !heroVisible && !earlyAccessVisible && scrollingDown;
 
   return (
     <div
-      ref={barRef}
       className={`lg:hidden fixed bottom-0 left-0 right-0 z-50 px-4 pt-3 transition-transform duration-300 ${show ? "translate-y-0" : "translate-y-full"}`}
       style={{
         backgroundColor: "#F7F8FC",
-        paddingBottom: "calc(10px + env(safe-area-inset-bottom))",
+        paddingBottom: "env(safe-area-inset-bottom)",
       }}
     >
       <button
