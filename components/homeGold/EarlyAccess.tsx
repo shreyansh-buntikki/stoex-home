@@ -14,8 +14,8 @@ const sansation: CSSProperties = {
 
 const benefits = [
   "Priority access to platform",
-  "Receive gold reward points with first transaction",
-  "Zero platform fees",
+  "5% bonus on first investment",
+  "Zero fees for 3 months",
   "Exclusive community access",
 ];
 
@@ -104,7 +104,7 @@ export const EarlyAccess = () => {
               </span>
             </p>
 
-            <div className="mt-6 flex flex-wrap pb-15 items-center justify-center gap-x-5 gap-y-2">
+            <div className="mt-6 mx-auto flex flex-wrap lg:max-w-none max-w-[220px] pb-15 items-center lg:justify-center justify-start gap-x-5 gap-y-2">
               {benefits.map((item) => (
                 <div key={item} className="inline-flex items-center gap-2">
                   <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-[#E9FAEF] text-[#34C759] text-[10px] font-bold">

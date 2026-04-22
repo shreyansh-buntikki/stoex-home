@@ -13,36 +13,37 @@ import {
   type ReactNode,
 } from "react";
 
-import AmrapaliLogo from "@/public/assets/logos/amrapali-3.svg";
-import SequelLogo from "@/public/assets/logos/sequel.webp";
-import RRBPLogo from "@/public/assets/logos/rrbp.webp";
-import VistraLogo from "@/public/assets/logos/vistara.webp";
+import AmrapaliLogo from "@/public/assets/logos/amrapali-2.svg";
+import SequelLogo from "@/public/assets/logos/sequel.svg";
+import RRBPLogo from "@/public/assets/logos/rrbp.svg";
+import VistraLogo from "@/public/assets/logos/vistara.svg";
 import { useGoldRate } from "@/hooks/useGoldRate";
+import Coins from "@/public/assets/images/coins.webp";
 
 const StripContent = [
   {
     logo: AmrapaliLogo,
     alt: "Amrapali Logo",
     content: "Backed by Amrapali",
-    logoClass: "h-5 w-auto",
+    logoClass: "h-7 w-auto",
   },
   {
     logo: SequelLogo,
     alt: "Sequel Logo",
     content: "Secured in Sequel Vaults",
-    logoClass: "h-6 w-auto",
+    logoClass: "h-4 w-auto",
   },
   {
     logo: VistraLogo,
     alt: "Vistra Logo",
     content: "Vistra – Administrator",
-    logoClass: "h-5 w-auto",
+    logoClass: "h-3 w-auto",
   },
   {
     logo: RRBPLogo,
     alt: "RRBP Logo",
     content: "Audited by RRBP",
-    logoClass: "h-12 w-auto",
+    logoClass: "h-9 w-auto",
   },
 ];
 
@@ -76,13 +77,13 @@ function MobileMarqueeStrip() {
   return (
     <div className="lg:hidden w-screen overflow-hidden -mx-6 -mt-0">
       <div
-        className="flex w-max"
+        className="flex w-max gap-5"
         style={{
           animation: "marquee-scroll 14s linear infinite",
         }}
       >
         {items.map((item, i) => (
-          <div key={i} className="flex shrink-0 items-center">
+          <div key={i} className="flex bg-[#F7F8FC] py-1 border border-[#E5E7EF] rounded-full  shrink-0 items-center">
             <div className="flex items-center gap-2 px-4">
               <Image
                 src={item.logo}
@@ -98,11 +99,7 @@ function MobileMarqueeStrip() {
                 {item.content}
               </span>
             </div>
-            <div
-              aria-hidden
-              className="h-4 w-px shrink-0"
-              style={{ background: STRIP_DIVIDER }}
-            />
+            
           </div>
         ))}
       </div>
@@ -120,7 +117,7 @@ function HeroGoldBackdrop() {
   return (
     <>
       <div
-        className="pointer-events-none absolute inset-0 z-0"
+        className="pointer-events-none absolute inset-0 z-0 hidden lg:block"
         aria-hidden
         style={{ background: HERO_GOLD_GLOW }}
       />
@@ -145,15 +142,22 @@ function GoldHeroLead() {
     <div className="space-y-4 lg:space-y-8">
       <div className="relative">
         <div className="space-y-4 lg:space-y-6">
-          <h1 className="text-center mx-auto lg:mx-0 max-w-[350px] lg:max-w-none lg:text-left font-[700] text-[40px] leading-[42px] lg:text-[56px] lg:leading-[55px]">
+          <Image
+            src={Coins}
+            alt="Coins"
+            width={257}
+            height={127}
+            className="lg:hidden block mx-auto"
+          />
+          <h1 className="text-center mx-auto lg:mx-0 max-w-none lg:max-w-none lg:text-left font-[700] text-[40px] leading-[42px] lg:text-[56px] lg:leading-[55px]">
             <span className="block text-[#B8860B]" style={sansation}>
               Gold at live price.{" "}
             </span>
             <span
-              className="block font-[700] text-[#0A0A0A] text-[40px] leading-[46px] lg:text-[56px] lg:leading-[55px]"
+              className="block font-[700] text-[#0A0A0A] text-[36px] leading-[46px] lg:text-[56px] lg:leading-[55px]"
               style={{ ...mona, letterSpacing: "1px" }}
             >
-              Yours in 3 clicks.
+              Yours in minutes.
             </span>
           </h1>
 
@@ -324,7 +328,7 @@ function GoldInvestCard({
         <span className="mr-1 inline-block h-2 w-2 shrink-0 rounded-full bg-emerald-500" />
       ),
     },
-    { k: "audit", line: "28 Feb", sub: "LAST AUDIT", node: null },
+    { k: "audit", line: "28 Feb 2026", sub: "LAST AUDIT", node: null },
   ];
 
   const setFromGrams = (g: number) => {
@@ -447,10 +451,7 @@ function GoldInvestCard({
             >
               Gold (grams)
             </label>
-            <div
-              className="mt-1 flex min-w-0 items-baseline gap-1"
-              style={mona}
-            >
+            <div className="mt-1 flex items-baseline gap-0" style={mona}>
               <input
                 type="text"
                 name="gold-invest-grams"
@@ -458,8 +459,11 @@ function GoldInvestCard({
                 autoComplete="off"
                 aria-label="Gold in grams"
                 pattern="[0-9]*[.]?[0-9]*"
-                className={`${valueInputClass} text-[#111827]`}
-                style={mona}
+                className="min-w-0 border-none bg-transparent p-0 text-[24px] font-medium leading-none tracking-tight outline-none ring-0 focus:ring-0 sm:text-[28px] text-[#111827]"
+                style={{
+                  ...mona,
+                  width: `${Math.max((gramsEdit || "0").length, 2)}ch`,
+                }}
                 value={gramsEdit}
                 onChange={(e) => {
                   const cleaned = sanitizeGramsInput(e.target.value);
@@ -474,7 +478,7 @@ function GoldInvestCard({
                   setGramsEdit(formatGramsInputDisplay(goldGrams));
                 }}
               />
-              <span className="shrink-0 text-[28px] font-bold leading-none tracking-tight text-[#111827] sm:text-28px]">
+              <span className="shrink-0 text-[28px] font-medium leading-none tracking-tight text-[#111827] sm:text-[28px]">
                 g
               </span>
             </div>
@@ -535,11 +539,7 @@ function GoldInvestCard({
 
         <button
           type="button"
-          className={`mt-1 w-full rounded-4xl py-3.5 text-[15px] font-bold uppercase tracking-wide text-white transition-colors ${
-            mode === "Sell"
-              ? "bg-[#C62828] hover:bg-[#B71C1C]"
-              : "bg-[#00007F] hover:bg-[#000066]"
-          }`}
+          className={`mt-1 w-full rounded-4xl py-3.5 text-[15px] font-bold uppercase tracking-wide text-white transition-colors ${"bg-[#00007F] hover:bg-[#000066]"}`}
           style={mona}
         >
           {mode === "Sell" ? "SELL" : "INVEST"}
@@ -588,9 +588,14 @@ export const HeroGold = () => {
     <div className="relative pb-10 lg:pb-0 flex min-h-[calc(100dvh-5rem)] items-center overflow-hidden bg-white">
       <HeroGoldBackdrop />
 
-      <div className="absolute top-6 right-[50%] translate-x-[50%] lg:hidden block bg-white w-fit rounded-full px-4 py-2 flex items-center gap-2 shadow-sm">
+      <div className="absolute top-6 right-[50%] translate-x-[50%] lg:hidden block bg-[#F7F8FC] border border-[#E5E7EF] w-fit rounded-full px-4 py-2 flex items-center gap-2 ">
         <div className="w-2 h-2 bg-[#1A9E5C] rounded-full animate-pulse"></div>
-        <span className="text-[#0000000] text-[13px] font-semibold">
+        <span className="text-[#0A9B46] text-[13px] font-semibold">LIVE</span>
+        <div className="h-3.5 w-px bg-[#E5E7EF]" />
+        <span className="text-[#0A0A0A] text-[13px] font-regular whitespace-nowrap">
+          24K Gold
+        </span>
+        <span className="text-[#0A0A0A] text-[13px] font-semibold whitespace-nowrap">
           ₹{goldRate}/g
         </span>
       </div>
@@ -603,13 +608,17 @@ export const HeroGold = () => {
 
           <div className="relative flex w-full justify-center mt-6 lg:mt-0 lg:justify-end">
             <div className="w-full max-w-[440px] space-y-4 ">
-              <div className="block lg:hidden grid grid-cols-2 gap-x-4 gap-y-2 pt-1 pb-5 lg:flex lg:flex-nowrap lg:gap-0 lg:overflow-x-auto lg:pt-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+              <div
+                className="block lg:hidden grid grid-cols-2 justify-start gap-x-4 gap-y-2 pt-1 pb-5 lg:flex lg:flex-nowrap lg:gap-0 lg:overflow-x-auto lg:pt-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+                style={{ alignItems: "start" }}
+              >
                 {TRUST_ITEMS.map((item, index) => (
                   <div
-                    className="flex items-center gap-2 lg:shrink-0"
+                    className="flex items-start text-start gap-2 lg:shrink-0"
+                    style={{ alignSelf: "start" }}
                     key={item}
                   >
-                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#B8860B] lg:hidden" />
+                    <span className="mt-[5px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#B8860B] lg:hidden" />
                     {index > 0 && (
                       <div
                         aria-hidden

@@ -136,7 +136,7 @@ const stepData = [
     icon: Phone,
     secondaryIcon: Mail,
     mockups: [
-      { icon: Phone, label: "Phone numbers", bgColor: "bg-blue-500/20" },
+      { icon: Phone, label: "Phone number", bgColor: "bg-blue-500/20" },
       { icon: Mail, label: "Email address", bgColor: "bg-green-500/20" },
     ],
   },
@@ -182,7 +182,7 @@ function StepMockup({ step, index }: { step: any; index: number }) {
               <Phone className="w-5 h-5 text-white" />
             </div>
             <span className="text-white text-[15px] flex-1" style={mona}>
-              Phone numbers
+              Phone number
             </span>
             <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
               <Check className="w-3 h-3 text-white" strokeWidth={2} />

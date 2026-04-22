@@ -78,10 +78,10 @@ export const Comparison = () => {
               <div className="flex-1 flex flex-col">
                 <div className="px-5 py-5 h-[58px] flex items-center">
                   <p
-                    className="text-[14px] leading-[16px] text-[#8A8FA8] font-bold tracking-[0.525px] uppercase"
+                    className="text-[14px] leading-[16px] text-[#8A8FA8] font-bold tracking-[0.525px]"
                     style={mona}
                   >
-                    FEATURE
+                    Feature
                   </p>
                 </div>
                 {comparisonData.map((row) => (
@@ -103,10 +103,10 @@ export const Comparison = () => {
               <div className="flex-1 flex flex-col border border-[#E5E7EF] rounded-[14px] overflow-hidden">
                 <div className="bg-[#F7F8FC] px-5 py-5 h-[58px] flex items-center justify-center">
                   <p
-                    className="text-[14px] leading-[16px] text-[#8A8FA8] font-bold tracking-[0.525px] uppercase"
+                    className="text-[14px] leading-[16px] text-[#8A8FA8] font-bold tracking-[0.525px]"
                     style={mona}
                   >
-                    TRADITIONAL
+                    Traditional
                   </p>
                 </div>
                 {comparisonData.map((row) => (
@@ -161,25 +161,25 @@ export const Comparison = () => {
           >
             {/* Table header */}
             <div className="flex items-stretch bg-[#F7F8FC] border-b border-[#E5E7EF] divide-x divide-[#E5E7EF]">
-              <div className="flex-1 px-4 py-5">
+              <div className="flex-1 px-2 py-4">
                 <p
-                  className="text-[11px] leading-[14px] text-[#8A8FA8] font-bold tracking-[0.5px] uppercase"
+                  className="text-[10px] leading-[13px] text-[#8A8FA8] font-bold tracking-[0.5px] capitalize"
                   style={mona}
                 >
-                  FEATURE
+                  Feature
                 </p>
               </div>
-              <div className="flex-1 px-4 py-5 text-center">
+              <div className="flex-1 px-2 py-4 text-center">
                 <p
-                  className="text-[11px] leading-[14px] text-[#8A8FA8] font-bold tracking-[0.5px] uppercase"
+                  className="text-[10px] leading-[13px] text-[#8A8FA8] font-bold tracking-[0.5px] capitalize"
                   style={mona}
                 >
-                  TRADITIONAL
+                  Traditional
                 </p>
               </div>
-              <div className="flex-1 px-4 py-5 text-center">
+              <div className="flex-1 px-2 py-4 text-center">
                 <p
-                  className="text-[11px] leading-[14px] text-[#00007F] font-bold tracking-[0.5px] uppercase"
+                  className="text-[10px] leading-[13px] text-[#00007F] font-bold tracking-[0.5px] uppercase"
                   style={mona}
                 >
                   STOEX GOLD
@@ -193,25 +193,25 @@ export const Comparison = () => {
                 key={row.feature}
                 className="flex items-stretch border-b border-[#E5E7EF] last:border-b-0 divide-x divide-[#E5E7EF]"
               >
-                <div className="flex-1 px-4 py-5 flex items-center justify-center">
+                <div className="flex-1 px-2 py-4 flex items-center justify-center">
                   <p
-                    className="text-[12px] leading-[18px] text-[#3D3D3D] font-medium text-center"
+                    className="text-[11px] leading-[16px] text-[#3D3D3D] font-medium text-center"
                     style={mona}
                   >
                     {row.feature}
                   </p>
                 </div>
-                <div className="flex-1 px-4 py-5 flex items-center justify-center">
+                <div className="flex-1 px-2 py-4 flex items-center justify-center">
                   <p
-                    className="text-[12px] leading-[18px] text-[#8A8FA8] text-center"
+                    className="text-[11px] leading-[16px] text-[#8A8FA8] text-center"
                     style={mona}
                   >
                     {row.traditional}
                   </p>
                 </div>
-                <div className="flex-1 px-4 py-5 flex items-center justify-center">
+                <div className="flex-1 px-2 py-4 flex items-center justify-center">
                   <p
-                    className="text-[14px] leading-[18px] text-[#00007F] font-semibold text-center"
+                    className="text-[12px] leading-[16px] text-[#00007F] font-semibold text-center"
                     style={mona}
                   >
                     {row.stoex}

@@ -22,7 +22,7 @@ const sansation: CSSProperties = {
 
 type RedeemMode = "cash" | "physical";
 
-const QUICK_GRAMS_CASH = [0.01, 0.02, 0.03, 0.04];
+const QUICK_GRAMS_CASH = [0.01, 0.5, 1, 2];
 const QUICK_AMOUNTS = [15, 100, 500, 1000, 5000] as const;
 const CARD_GAP = 55;
 const swapDuration = 0.45;
@@ -202,7 +202,7 @@ function CashCard({ active }: { active: boolean }) {
             >
               Gold (grams)
             </label>
-              <div className="flex min-w-0 items-baseline gap-0.5" style={mona}>
+              <div className="flex items-baseline gap-0" style={mona}>
                 <input
                   type="text"
                   name="redeem-cash-gold-grams"
@@ -210,8 +210,8 @@ function CashCard({ active }: { active: boolean }) {
                   autoComplete="off"
                   aria-label="Gold in grams"
                   pattern="[0-9]*[.]?[0-9]*"
-                  className={`${valueInputClass} ${goldFirst && !greyed ? "text-[#0A0A0A]" : "text-[#BCBCBC]"}`}
-                  style={mona}
+                  className={`min-w-0 border-none bg-transparent p-0 text-[28px] font-bold leading-none tracking-tight outline-none ring-0 focus:ring-0 ${goldFirst && !greyed ? "text-[#0A0A0A]" : "text-[#BCBCBC]"}`}
+                  style={{ ...mona, width: `${Math.max((gramsEdit || "0").length, 2)}ch` }}
                   value={gramsEdit}
                   onChange={(e) => {
                     const cleaned = sanitizeGramsInput(e.target.value);
@@ -470,7 +470,7 @@ function PhysicalCard({ active }: { active: boolean }) {
       </p>
 
       {/* Gold (grams) */}
-      <div className="mt-4 mb-9 relative rounded-xl border border-[#E5E7EB] overflow-visible">
+      <div className="mt-4 mb-12 lg:mb-9 relative rounded-xl border border-[#E5E7EB] overflow-visible">
         <div
           className={`relative z-10 rounded-xl p-4 ${greyed ? "bg-[#F9FAFB]" : "bg-white"}`}
         >
@@ -535,7 +535,7 @@ function PhysicalCard({ active }: { active: boolean }) {
           </div>
         </div>
         <p
-          className={`absolute -bottom-9 z-0 left-0 right-0 flex w-full items-end justify-center rounded-b-xl px-0 pt-4 pb-2 text-center text-[13px] leading-[18px] ${
+          className={`absolute -bottom-7 lg:-bottom-9 z-0 left-0 right-0 flex w-full items-end justify-center rounded-b-xl px-1 pt-4 pb-2 text-center text-[11px] leading-[12px] ${
             greyed
               ? "bg-[#F1F1F6] text-[#C8C8D6]"
               : "bg-[#E6E6F2] text-[#3F4656]"

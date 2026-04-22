@@ -22,7 +22,7 @@ export function GoldRateProvider({ children }: { children: ReactNode }) {
         },
       });
       const data = await response.json();
-      setGoldRate(data.data.gold_rate);
+      setGoldRate(data?.data?.gold_rate || 0);
     } catch (error) {
       setGoldRate(0);
       console.error(error);

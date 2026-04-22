@@ -7,7 +7,7 @@ import type { CSSProperties } from "react";
 
 import CoinIcon from "@/public/assets/icons/money.png";
 import KeysImage from "@/public/assets/icons/keys.png";
-import GraphImage from "@/public/assets/icons/graph.png";
+import GraphImage from "@/public/assets/icons/money-bag.png";
 
 const mona: CSSProperties = { fontFamily: "Mona Sans, sans-serif" };
 const sansation: CSSProperties = {
@@ -222,7 +222,7 @@ export const Assets = () => {
                 alt="Private Markets"
                 width={90}
                 height={90}
-                className="object-contain object-right-top w-[65px] h-[65px] lg:w-[90px] lg:h-[90px]"
+                className="object-contain object-right-top w-[45px] h-[45px] lg:w-[70px] lg:h-[70px]"
               />
             </div>
 

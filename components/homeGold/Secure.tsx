@@ -5,10 +5,10 @@ import Image from "next/image";
 import type { CSSProperties } from "react";
 
 import PassbookImage from "@/public/assets/images/passbook.webp";
-import AmrapaliLogo from "@/public/assets/logos/amrapali-2.webp";
-import SequelLogo from "@/public/assets/logos/sequel.webp";
-import RRBPLogo from "@/public/assets/logos/rrbp.webp";
-import VistraLogo from "@/public/assets/logos/vistara.webp";
+import AmrapaliLogo from "@/public/assets/logos/amrapali-2.svg";
+import SequelLogo from "@/public/assets/logos/sequel.svg";
+import RRBPLogo from "@/public/assets/logos/rrbp.svg";
+import VistraLogo from "@/public/assets/logos/vistara.svg";
 import StripLogo from "@/public/assets/logos/stoex-strip-logo.webp";
 
 const mona: CSSProperties = { fontFamily: "Mona Sans, sans-serif" };
@@ -24,13 +24,14 @@ const securityFeatures = [
     title: "Amrapali Group Certified Gold",
     description:
       "All gold on STOEX is sourced exclusively through Amrapali Group. Every gram is certified 24-karat.",
+    classname: "w-[80%]",
   },
   {
     logo: SequelLogo,
     logoAlt: "Sequel",
     title: "Secured Vault Transfer",
     description:
-      "Once sourced, gold is transported via and stored in Brink's institutional-grade vaults under 24/7 surveillance.",
+      "Once sourced, gold is transported via and stored in Sequel's institutional-grade vaults under 24/7 surveillance.",
   },
   {
     logo: RRBPLogo,
@@ -38,6 +39,7 @@ const securityFeatures = [
     title: "Independent Third-Party Audits",
     description:
       "RRBP independently audits our gold reserves every quarter — verifying that every gold unit issued is matched 1:1 with physical gold.",
+    classname: "w-[70%]",
   },
   {
     logo: VistraLogo,
@@ -97,7 +99,7 @@ export default function Secure() {
                 <Image
                   src={feature.logo}
                   alt={feature.logoAlt}
-                  className="object-contain"
+                  className={`object-contain ${feature.classname || "w-[100%]"}`}
                 />
               </div>
               <div className="space-y-1.5">
@@ -139,13 +141,14 @@ export default function Secure() {
               className="text-[28px] lg:text-[40px] text-center font-bold leading-[32px] text-[#0A0A0A]"
               style={sansation}
             >
-              Your Digital <br className="block lg:hidden"/> Gold Passbook
+              Your Digital <br className="block lg:hidden" /> Gold Passbook
             </h3>
             <p
               className="text-[15px] lg:text-[16px] mt-2 text-center leading-[22px] text-[#3D3D3D]"
               style={mona}
             >
-             Every gram, every custodian, every audit - recorded on a tamper-proof ledger you can check anytime.
+              Every gram, every custodian, every audit - recorded on a
+              tamper-proof ledger you can check anytime.
             </p>
           </motion.div>
 
