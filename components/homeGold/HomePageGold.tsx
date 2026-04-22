@@ -85,8 +85,11 @@ function MobileStickyBar({
     const update = () => {
       const bar = barRef.current;
       if (!bar) return;
-      const bottomOffset = window.innerHeight - (vv.offsetTop + vv.height);
-      bar.style.bottom = `${bottomOffset}px`;
+      // Only apply offset when keyboard is open (vv.height meaningfully smaller than window.innerHeight).
+      // Avoid pushing bar up by the browser chrome height on iOS when no keyboard.
+      const rawOffset = window.innerHeight - (vv.offsetTop + vv.height);
+      const keyboardOpen = rawOffset > 100;
+      bar.style.bottom = keyboardOpen ? `${rawOffset}px` : "0px";
     };
 
     vv.addEventListener("resize", update);
@@ -105,9 +108,10 @@ function MobileStickyBar({
   return (
     <div
       ref={barRef}
-      className={`lg:hidden fixed bottom-0 left-0 right-0 z-50 px-4 py-3 transition-transform duration-300 ${show ? "translate-y-0" : "translate-y-full"}`}
+      className={`lg:hidden fixed bottom-0 left-0 right-0 z-50 px-4 pt-3 transition-transform duration-300 ${show ? "translate-y-0" : "translate-y-full"}`}
       style={{
         backgroundColor: "#F7F8FC",
+        paddingBottom: "calc(10px + env(safe-area-inset-bottom))",
       }}
     >
       <button
