@@ -86,7 +86,7 @@ function MobileStickyBar({
       className={`lg:hidden fixed bottom-0 left-0 right-0 z-50 px-4 pt-3 transition-transform duration-300 ${show ? "translate-y-0" : "translate-y-full"}`}
       style={{
         backgroundColor: "#F7F8FC",
-        paddingBottom: "env(safe-area-inset-bottom)",
+        paddingBottom: "calc(12px + env(safe-area-inset-bottom))",
       }}
     >
       <button

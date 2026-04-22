@@ -319,16 +319,16 @@ function GoldInvestCard({
     sub: string;
     node: ReactNode;
   }[] = [
-    { k: "purity", line: "24 Karat", sub: "PURITY", node: null },
+    { k: "purity", line: "24 Karat", sub: "Purity", node: null },
     {
       k: "vault",
       line: "Live",
-      sub: "VAULT STATUS",
+      sub: "Vault Status",
       node: (
         <span className="mr-1 inline-block h-2 w-2 shrink-0 rounded-full bg-emerald-500" />
       ),
     },
-    { k: "audit", line: "28 Feb 2026", sub: "LAST AUDIT", node: null },
+    { k: "audit", line: "28 Feb 2026", sub: "Last Audit", node: null },
   ];
 
   const setFromGrams = (g: number) => {
@@ -561,7 +561,7 @@ function GoldInvestCard({
                 {col.line}
               </div>
               <div
-                className="mt-1 text-[9px] uppercase tracking-wide text-[#8A8FA8] sm:text-[10px]"
+                className="mt-1 text-[9px] tracking-wide text-[#8A8FA8] sm:text-[10px]"
                 style={mona}
               >
                 {col.sub}
