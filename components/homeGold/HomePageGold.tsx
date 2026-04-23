@@ -13,75 +13,46 @@ import Secure from "./Secure";
 import { Steps } from "./Steps";
 import { GoldRateProvider } from "@/hooks/useGoldRate";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const mona = { fontFamily: "Mona Sans, sans-serif" };
 
-const GAP_ABOVE_FOOTER = 16;
+const HIDE_SECTIONS = ["hero-section", "early-access-section", "site-footer"];
 
-function MobileStickyBar({
-  footerRef,
-  heroRef,
-  earlyAccessRef,
-}: {
-  footerRef: React.RefObject<HTMLElement | null>;
-  heroRef: React.RefObject<HTMLElement | null>;
-  earlyAccessRef: React.RefObject<HTMLElement | null>;
-}) {
-  const [bottom, setBottom] = useState(0);
-  const [heroVisible, setHeroVisible] = useState(true);
-  const [earlyAccessVisible, setEarlyAccessVisible] = useState(false);
+function MobileStickyBar() {
+  const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
-    const heroEl = heroRef.current;
-    if (!heroEl) return;
+    const visibility = new Map<string, boolean>();
     const observer = new IntersectionObserver(
-      ([entry]) => setHeroVisible(entry.isIntersecting),
-      { threshold: 0 },
+      (entries) => {
+        entries.forEach((entry) => {
+          visibility.set(entry.target.id, entry.isIntersecting);
+        });
+        setHidden(Array.from(visibility.values()).some(Boolean));
+      },
+      { threshold: 0.1 },
     );
-    observer.observe(heroEl);
-    return () => observer.disconnect();
-  }, [heroRef]);
 
-  useEffect(() => {
-    const earlyAccessEl = earlyAccessRef.current;
-    if (!earlyAccessEl) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setEarlyAccessVisible(entry.isIntersecting),
-      { threshold: 0 },
-    );
-    observer.observe(earlyAccessEl);
-    return () => observer.disconnect();
-  }, [earlyAccessRef]);
-
-  useEffect(() => {
-    const updateBottom = () => {
-      const footer = footerRef.current;
-      if (!footer) { setBottom(0); return; }
-      const rect = footer.getBoundingClientRect();
-      const vh = window.innerHeight;
-      if (rect.top < vh) {
-        setBottom(Math.max(0, vh - rect.top + GAP_ABOVE_FOOTER));
-      } else {
-        setBottom(0);
+    const elements: Element[] = [];
+    for (const id of HIDE_SECTIONS) {
+      const el = document.getElementById(id);
+      if (el) {
+        observer.observe(el);
+        elements.push(el);
       }
-    };
-    updateBottom();
-    window.addEventListener("scroll", updateBottom, { passive: true });
-    window.addEventListener("resize", updateBottom);
-    return () => {
-      window.removeEventListener("scroll", updateBottom);
-      window.removeEventListener("resize", updateBottom);
-    };
-  }, [footerRef]);
+    }
 
-  const show = !heroVisible && !earlyAccessVisible;
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+      observer.disconnect();
+    };
+  }, []);
 
   return (
     <div
-      className={`lg:hidden fixed inset-x-0 z-50 px-4 py-3 transition-transform duration-300 ${show ? "translate-y-0" : "translate-y-full"}`}
+      className={`lg:hidden fixed inset-x-0 bottom-0 z-50 px-4 py-3 transition-transform duration-300 ${hidden ? "translate-y-full" : "translate-y-0"}`}
       style={{
-        bottom: `${bottom}px`,
         backgroundColor: "#fff",
         paddingBottom: "env(safe-area-inset-bottom)",
       }}
@@ -104,16 +75,12 @@ function MobileStickyBar({
 }
 
 export function HomePageGold() {
-  const footerRef = useRef<HTMLElement>(null);
-  const heroRef = useRef<HTMLElement>(null);
-  const earlyAccessRef = useRef<HTMLElement>(null);
-
   return (
     <GoldRateProvider>
       <div className="min-h-screen bg-background overflow-x-hidden">
         <HeaderGold />
         <main className="overflow-x-hidden pb-[40px] lg:pb-0">
-          <section ref={heroRef}>
+          <section id="hero-section">
             <HeroGold />
           </section>
           <Secure />
@@ -125,18 +92,14 @@ export function HomePageGold() {
           <Redemption />
           <FAQs />
           <Assets />
-          <section ref={earlyAccessRef}>
+          <section id="early-access-section">
             <EarlyAccess />
           </section>
         </main>
-        <footer ref={footerRef}>
+        <footer id="site-footer">
           <Footer />
         </footer>
-        <MobileStickyBar
-          footerRef={footerRef}
-          heroRef={heroRef}
-          earlyAccessRef={earlyAccessRef}
-        />
+        <MobileStickyBar />
       </div>
     </GoldRateProvider>
   );

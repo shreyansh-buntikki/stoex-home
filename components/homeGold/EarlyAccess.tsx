@@ -21,7 +21,7 @@ const benefits = [
 
 export const EarlyAccess = () => {
   return (
-    <section className="bg-white  py-[0px] pt-0 lg:py-[100px] lg:pb-0 pb-0 px-0">
+    <section id="early-access-section" className="bg-white  py-[0px] pt-0 lg:py-[100px] lg:pb-0 pb-0 px-0">
       <div className="mx-auto w-full max-w-none">
         <div className="relative w-full overflow-hidden bg-[#fff] px-6 py-0 md:px-12 md:py-16">
           {/* Looper — desktop: left/right full height; mobile: top-right & bottom-left corners */}
