@@ -17,6 +17,8 @@ import { useEffect, useRef, useState } from "react";
 
 const mona = { fontFamily: "Mona Sans, sans-serif" };
 
+const GAP_ABOVE_FOOTER = 16;
+
 function MobileStickyBar({
   footerRef,
   heroRef,
@@ -26,22 +28,9 @@ function MobileStickyBar({
   heroRef: React.RefObject<HTMLElement | null>;
   earlyAccessRef: React.RefObject<HTMLElement | null>;
 }) {
-  const [footerVisible, setFooterVisible] = useState(false);
+  const [bottom, setBottom] = useState(0);
   const [heroVisible, setHeroVisible] = useState(true);
   const [earlyAccessVisible, setEarlyAccessVisible] = useState(false);
-  const [scrollingDown, setScrollingDown] = useState(true);
-  const lastScrollY = useRef(0);
-
-  useEffect(() => {
-    const footerEl = footerRef.current;
-    if (!footerEl) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setFooterVisible(entry.isIntersecting),
-      { threshold: 0 },
-    );
-    observer.observe(footerEl);
-    return () => observer.disconnect();
-  }, [footerRef]);
 
   useEffect(() => {
     const heroEl = heroRef.current;
@@ -66,27 +55,35 @@ function MobileStickyBar({
   }, [earlyAccessRef]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentY = window.scrollY;
-      if (Math.abs(currentY - lastScrollY.current) > 40) {
-        setScrollingDown(currentY > lastScrollY.current);
-        lastScrollY.current = currentY;
+    const updateBottom = () => {
+      const footer = footerRef.current;
+      if (!footer) { setBottom(0); return; }
+      const rect = footer.getBoundingClientRect();
+      const vh = window.innerHeight;
+      if (rect.top < vh) {
+        setBottom(Math.max(0, vh - rect.top + GAP_ABOVE_FOOTER));
+      } else {
+        setBottom(0);
       }
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    updateBottom();
+    window.addEventListener("scroll", updateBottom, { passive: true });
+    window.addEventListener("resize", updateBottom);
+    return () => {
+      window.removeEventListener("scroll", updateBottom);
+      window.removeEventListener("resize", updateBottom);
+    };
+  }, [footerRef]);
 
-
-  const show =
-    !footerVisible && !heroVisible && !earlyAccessVisible && scrollingDown;
+  const show = !heroVisible && !earlyAccessVisible;
 
   return (
     <div
-      className={`lg:hidden fixed bottom-0 left-0 right-0 z-50 px-4 pt-3 transition-transform duration-300 ${show ? "translate-y-0" : "translate-y-full"}`}
+      className={`lg:hidden fixed inset-x-0 z-50 px-4 py-3 transition-transform duration-300 ${show ? "translate-y-0" : "translate-y-full"}`}
       style={{
-        backgroundColor: "#F7F8FC",
-        paddingBottom: "max(12px, env(safe-area-inset-bottom))",
+        bottom: `${bottom}px`,
+        backgroundColor: "#fff",
+        paddingBottom: "env(safe-area-inset-bottom)",
       }}
     >
       <button
