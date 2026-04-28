@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { Mail, Phone, AlertCircle, CheckCircle, Loader2 } from "lucide-react";
 import { useState, type CSSProperties } from "react";
-import { sendContactEmail } from "@/app/contact-us/actions";
 import ContactHero from "@/public/assets/images/contact-hero.webp";
 
 const mona: CSSProperties = { fontFamily: "Mona Sans, sans-serif" };
@@ -50,12 +49,6 @@ const validateField = (name: string, value: string): FieldErrors => {
       errors.phone = "Please enter a valid phone number";
   }
 
-  if (name === "message") {
-    if (!value.trim()) errors.message = "Message is required";
-    else if (value.trim().length < 10)
-      errors.message = "Message must be at least 10 characters";
-  }
-
   return errors;
 };
 
@@ -78,7 +71,6 @@ export const ContactForm = () => {
       ...validateField("name", formData.name),
       ...validateField("email", formData.email),
       ...validateField("phone", formData.phone),
-      ...validateField("message", formData.message),
     };
     setFieldErrors(errors);
     return Object.keys(errors).length === 0;
@@ -111,7 +103,7 @@ export const ContactForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setTouched({ name: true, email: true, phone: true, message: true });
+    setTouched({ name: true, email: true, phone: true });
 
     if (!validateForm()) {
       setError("Please fix the errors above before submitting");
@@ -123,8 +115,24 @@ export const ContactForm = () => {
     setSubmitted(false);
 
     try {
-      const result = await sendContactEmail(formData);
-      if (result.success) {
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+      if (!baseUrl) {
+        setError(
+          "Base URL is not configured. Please contact the administrator.",
+        );
+        return;
+      }
+      const response = await fetch(`${baseUrl}/api/inquiries`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
         setSubmitted(true);
         setFormData({
           name: "",

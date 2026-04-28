@@ -66,13 +66,6 @@ export default function EarlyAccessModal({ open, setOpen }: Props) {
       }
     }
 
-    if (name === 'message') {
-      if (!value.trim()) {
-        errors.message = 'Message is required';
-      } else if (value.trim().length < 10) {
-        errors.message = 'Message must be at least 10 characters';
-      }
-    }
 
     return errors;
   };

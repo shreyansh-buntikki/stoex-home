@@ -108,7 +108,7 @@ export function BlogCard({ blog, showDate = false }: { blog: Blog; showDate?: bo
             className="text-[24px] font-bold text-[#0A0A0A] leading-[1.3] overflow-hidden text-ellipsis"
             style={{ ...sansation, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical" }}
           >
-            {blog.excerpt}
+            {blog.title}
           </h3>
           {showDate && (
             <p className="mt-2 text-[14px] text-[#696A75]" style={mona}>
