@@ -152,7 +152,7 @@ export const ContactForm = () => {
   return (
     <section className="bg-[#f8f6f6]">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-6 items-stretch">
           <div className="bg-white h-full rounded-2xl p-6 sm:p-8 lg:p-10 shadow-sm">
             <p
               className="text-[#00007F] text-[28px] font-regular leading-[100%] tracking-wider uppercase"
@@ -330,7 +330,7 @@ export const ContactForm = () => {
           </div>
 
           <div className="flex flex-col gap-6 h-full">
-            <div className="relative w-full flex-1 min-h-[400px] lg:min-h-[480px] rounded-2xl overflow-hidden shadow-sm">
+            <div className="relative w-full flex-1 min-h-[500px] lg:min-h-[600px] rounded-2xl overflow-hidden shadow-sm">
               <Image
                 src={ContactHero}
                 alt="STOEX office skyline"

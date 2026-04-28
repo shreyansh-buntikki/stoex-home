@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import EarlyAccessModal from "./EarlyAccessModal";
 import { useGoldRate } from "@/hooks/useGoldRate";
-import Logo1 from "@/public/assets/logos/logo1.webp";
-import MainLogo from "@/public/assets/logos/mainlogo.webp";
+import Logo1 from "@/public/assets/logos/logo1.svg";
+import MainLogo from "@/public/assets/logos/mainlogo.svg";
 
 export const HeaderGold = () => {
   const { goldRate } = useGoldRate();

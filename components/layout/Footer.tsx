@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import EarlyAccessModal from "./EarlyAccessModal";
-import MainLogo from "@/public/assets/logos/mainlogo.webp"
+import MainLogo from "@/public/assets/logos/mainlogo.svg"
 
 const YoutubeIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
