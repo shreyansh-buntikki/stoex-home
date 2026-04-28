@@ -1,4 +1,4 @@
-import { HomePageGold } from "@/components/homeGold/HomePageGold";
+import { HomePageGold } from "@/components/homeGold";
 
 export default function Page() {
   return <HomePageGold />;

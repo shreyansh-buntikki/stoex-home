@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Mona_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { GoldLayout } from "@/components/layout/GoldLayout";
 
 const mona = Mona_Sans({
   variable: "--font-mona",
@@ -38,7 +39,9 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Sansation:wght@300;400;700&display=swap"
         />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+          <GoldLayout>{children}</GoldLayout>
+        </body>
     </html>
   );
 }
