@@ -54,7 +54,7 @@ export const HeaderGold = () => {
   return (
     <>
       <header
-        className={`w-full z-50 transition-all duration-300 ${
+        className={`w-full z-150 transition-all duration-300 ${
           scrolled
             ? "fixed top-0 bg-white shadow-md border-b border-gray-200"
             : "absolute top-0 bg-[#00007F]"
