@@ -18,3 +18,12 @@ body {
   color: var(--foreground);
   font-family: "Mona Sans", Arial, Helvetica, sans-serif;
 }
+
+.blog img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  display: block;
+  margin: 1em 0;
+}
