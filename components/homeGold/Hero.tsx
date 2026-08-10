@@ -1,650 +1,170 @@
 "use client";
 
-import Coin from "@/public/assets/images/coin.webp";
-import GoldBars from "@/public/assets/images/gold-bars.webp";
-import BackgroundCircles from "@/public/assets/images/hero-circles.webp";
-import AmprapaliLogo from "@/public/assets/logos/amprapali-logo.svg";
+import BuySellIcon from "@/public/assets/icons/buy-sell.svg";
+import GoldIcon from "@/public/assets/icons/gold.svg";
+import TruckIcon from "@/public/assets/icons/truck.svg";
+import StorageIcon from "@/public/assets/icons/storage.svg";
+import HeroImageResponsive from "@/public/assets/images/hero-image-responsive.webp";
+import HeroImage from "@/public/assets/images/hero-image.webp";
+import { motion } from "framer-motion";
 import Image from "next/image";
-import {
-  useLayoutEffect,
-  useRef,
-  useState,
-  type CSSProperties,
-  type ReactNode,
-} from "react";
+import { type CSSProperties } from "react";
 
-import AmrapaliLogo from "@/public/assets/logos/amrapali-2.svg";
-import SequelLogo from "@/public/assets/logos/sequel.svg";
-import RRBPLogo from "@/public/assets/logos/rrbp.svg";
-import VistraLogo from "@/public/assets/logos/vistara.svg";
-import { useGoldRate } from "@/hooks/useGoldRate";
-import Coins from "@/public/assets/images/coins.webp";
-
-const StripContent = [
-  {
-    logo: AmrapaliLogo,
-    alt: "Amrapali Logo",
-    content: "Backed by Amrapali",
-    logoClass: "h-7 w-auto",
-  },
-  {
-    logo: SequelLogo,
-    alt: "Sequel Logo",
-    content: "Secured in Sequel Vaults",
-    logoClass: "h-4 w-auto",
-  },
-  {
-    logo: VistraLogo,
-    alt: "Vistra Logo",
-    content: "Vistra – Administrator",
-    logoClass: "h-3 w-auto",
-  },
-  {
-    logo: RRBPLogo,
-    alt: "RRBP Logo",
-    content: "Audited by RRBP",
-    logoClass: "h-9 w-auto",
-  },
-];
-
-const GOLD_WIDGET_SHADOW =
-  "0 4px 4px 0 rgba(0, 0, 0, 0.08), 0 0 16px 0 rgba(191, 155, 103, 0.4)";
-const HERO_GOLD_GLOW =
-  "radial-gradient(ellipse 75% 90% at 90% 50%, rgba(191, 155, 103, 0.22) 0%, rgba(245, 232, 205, 0.1) 40%, rgba(255, 255, 255, 0) 68%)";
-const DIVIDER_GRADIENT_GOLD =
-  "linear-gradient(to bottom, #CCA763 0%, #F1D592 50%, #CCA763 100%)";
-
-const QUICK_AMOUNTS = [15, 100, 500, 1000, 5000] as const;
-const QUICK_GRAMS = [0.1, 0.5, 1, 2, 5] as const;
 const TRUST_ITEMS = [
-  "100% Gold-Backed",
-  "Independently Verifiable",
-  "Insured Custody",
-  "Zero Locker Fees",
+  { label: "24K (999.9+) Purest Gold", icon: GoldIcon },
+  {
+    label: "Free Storage",
+    icon: StorageIcon,
+  },
+  { label: "Buy & Sell 24x7", icon: BuySellIcon },
+  { label: "Doorstep Delivery", icon: TruckIcon },
+  // { label: "Independently verifiable on public ledger", icon: MagnifyIcon },
 ] as const;
 
 const mona: CSSProperties = { fontFamily: "Mona Sans, sans-serif" };
-const sansation: CSSProperties = {
-  fontFamily: "Sansation, sans-serif",
-  letterSpacing: "1px",
-};
+const sansation: CSSProperties = { fontFamily: "Sansation, sans-serif" };
 
-const STRIP_DIVIDER =
-  "linear-gradient(to bottom, #CCA763 0%, #F1D592 50%, #CCA763 100%)";
-
-function MobileMarqueeStrip() {
-  const items = [...StripContent, ...StripContent];
-  return (
-    <div className="lg:hidden w-screen overflow-hidden -mx-6 -mt-0">
-      <div
-        className="flex w-max gap-5"
-        style={{
-          animation: "marquee-scroll 14s linear infinite",
-        }}
-      >
-        {items.map((item, i) => (
-          <div key={i} className="flex bg-[#F7F8FC] py-1 border border-[#E5E7EF] rounded-full  shrink-0 items-center">
-            <div className="flex items-center gap-2 px-4">
-              <Image
-                src={item.logo}
-                alt={item.alt}
-                height={32}
-                width={80}
-                className={`${item.logoClass} object-contain`}
-              />
-              <span
-                className="text-[12px] font-medium text-[#8A8FA8] whitespace-nowrap"
-                style={mona}
-              >
-                {item.content}
-              </span>
-            </div>
-            
-          </div>
-        ))}
-      </div>
-      <style>{`
-        @keyframes marquee-scroll {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-      `}</style>
-    </div>
-  );
-}
-
-function HeroGoldBackdrop() {
-  return (
-    <>
-      <div
-        className="pointer-events-none absolute inset-0 z-0 hidden lg:block"
-        aria-hidden
-        style={{ background: HERO_GOLD_GLOW }}
-      />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-[1] hidden w-1/2 lg:flex items-center justify-end pr-8">
-        <div className="relative w-full max-w-[440px] h-full overflow-visible">
-          <Image
-            src={BackgroundCircles}
-            alt=""
-            height={720}
-            width={720}
-            sizes="(min-width: 1280px) 42vw, 56vw"
-            className="absolute left-1/2 top-1/2 h-auto w-[145%] max-w-none -translate-x-[73%] -translate-y-1/2 select-none rounded-[28px] opacity-85"
-          />
-        </div>
-      </div>
-    </>
-  );
-}
-
-function GoldHeroLead() {
-  return (
-    <div className="space-y-4 lg:space-y-8">
-      <div className="relative">
-        <div className="space-y-4 lg:space-y-6">
-          <Image
-            src={Coins}
-            alt="Coins"
-            width={257}
-            height={127}
-            className="lg:hidden block mx-auto"
-          />
-          <h1 className="text-center mx-auto lg:mx-0 max-w-none lg:max-w-none lg:text-left font-[700] text-[40px] leading-[42px] lg:text-[56px] lg:leading-[55px]">
-            <span className="block text-[#B8860B]" style={sansation}>
-              Gold at live price.{" "}
-            </span>
-            <span
-              className="block font-[700] text-[#0A0A0A] text-[36px] leading-[46px] lg:text-[56px] lg:leading-[55px]"
-              style={{ ...mona, letterSpacing: "1px" }}
-            >
-              Yours in minutes.
-            </span>
-          </h1>
-
-          <div
-            className="text-center lg:text-left text-[15px] leading-[22px] lg:text-[18px] lg:leading-[24px] text-[#3D3D3D]"
-            style={mona}
-          >
-            <span className="lg:hidden">
-              Buy, sell, and own verified 24-karat gold starting from just ₹15*.
-              Backed by real gold, digitally secured, and redeemable anytime.
-            </span>
-            <p className="hidden lg:block">
-              Buy, sell, and own verified 24-karat gold starting from just ₹15*.
-            </p>
-            <p className="hidden lg:block">
-              Backed by real gold, digitally secured, and redeemable anytime.
-            </p>
-          </div>
-
-          <p
-            className="text-center lg:text-left text-[10px] text-[#8A8FA8]"
-            style={mona}
-          >
-            *The figure is subject to the gold rate.
-          </p>
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-3 lg:flex-col lg:gap-4 xl:flex-row">
-        <button
-          type="button"
-          className="flex-1 lg:flex-none rounded-full bg-[#00007F] px-3 lg:px-6 py-3 text-[14px] lg:px-8 lg:text-[16px] font-bold text-white transition-colors hover:bg-[#0f0f3a]"
-          style={mona}
-        >
-          Reserve Your Gold
-        </button>
-        <button
-          type="button"
-          className="flex-1 lg:flex-none rounded-full border-none lg:border lg:border-[#00007F] px-3 lg:px-6 py-3 text-[14px] lg:px-8 lg:text-[16px] font-bold text-[#00007F] transition-colors hover:bg-[#1a1a5c] hover:text-white"
-          style={mona}
-        >
-          Learn how it works
-        </button>
-      </div>
-
-      {/* Trust items: 2x2 grid on mobile, horizontal row on desktop */}
-      <div className="hidden lg:block grid grid-cols-2 gap-x-4 gap-y-2 pt-2 lg:flex lg:flex-nowrap lg:gap-0 lg:overflow-x-auto lg:pt-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-        {TRUST_ITEMS.map((item, index) => (
-          <div className="flex items-center gap-2 lg:shrink-0" key={item}>
-            {/* Bullet dot on mobile */}
-            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#B8860B] lg:hidden" />
-            {/* Divider on desktop */}
-            {index > 0 && (
-              <div
-                aria-hidden
-                className="hidden lg:block mx-3 h-3 w-px sm:mx-5 sm:h-4"
-                style={{ background: DIVIDER_GRADIENT_GOLD }}
-              />
-            )}
-            <div
-              className="text-[12px] font-medium text-[#8A8FA8]"
-              style={mona}
-            >
-              {item}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-type Tab = "Buy" | "Sell";
-
-function GoldBuySellToggle({
-  active,
-  onSelect,
-}: {
-  active: Tab;
-  onSelect: (t: Tab) => void;
-}) {
-  return (
-    <div
-      className="rounded-full bg-white p-2"
-      style={{ boxShadow: GOLD_WIDGET_SHADOW }}
-    >
-      <div className="flex gap-2">
-        {(["Buy", "Sell"] as const).map((item) => (
-          <button
-            key={item}
-            type="button"
-            onClick={() => onSelect(item)}
-            className={`flex-1 cursor-pointer rounded-full py-2.5 text-[15px] font-semibold transition-all ${
-              active === item
-                ? "bg-[#B59449] text-white shadow-md"
-                : "bg-white text-[#00007F]"
-            }`}
-            style={mona}
-          >
-            {item}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-const swapEase = [0.22, 1, 0.36, 1] as const;
-const swapDuration = 0.42;
-const CARD_GAP = 20;
-
-function formatGramsInputDisplay(g: number): string {
-  if (g <= 0 || !Number.isFinite(g)) return "";
-  return g.toFixed(3).replace(/\.?0+$/, "");
-}
-
-function sanitizeGramsInput(raw: string): string {
-  const cleaned = raw.replace(/[^\d.]/g, "");
-  const dot = cleaned.indexOf(".");
-  if (dot === -1) return cleaned;
-  return `${cleaned.slice(0, dot + 1)}${cleaned.slice(dot + 1).replace(/\./g, "")}`;
-}
-
-function parseInrDigits(raw: string): number {
-  const digits = raw.replace(/\D/g, "");
-  if (digits === "") return 0;
-  const n = parseInt(digits, 10);
-  if (Number.isNaN(n)) return 0;
-  return Math.min(n, 999_999_999_999);
-}
-
-function GoldInvestCard({
-  mode,
-  amount,
-  goldGrams,
-  youGetLabel,
-  onAmountChange,
-  goldPricePerGram,
-}: {
-  mode: Tab;
-  amount: number;
-  goldGrams: number;
-  youGetLabel: string;
-  onAmountChange: (n: number) => void;
-  goldPricePerGram: number;
-}) {
-  const goldFirst = mode === "Sell";
-  const gramsFocusedRef = useRef(false);
-  const [gramsEdit, setGramsEdit] = useState("");
-
-  useLayoutEffect(() => {
-    if (!goldFirst || gramsFocusedRef.current) return;
-    setGramsEdit(formatGramsInputDisplay(goldGrams));
-  }, [goldFirst, goldGrams]);
-
-  const footerRows: {
-    k: string;
-    line: string;
-    sub: string;
-    node: ReactNode;
-  }[] = [
-    { k: "purity", line: "24 Karat", sub: "Purity", node: null },
-    {
-      k: "vault",
-      line: "Live",
-      sub: "Vault Status",
-      node: (
-        <span className="mr-1 inline-block h-2 w-2 shrink-0 rounded-full bg-emerald-500" />
-      ),
-    },
-    { k: "audit", line: "28 Feb 2026", sub: "Last Audit", node: null },
-  ];
-
-  const setFromGrams = (g: number) => {
-    onAmountChange(Math.round(g * goldPricePerGram));
-  };
-
-  const applyGramsFromString = (sanitized: string) => {
-    if (sanitized === "" || sanitized === ".") {
-      onAmountChange(0);
-      return;
-    }
-    const g = parseFloat(sanitized);
-    if (!Number.isNaN(g) && g >= 0) {
-      setFromGrams(g);
-    }
-  };
-
-  const valueInputClass =
-    "min-w-0 flex-1 border-none bg-transparent p-0 text-[24px] font-medium leading-none tracking-tight outline-none ring-0 focus:ring-0 sm:text-[28px]";
-
-  return (
-    <div
-      className="relative overflow-visible rounded-[20px] border border-[#E5E7EB] bg-white p-5"
-      style={{
-        boxShadow: GOLD_WIDGET_SHADOW,
-        backgroundImage: "url(/assets/hero-circles.webp)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
-      <div className="mb-5 flex items-start justify-between gap-3">
-        <div className="flex min-w-0 items-center gap-3">
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#E8E8E8] bg-white shadow-sm">
-            <Image
-              src={AmprapaliLogo}
-              alt="Amrapali Gold"
-              width={28}
-              height={18}
-              className="object-contain"
-            />
-          </div>
-          <div className="min-w-0">
-            <div
-              className="text-[14px] font-semibold leading-tight text-[#00007F]"
-              style={mona}
-            >
-              Amrapali Gold
-            </div>
-            <div
-              className="mt-0.5 text-[11px] leading-snug text-[#8A8FA8]"
-              style={mona}
-            >
-              AG · Sponsored by Amrapali Group
-            </div>
-          </div>
-        </div>
-        <div className="flex shrink-0 items-center gap-1.5 rounded-full border border-[#C08514] bg-[#FAF3E8] px-3.5 py-1">
-          <Image src={GoldBars} alt="Gold Bars" width={18} height={18} />
-          <span
-            className="text-[12px] font-semibold text-[#C08514]"
-            style={mona}
-          >
-            Gold
-          </span>
-        </div>
-      </div>
-
-      <div className="space-y-4">
-        {mode === "Buy" ? (
-          <div className="rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3">
-            <label
-              className="mb-1 block text-[14px] font-medium text-[#101828]"
-              style={mona}
-            >
-              Amount (INR)
-            </label>
-            <div
-              className="mb-1 flex min-w-0 items-baseline gap-0.5"
-              style={mona}
-            >
-              <span className="shrink-0 text-[28px] font-medium leading-none tracking-tight text-[#111827] sm:text-[28px]">
-                ₹
-              </span>
-              <input
-                type="text"
-                name="gold-invest-amount-inr"
-                inputMode="numeric"
-                autoComplete="off"
-                aria-label="Amount in Indian rupees"
-                className={`${valueInputClass} text-[#111827]`}
-                style={mona}
-                value={amount === 0 ? "" : String(amount)}
-                onChange={(e) => onAmountChange(parseInrDigits(e.target.value))}
-              />
-            </div>
-            <div className="mt-2 flex flex-nowrap items-center justify-between gap-1.5 overflow-x-auto pb-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-              {QUICK_AMOUNTS.map((qa) => (
-                <button
-                  key={qa}
-                  type="button"
-                  onClick={() => onAmountChange(qa)}
-                  className={`shrink-0 rounded-lg flex-1 px-1.5 py-1.5 text-[11px] font-medium transition-colors sm:px-2 sm:text-[12px] sm:py-2 md:text-[13px] ${
-                    amount === qa
-                      ? "border border-[#C5CAD3] bg-[#E8EAEF] text-[#1D1D1D]"
-                      : "border border-[#E5E7EB] bg-white text-[#6B7280] hover:bg-[#F9FAFB]"
-                  }`}
-                  style={mona}
-                >
-                  ₹{qa.toLocaleString("en-IN")}
-                </button>
-              ))}
-            </div>
-          </div>
-        ) : (
-          <div className="rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3">
-            <label
-              className="mb-1 block text-[14px] font-medium text-[#101828]"
-              style={mona}
-            >
-              Gold (grams)
-            </label>
-            <div className="mt-1 flex items-baseline gap-0" style={mona}>
-              <input
-                type="text"
-                name="gold-invest-grams"
-                inputMode="decimal"
-                autoComplete="off"
-                aria-label="Gold in grams"
-                pattern="[0-9]*[.]?[0-9]*"
-                className="min-w-0 border-none bg-transparent p-0 text-[24px] font-medium leading-none tracking-tight outline-none ring-0 focus:ring-0 sm:text-[28px] text-[#111827]"
-                style={{
-                  ...mona,
-                  width: `${Math.max((gramsEdit || "0").length, 2)}ch`,
-                }}
-                value={gramsEdit}
-                onChange={(e) => {
-                  const cleaned = sanitizeGramsInput(e.target.value);
-                  setGramsEdit(cleaned);
-                  applyGramsFromString(cleaned);
-                }}
-                onFocus={() => {
-                  gramsFocusedRef.current = true;
-                }}
-                onBlur={() => {
-                  gramsFocusedRef.current = false;
-                  setGramsEdit(formatGramsInputDisplay(goldGrams));
-                }}
-              />
-              <span className="shrink-0 text-[28px] font-medium leading-none tracking-tight text-[#111827] sm:text-[28px]">
-                g
-              </span>
-            </div>
-            <div className="mt-2 flex flex-nowrap items-center justify-between gap-1.5 overflow-x-auto pb-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-              {QUICK_GRAMS.map((g) => {
-                const selected =
-                  goldGrams > 0 && Math.abs(goldGrams - g) < 0.02;
-                return (
-                  <button
-                    key={g}
-                    type="button"
-                    onClick={() => {
-                      setFromGrams(g);
-                      setGramsEdit(formatGramsInputDisplay(g));
-                    }}
-                    className={`shrink-0 flex-1 rounded-lg px-1.5 py-1.5 text-[11px] font-medium transition-colors sm:px-2 sm:text-[12px] sm:py-2 md:text-[13px] ${
-                      selected
-                        ? "border border-[#C5CAD3] bg-[#E8EAEF] text-[#1D1D1D]"
-                        : "border border-[#E5E7EB] bg-white text-[#6B7280] hover:bg-[#F9FAFB]"
-                    }`}
-                    style={mona}
-                  >
-                    {g}g
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="mt-3 space-y-3">
-        <div className="relative overflow-hidden rounded-xl border border-[#B8922A33] bg-[#FFF6E8] px-4 py-4 pb-4">
-          <div
-            className="mb-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#B8860B]"
-            style={mona}
-          >
-            {mode === "Sell" ? "YOU ARE SELLING" : "YOU GET"}
-          </div>
-          <div className="flex items-end justify-between gap-2 pr-10">
-            <div
-              className="text-[18px] font-bold leading-tight text-[#00007F] sm:text-[20px]"
-              style={mona}
-            >
-              {youGetLabel}
-            </div>
-          </div>
-          <div className="pointer-events-none absolute -bottom-4 -right-10 h-[6rem] w-[6rem] sm:h-[7.5rem] sm:w-[7.5rem]">
-            <Image
-              src={Coin}
-              alt="Coin"
-              width={240}
-              height={240}
-              className="h-full w-full object-contain object-right"
-            />
-          </div>
-        </div>
-
-        <button
-          type="button"
-          className={`mt-1 w-full rounded-4xl py-3.5 text-[15px] font-bold uppercase tracking-wide text-white transition-colors ${"bg-[#00007F] hover:bg-[#000066]"}`}
-          style={mona}
-        >
-          {mode === "Sell" ? "SELL" : "INVEST"}
-        </button>
-
-        <div className=" flex pt-1">
-          {footerRows.map((col, i) => (
-            <div
-              key={col.k}
-              className={`flex min-w-0 flex-1 flex-col items-center justify-center px-1 text-center ${
-                i > 0 ? "border-l border-[#E5E7EB]" : ""
-              }`}
-            >
-              <div
-                className="flex items-center justify-center gap-0.5 text-[13px] font-bold text-[#00007F] sm:text-[14px]"
-                style={mona}
-              >
-                {col.node}
-                {col.line}
-              </div>
-              <div
-                className="mt-1 text-[9px] tracking-wide text-[#8A8FA8] sm:text-[10px]"
-                style={mona}
-              >
-                {col.sub}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
+const HEADING_GRADIENT = "linear-gradient(to bottom, #B8943F 0%, #52421C 100%)";
+const HERO_BG = "linear-gradient(180deg, #FFFFFF 0%, #FFFBF2 100%)";
 
 export const HeroGold = () => {
-  const [activeTab, setActiveTab] = useState<Tab>("Buy");
-  const [amount, setAmount] = useState(5000);
-  const { goldRate } = useGoldRate();
-
-  const goldPricePerGram = parseFloat(String(goldRate));
-  const goldGrams = amount / goldPricePerGram;
-  const youGetLabel =
-    goldGrams >= 0.00001 ? `${goldGrams.toFixed(4)}g gold` : "0.00g gold";
-
   return (
-    <div className="relative pb-3 lg:pb-0 flex min-h-[calc(100dvh-5rem)] items-center overflow-hidden bg-white">
-      <HeroGoldBackdrop />
-
-      <div className="absolute top-6 right-[50%] translate-x-[50%] lg:hidden block bg-[#F7F8FC] border border-[#E5E7EF] w-fit rounded-full px-4 py-2 flex items-center gap-2 ">
-        <div className="w-2 h-2 bg-[#1A9E5C] rounded-full animate-pulse"></div>
-        <span className="text-[#0A9B46] text-[13px] font-semibold">LIVE</span>
-        <div className="h-3.5 w-px bg-[#E5E7EF]" />
-        <span className="text-[#0A0A0A] text-[13px] font-regular whitespace-nowrap">
-          24K Gold
-        </span>
-        <span className="text-[#0A0A0A] text-[13px] font-semibold whitespace-nowrap">
-          ₹{goldRate}/g
-        </span>
-      </div>
-
-      <div className="relative pt-22 lg:pt-0 z-10 container mx-auto px-6 lg:px-8">
-        <div className="flex flex-col items-center gap-1 lg:grid lg:grid-cols-2 lg:items-center lg:gap-20">
-          <GoldHeroLead />
-
-          <MobileMarqueeStrip />
-
-          <div className="relative flex w-full justify-center mt-6 lg:mt-0 lg:justify-end">
-            <div className="w-full max-w-[440px] space-y-4 ">
-              <div
-                className="block lg:hidden grid grid-cols-2 justify-start gap-x-4 gap-y-2 pt-1 pb-5 lg:flex lg:flex-nowrap lg:gap-0 lg:overflow-x-auto lg:pt-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-                style={{ alignItems: "start" }}
-              >
-                {TRUST_ITEMS.map((item, index) => (
-                  <div
-                    className="flex items-start text-start gap-2 lg:shrink-0"
-                    style={{ alignSelf: "start" }}
-                    key={item}
-                  >
-                    <span className="mt-[5px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#B8860B] lg:hidden" />
-                    {index > 0 && (
-                      <div
-                        aria-hidden
-                        className="hidden lg:block mx-3 h-3 w-px sm:mx-5 sm:h-4"
-                        style={{ background: DIVIDER_GRADIENT_GOLD }}
-                      />
-                    )}
-                    <div
-                      className="text-[12px] font-medium text-[#8A8FA8]"
-                      style={mona}
-                    >
-                      {item}
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <GoldBuySellToggle active={activeTab} onSelect={setActiveTab} />
-              <GoldInvestCard
-                mode={activeTab}
-                amount={amount}
-                goldGrams={goldGrams}
-                youGetLabel={youGetLabel}
-                onAmountChange={setAmount}
-                goldPricePerGram={goldPricePerGram}
+    <div
+      className="relative flex min-h-[calc(100dvh-4.5rem)] overflow-hidden"
+      style={{ background: HERO_BG }}
+    >
+      <div className="relative z-10 container mx-auto px-6 lg:px-0 w-full">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 min-h-[calc(100dvh-4.5rem)]">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.05 }}
+            className="hidden lg:flex justify-start items-end order-1 self-end"
+          >
+            <div className="relative w-full lg:w-[560px] xl:w-[590px]">
+              <Image
+                src={HeroImage}
+                alt="Gold App"
+                width={600}
+                height={820}
+                sizes="(max-width: 1280px) 560px, 590px"
+                className="w-full h-auto max-h-[85dvh] object-contain object-bottom"
+                priority
+                fetchPriority="high"
               />
             </div>
+          </motion.div>
+
+          <div className="flex flex-col gap-6 lg:gap-7 order-2 py-10 lg:py-16 lg:self-center">
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="font-bold text-[42px] leading-[46px] lg:text-[62px] lg:leading-[66px] text-center lg:text-left"
+              style={{
+                ...sansation,
+                background: HEADING_GRADIENT,
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              Real Vaulted Gold
+              <br />
+              at Live Price.
+            </motion.h1>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.05 }}
+              className="text-center lg:text-left"
+            >
+              <p
+                className="text-[16px] leading-[26px] md:max-w-[450px] lg:text-[20px] lg:leading-[32px] text-[#111111]"
+                style={{ ...mona, fontWeight: 400 }}
+              >
+                Buy, sell and own verified 24-karat gold refined and safe-kept
+                by MMTC-PAMP.
+              </p>
+              <div className="text-[10px] font-regular leading-[22px] text-[#B8AA8A]">
+                *The figure subjects to the gold rate.
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+              className="block lg:hidden"
+            >
+              <Image
+                src={HeroImageResponsive}
+                alt="Gold App"
+                width={280}
+                height={435}
+                sizes="280px"
+                className="mx-auto h-auto object-contain object-bottom"
+                style={{ maxWidth: "280px" }}
+                priority
+                fetchPriority="high"
+              />
+            </motion.div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-2 lg:gap-8 items-start">
+              {TRUST_ITEMS.map((item, index) => (
+                <motion.div
+                  key={item.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.15 + index * 0.05 }}
+                  className="flex flex-col items-start"
+                >
+                  <div
+                    className="flex gap-3"
+                    style={{
+                      alignItems: index === 10 ? "start" : "center",
+                    }}
+                  >
+                    <Image
+                      src={item.icon}
+                      alt={item.label}
+                      width={28}
+                      height={28}
+                      className="shrink-0 lg:pt-1"
+                      style={{
+                        filter:
+                          "sepia(1) saturate(3) hue-rotate(5deg) brightness(0.7)",
+                      }}
+                    />
+                    <span
+                      className="text-[16px] font-[500] text-[#B8943F]"
+                      style={mona}
+                    >
+                      {item.label}
+                    </span>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.5 }}
+            >
+              <div
+                className="inline-flex items-center md:mt-4 rounded-full px-4 py-3 w-fit"
+                style={{
+                  background: "linear-gradient(to right, #CCA763, #8A6D2F)",
+                }}
+              >
+                <span
+                  className="text-[16px] font-semibold text-[#ffffff]"
+                  style={mona}
+                >
+                  Get Early Access
+                </span>
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>

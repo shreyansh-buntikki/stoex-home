@@ -1,110 +1,91 @@
 "use client";
 
-import Image from "next/image";
+import { useEarlyAccess } from "@/components/layout/GoldLayout";
 import type { CSSProperties } from "react";
-
-import Looper from "@/public/assets/images/Looper.svg";
-import LooperMobile from "@/public/assets/images/Looper-mobile.svg";
+import { useState } from "react";
 
 const mona: CSSProperties = { fontFamily: "Mona Sans, sans-serif" };
 const sansation: CSSProperties = {
   fontFamily: "Sansation, sans-serif",
   letterSpacing: "0.4px",
 };
-
-const benefits = [
-  "Priority access to platform",
-  "5% bonus on first investment",
-  "Zero fees for 3 months",
-  "Exclusive community access",
-];
+const manrope: CSSProperties = {
+  fontFamily: "Manrope, sans-serif",
+  fontWeight: 700,
+};
 
 export const EarlyAccess = () => {
-  return (
-    <section id="early-access-section" className="bg-white  py-[0px] pt-0 lg:py-[100px] lg:pb-0 pb-0 px-0">
-      <div className="mx-auto w-full max-w-none">
-        <div className="relative w-full overflow-hidden bg-[#fff] px-6 py-0 md:px-12 md:py-16">
-          {/* Looper — desktop: left/right full height; mobile: top-right & bottom-left corners */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-[48%] hidden lg:block">
-            <Image
-              src={Looper}
-              alt=""
-              fill
-              sizes="50vw"
-              className="object-cover object-left opacity-80"
-            />
-          </div>
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-[48%] hidden lg:block">
-            <Image
-              src={Looper}
-              alt=""
-              fill
-              sizes="50vw"
-              className="scale-x-[-1] scale-y-[-1] object-cover object-right opacity-80"
-            />
-          </div>
-          {/* Mobile: top-right corner */}
-          <div className="pointer-events-none absolute top-[-20px] right-0 w-[60%] h-[40%] lg:hidden">
-            <Image
-              src={LooperMobile}
-              alt=""
-              fill
-              sizes="15vw"
-              className="object-cover object-left-bottom opacity-80 rotate-180"
-            />
-          </div>
-          {/* Mobile: bottom-left corner */}
-          <div className="pointer-events-none absolute bottom-0 left-0 w-[60%] h-[40%] lg:hidden">
-            <Image
-              src={LooperMobile}
-              alt=""
-              fill
-              sizes="15vw"
-              className="object-cover object-left-bottom opacity-80 scale-y-[-1] -rotate-90"
-            />
-          </div>
+  const [email, setEmail] = useState("");
+  const { openModal } = useEarlyAccess();
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email.trim()) {
+      openModal(email.trim());
+    }
+  };
+  return (
+    <section
+      id="early-access-section"
+      className="bg-gradient-to-b from-[#FFFFFF] to-[#FFFBF2] py-[0px] pt-0 lg:py-[100px] lg:pt-0 lg:pb-0 pb-0 px-0"
+    >
+      <div className="mx-auto w-full max-w-none">
+        <div className="relative w-full overflow-hidden px-6 py-0 md:px-12 md:py-16">
           <div className="relative z-10 mx-auto max-w-[1000px] pt-15 text-center">
             <h2
-              className="text-[26px] leading-[36px] font-bold text-[#0A0A0A] lg:text-[40px] lg:leading-[48px]"
-              style={sansation}
+              className="text-[26px] leading-[36px] font-bold lg:text-[40px] lg:leading-[48px]"
+              style={{
+                ...manrope,
+                background:
+                  "linear-gradient(to bottom, #52421C 0%, #B8943F 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
             >
-              Be among the first to own publicly verifiable, permanently
-              immutable gold - starting from ₹15
+              Be among the first to own publicly verifiable gold <br />
+              Starting from ₹10
             </h2>
 
             <p
-              className="mt-4 lg:mt-6 text-[15px] leading-[22px] text-[#3D3D3D]"
+              className="mt-4 lg:mt-6 text-[16px] lg:text-[20px] leading-[22px] text-[#3D3D3D]"
               style={mona}
             >
-              Join the waitlist and get exclusive early access when we launch in
-              April 2026
+              Join the waitlist and get exclusive early access.
             </p>
 
-            <div className=" mx-auto mt-6 flex-col w-full max-w-[470px] gap-3 sm:flex sm:flex-row">
+            <form
+              onSubmit={handleSubmit}
+              className="mx-auto mt-6 flex-col w-full gap-3 items-center sm:flex sm:flex-row"
+            >
               <input
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
-                className="h-[52px] w-full rounded-full border border-[#D9D9D9] bg-white px-5 text-[15px] text-[#111827] outline-none placeholder:text-[#A1A1AA] focus:border-[#B6BBC7]"
+                className="h-[52px] w-full sm:flex-1 sm:min-w-0 rounded-full border border-[#D9D9D9] bg-transparent px-5 text-[15px] text-[#111827] outline-none placeholder:text-[#A1A1AA] focus:border-[#B6BBC7]"
                 style={mona}
+                required
               />
               <button
-                type="button"
-                className="h-[52px] w-full lg:w-fit shrink-0 rounded-full bg-[#00007F] px-9 text-[14px] mt-4 lg:mt-0 lg:text-[18px] font-semibold text-white transition-colors hover:bg-[#000066]"
+                type="submit"
+                className="h-[52px] w-full sm:w-auto shrink-0 rounded-full bg-[#00007F] px-5 text-[14px] mt-4 sm:mt-0 lg:text-[18px] font-semibold text-white transition-colors hover:bg-[#000066]"
                 style={mona}
               >
                 Get Early Access
               </button>
-            </div>
+            </form>
 
             <p className="mt-4 text-[16px] leading-none" style={mona}>
-              <span className="font-bold text-[#B8943F]">4,827</span>{" "}
-              <span className="text-[#767676]">
+              <span className="font-bold text-[20px] text-[#B8943F]">
+                4,827
+              </span>{" "}
+              <span className="text-[#8a8fa8] text-[12.5px]">
                 people already on the waitlist
               </span>
             </p>
 
-            <div className="mt-6 mx-auto flex flex-wrap lg:max-w-none max-w-[220px] pb-15 items-center lg:justify-center justify-start gap-x-5 gap-y-2">
+            {/* <div className="mt-6 mx-auto flex flex-wrap lg:max-w-none max-w-[220px] pb-15 items-center lg:justify-center justify-start gap-x-5 gap-y-2">
               {benefits.map((item) => (
                 <div key={item} className="inline-flex items-center gap-2">
                   <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-[#E9FAEF] text-[#34C759] text-[10px] font-bold">
@@ -118,7 +99,7 @@ export const EarlyAccess = () => {
                   </span>
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

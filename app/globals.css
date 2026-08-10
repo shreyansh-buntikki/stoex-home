@@ -1,5 +1,28 @@
 @import "tailwindcss";
-@plugin "@tailwindcss/typography";
+
+@font-face {
+  font-family: "Sansation";
+  src: url("/fonts/sansation-300.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sansation";
+  src: url("/fonts/sansation-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sansation";
+  src: url("/fonts/sansation-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   --background: #ffffff;
@@ -23,7 +46,182 @@ body {
   width: 100%;
   max-width: 100%;
   height: auto;
-  border-radius: 0.5rem;
-  display: block;
-  margin: 1em 0;
+}
+
+/* Force proper styling for blog content */
+.prose h2,
+.prose h2.wp-block-heading,
+article h2,
+article h2.wp-block-heading {
+  font-size: 24px !important;
+}
+
+.prose h1 {
+  font-size: 2.25rem !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  margin-top: 2rem !important;
+  margin-bottom: 1rem !important;
+  color: #111827 !important;
+}
+
+.prose h2 {
+  font-size: 1.875rem !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 0.75rem !important;
+  color: #111827 !important;
+}
+
+.prose h3 {
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+  margin-top: 1.25rem !important;
+  margin-bottom: 0.5rem !important;
+  color: #111827 !important;
+}
+
+.prose ul {
+  list-style-type: disc !important;
+  margin: 1rem 0 !important;
+  padding-left: 1.5rem !important;
+}
+
+.prose ol {
+  list-style-type: decimal !important;
+  margin: 1rem 0 !important;
+  padding-left: 1.5rem !important;
+}
+
+.prose li {
+  margin: 0.5rem 0 !important;
+  display: list-item !important;
+}
+
+.prose li::marker {
+  color: #000000 !important;
+}
+
+.prose p {
+  margin: 1rem 0 !important;
+  line-height: 1.7 !important;
+  color: #3b3c4a !important;
+}
+
+.prose strong {
+  font-weight: 700 !important;
+  color: #111827 !important;
+}
+
+.prose em {
+  font-style: italic !important;
+}
+
+.prose a {
+  color: #4b6bfb !important;
+  text-decoration: underline !important;
+  text-underline-offset: 5px;
+}
+
+.blog-layout {
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 1100px) {
+  .blog-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 3rem;
+    max-width: none;
+    margin: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .blog-layout > div:first-child,
+  .blog-layout > div:last-child {
+    flex: 1;
+    min-width: 0;
+  }
+  .blog-layout > div:nth-child(2) {
+    width: 620px;
+    flex-shrink: 0;
+    min-width: 0;
+  }
+}
+
+/* Content images — full column width by default */
+.prose figure.wp-block-image {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 6rem;
+  margin-bottom: 6rem;
+}
+
+/* Center-aligned images */
+.prose figure.wp-block-image.aligncenter {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.prose figure.wp-block-image.aligncenter img {
+  max-width: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Left/right aligned images */
+.prose figure.wp-block-image.alignleft {
+  float: left !important;
+  margin-right: 1.5rem !important;
+  margin-left: 0 !important;
+  width: auto !important;
+}
+
+.prose figure.wp-block-image.alignright {
+  float: right !important;
+  margin-left: 1.5rem !important;
+  margin-right: 0 !important;
+  width: auto !important;
+}
+
+/* Add class "img-padded" in WP block Advanced → CSS Class(es) to reduce to 60% width */
+@media (min-width: 768px) {
+  .prose figure.wp-block-image.img-padded,
+  .prose figure.wp-block-image[style*="padding"] {
+    width: 60% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+@media (min-width: 1100px) {
+  .blog-featured-image {
+    width: 780px;
+    margin-left: -80px;
+    margin-right: -80px;
+  }
+  .blog-share-row {
+    width: 780px;
+    margin-left: -80px;
+    margin-right: -80px;
+  }
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }

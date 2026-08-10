@@ -10,6 +10,15 @@ interface ContactFormData {
   message?: string;
 }
 
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;");
+}
+
 export async function sendContactEmail(formData: ContactFormData) {
   try {
     console.log("========================================");
@@ -78,7 +87,14 @@ export async function sendContactEmail(formData: ContactFormData) {
       },
     });
 
-    const firstName = formData.name.split(" ")[0];
+    const safeData = {
+      name: escapeHtml(formData.name),
+      email: escapeHtml(formData.email),
+      phone: escapeHtml(formData.phone),
+      company: formData.company ? escapeHtml(formData.company) : undefined,
+      message: formData.message ? escapeHtml(formData.message) : undefined,
+    };
+    const firstName = escapeHtml(formData.name.split(" ")[0]);
     const submittedAt = new Date().toLocaleString("en-US", {
       dateStyle: "full",
       timeStyle: "long",
@@ -114,11 +130,11 @@ export async function sendContactEmail(formData: ContactFormData) {
             <div class="content">
               <p>Hello Team,</p>
               <p>A new visitor has submitted the contact form on the STOEX website. Details below:</p>
-              <div class="field"><span class="label">Name:</span><div class="value">${formData.name}</div></div>
-              <div class="field"><span class="label">Email:</span><div class="value"><a href="mailto:${formData.email}">${formData.email}</a></div></div>
-              <div class="field"><span class="label">Phone:</span><div class="value"><a href="tel:${formData.phone}">${formData.phone}</a></div></div>
-              ${formData.company ? `<div class="field"><span class="label">Company:</span><div class="value">${formData.company}</div></div>` : ""}
-              ${formData.message ? `<div class="field"><span class="label">Message:</span><div class="value"><div class="message-box">${formData.message}</div></div></div>` : ""}
+              <div class="field"><span class="label">Name:</span><div class="value">${safeData.name}</div></div>
+              <div class="field"><span class="label">Email:</span><div class="value"><a href="mailto:${safeData.email}">${safeData.email}</a></div></div>
+              <div class="field"><span class="label">Phone:</span><div class="value"><a href="tel:${safeData.phone}">${safeData.phone}</a></div></div>
+              ${safeData.company ? `<div class="field"><span class="label">Company:</span><div class="value">${safeData.company}</div></div>` : ""}
+              ${safeData.message ? `<div class="field"><span class="label">Message:</span><div class="value"><div class="message-box">${safeData.message}</div></div></div>` : ""}
               <div class="field"><span class="label">Submitted on:</span><div class="value">${submittedAt}</div></div>
               <div class="note"><strong>Action Required:</strong> Please review this enquiry and follow up within 1–2 business days.</div>
             </div>
@@ -129,10 +145,10 @@ export async function sendContactEmail(formData: ContactFormData) {
       text: `
 New Contact Form Submission – STOEX Website
 
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone}
-${formData.company ? `Company: ${formData.company}\n` : ""}${formData.message ? `Message:\n${formData.message}\n` : ""}
+Name: ${safeData.name}
+Email: ${safeData.email}
+Phone: ${safeData.phone}
+${safeData.company ? `Company: ${safeData.company}\n` : ""}${safeData.message ? `Message:\n${safeData.message}\n` : ""}
 Submitted on: ${submittedAt}
       `.trim(),
     });

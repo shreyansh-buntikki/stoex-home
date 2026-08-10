@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { ArrowRight, ChevronDown } from "lucide-react";
@@ -37,7 +37,7 @@ function AvailableGoldBar({ greyed }: { greyed: boolean }) {
   return (
     <div
       className={`flex items-center justify-between rounded-xl border px-4 py-3 ${
-        greyed ? "border-[#E5E7EB] bg-[#F9FAFB]" : "border-[#E5E7EB] bg-white"
+        greyed ? "border-[#E5E7EB] bg-[#FFFBF2]" : "border-[#E5E7EB] bg-white"
       }`}
     >
       <div className="flex items-center gap-3">
@@ -45,21 +45,19 @@ function AvailableGoldBar({ greyed }: { greyed: boolean }) {
           <Image
             src={CoinIcon}
             alt="Gold Coin"
-            width={45}
-            height={45}
+            width={65}
+            height={65}
             className={`object-cover ${greyed ? "opacity-40 grayscale" : ""}`}
           />
         </div>
         <span
-          className={`text-[13px] lg:text-[14px] ${greyed ? "text-[#BCBCBC]" : "text-[#3D3D3D]"}`}
-          style={mona}
+          className={`text-[13px] font-inter lg:text-[14px] ${greyed ? "text-[#BCBCBC]" : "text-[#3D3D3D]"}`}
         >
           Available Balance
         </span>
       </div>
       <span
-        className={`text-[16px] lg:text-[18px] font-bold ${greyed ? "text-[#BCBCBC]" : "text-[#0A0A0A]"}`}
-        style={mona}
+        className={`text-[16px] font-inter lg:text-[18px] font-medium ${greyed ? "text-[#BCBCBC]" : "text-[#0A0A0A]"}`}
       >
         56.82g
       </span>
@@ -91,9 +89,7 @@ function CashCard({ active }: { active: boolean }) {
   const { goldRate } = useGoldRate();
   const cashPricePerGram = parseFloat(String(goldRate));
   const [goldGrams, setGoldGrams] = useState(0.01);
-  const [amountInr, setAmountInr] = useState(
-    0,
-  );
+  const [amountInr, setAmountInr] = useState(0);
   const [gramsEdit, setGramsEdit] = useState("0.01");
   const [goldFirst, setGoldFirst] = useState(true);
   const goldRef = useRef<HTMLDivElement>(null);
@@ -102,6 +98,12 @@ function CashCard({ active }: { active: boolean }) {
   const greyed = !active;
   const valueInputClass =
     "min-w-0 flex-1 border-none bg-transparent p-0 text-[28px] font-bold leading-none tracking-tight outline-none ring-0 focus:ring-0";
+
+  useEffect(() => {
+    if (cashPricePerGram > 0) {
+      setAmountInr(Math.round(0.01 * cashPricePerGram));
+    }
+  }, [cashPricePerGram]);
 
   const setFromGrams = (grams: number) => {
     const nextGrams = Math.max(0, grams);
@@ -142,21 +144,21 @@ function CashCard({ active }: { active: boolean }) {
     <div
       className={`relative flex h-full flex-col rounded-2xl border p-6 transition-all duration-300 ${
         active
-          ? "border-[#E5E7EB] bg-white shadow-[0px_0px_16px_0px_rgba(191,155,103,0.15)]"
-          : "border-[#E5E7EB] bg-[#FAFAFA]"
+          ? "border-[#E8D9B8] bg-white shadow-[0px_0px_24px_0px_rgba(191,155,103,0.35)]"
+          : "border-[#E8D9B8] bg-[#FFF7E5]"
       }`}
     >
       <h3
-        className={`text-center text-[18px] lg:text-[22px] font-bold mb-1 lg:mb-2 ${
-          active ? "text-[#00007F]" : "text-[#0A0A0A]"
+        className={`text-center text-[18px] lg:text-[22px] font-semibold mb-1 lg:mb-2 ${
+          active ? "text-[#B8943F]" : "text-[#B8AA8A]"
         }`}
-        style={sansation}
+        style={{ ...mona, letterSpacing: "1px" }}
       >
-        Sell gold for cash
+        SELL GOLD FOR CASH
       </h3>
       <p
-        className={`text-center text-[12px] lg:text-[13px] leading-[17px] lg:leading-[18px] mb-4 lg:mb-6 max-w-[320px] mx-auto ${
-          greyed ? "text-[#BCBCBC]" : "text-[#8A8FA8]"
+        className={`text-center text-[12px] lg:text-[12px] leading-[17px] lg:leading-[18px] mb-4 lg:mb-6 max-w-[320px] mx-auto ${
+          greyed ? "text-[#C8BC9A]" : "text-[#111111]"
         }`}
         style={mona}
       >
@@ -166,12 +168,13 @@ function CashCard({ active }: { active: boolean }) {
 
       <AvailableGoldBar greyed={greyed} />
       <p
-        className="text-[15px] lg:text-[18px] mt-3"
+        className="text-[13px] lg:text-[15px] font-regular tracking-wide mt-3"
         style={{
-          color: greyed ? "#BCBCBC" : "#3D3D3D",
+          ...mona,
+          color: greyed ? "#C8BC9A" : "#111111",
         }}
       >
-        Select denomination
+        SELECT DENOMINATION
       </p>
 
       <div
@@ -189,57 +192,58 @@ function CashCard({ active }: { active: boolean }) {
             className={`relative rounded-xl border p-6 overflow-visible ${
               goldFirst
                 ? greyed
-                  ? "border-[#E5E7EB] bg-[#F9FAFB]"
-                  : "border-[#E5E7EB] bg-white"
-                : "border-[#E5E7EB] bg-[#F9FAFB]"
+                  ? "border-[#E8D9B8] bg-[#FFFBF2]"
+                  : "border-[#E8D9B8] bg-white"
+                : "border-[#E8D9B8] bg-white"
             }`}
           >
             <label
-              className={`block text-[14px] font-medium mb-2 ${
-                goldFirst && !greyed ? "text-[#3D3D3D]" : "text-[#BCBCBC]"
+              className={`block text-[16px] lg:text-[18px] font-medium mb-2 ${
+                goldFirst && !greyed ? "text-[#B8943F]" : "text-[#111111]"
               }`}
               style={mona}
             >
               Gold (grams)
             </label>
-              <div className="flex items-baseline gap-0" style={mona}>
-                <input
-                  type="text"
-                  name="redeem-cash-gold-grams"
-                  inputMode="decimal"
-                  autoComplete="off"
-                  aria-label="Gold in grams"
-                  pattern="[0-9]*[.]?[0-9]*"
-                  className={`min-w-0 border-none bg-transparent p-0 text-[28px] font-bold leading-none tracking-tight outline-none ring-0 focus:ring-0 ${goldFirst && !greyed ? "text-[#0A0A0A]" : "text-[#BCBCBC]"}`}
-                  style={{ ...mona, width: `${Math.max((gramsEdit || "0").length, 2)}ch` }}
-                  value={gramsEdit}
-                  onChange={(e) => {
-                    const cleaned = sanitizeGramsInput(e.target.value);
-                    setGramsEdit(cleaned);
-                    if (cleaned === "" || cleaned === ".") {
-                      setGoldGrams(0);
-                      setAmountInr(0);
-                      return;
-                    }
-                    const parsed = parseFloat(cleaned);
-                    if (!Number.isNaN(parsed) && parsed >= 0) {
-                      setGoldGrams(parsed);
-                      setAmountInr(Math.round(parsed * cashPricePerGram));
-                    }
-                  }}
-                  onBlur={() =>
-                    setGramsEdit(formatGramsInputDisplay(goldGrams))
+            <div className="flex items-baseline gap-0" style={mona}>
+              <input
+                type="text"
+                name="redeem-cash-gold-grams"
+                inputMode="decimal"
+                autoComplete="off"
+                aria-label="Gold in grams"
+                pattern="[0-9]*[.]?[0-9]*"
+                className={`min-w-0 border-none bg-transparent p-0 text-[28px] leading-none tracking-tight outline-none ring-0 focus:ring-0 ${goldFirst && !greyed ? "text-[#0A0A0A] font-semibold" : "text-[#BCBCBC] font-medium"}`}
+                style={{ ...mona, fieldSizing: "content" } as CSSProperties}
+                value={gramsEdit}
+                onChange={(e) => {
+                  const cleaned = sanitizeGramsInput(e.target.value);
+                  setGramsEdit(cleaned);
+                  if (cleaned === "" || cleaned === ".") {
+                    setGoldGrams(0);
+                    setAmountInr(0);
+                    return;
                   }
-                />
-                <span className={`shrink-0 text-[28px] font-bold leading-none ${goldFirst && !greyed ? "text-[#0A0A0A]" : "text-[#BCBCBC]"}`}>
-                  g
-                </span>
-              </div>
-            
+                  const parsed = parseFloat(cleaned);
+                  if (!Number.isNaN(parsed) && parsed >= 0) {
+                    setGoldGrams(parsed);
+                    setAmountInr(Math.round(parsed * cashPricePerGram));
+                  }
+                }}
+                onBlur={() => setGramsEdit(formatGramsInputDisplay(goldGrams))}
+              />
+              <span
+                className={`shrink-0 text-[28px] leading-none ${goldFirst && !greyed ? "text-[#0A0A0A] font-semibold" : "text-[#BCBCBC] font-medium"}`}
+              >
+                g
+              </span>
+            </div>
 
             <div
               className={`flex gap-2 transition-all ${
-                goldFirst ? "opacity-100 mt-4 h-auto" : "opacity-0 pointer-events-none h-0 overflow-hidden mt-0"
+                goldFirst
+                  ? "opacity-100 mt-4 h-auto"
+                  : "opacity-0 pointer-events-none h-0 overflow-hidden mt-0"
               }`}
             >
               {QUICK_GRAMS_CASH.map((g) => {
@@ -253,8 +257,8 @@ function CashCard({ active }: { active: boolean }) {
                       greyed
                         ? "border-[#E5E7EB] bg-[#F3F4F6] text-[#BCBCBC] cursor-default"
                         : selected
-                          ? "border-[#C5CAD3] bg-[#E8EAEF] text-[#1D1D1D]"
-                          : "border-[#E5E7EB] bg-white text-[#6B7280] hover:bg-[#F9FAFB]"
+                          ? "border-[#FFF7E5] bg-[#FFF7E5] text-[#1D1D1D]"
+                          : "border-[#FFF7E5] bg-white text-[#6B7280] hover:bg-[#F9FAFB]"
                     }`}
                     style={mona}
                     disabled={greyed || !goldFirst}
@@ -268,8 +272,8 @@ function CashCard({ active }: { active: boolean }) {
               <p
                 className={`absolute -bottom-9 z-[-1] left-0 right-0 flex w-full items-end justify-center rounded-b-xl px-4 pt-4 pb-2 text-center text-[13px] leading-[18px] ${
                   greyed
-                    ? "bg-[#F1F1F6] text-[#C8C8D6]"
-                    : "bg-[#E6E6F2] text-[#3F4656]"
+                    ? "bg-[#EDE0C4] text-[#C8BC9A]"
+                    : "bg-[#B8943F] text-white"
                 }`}
                 style={mona}
               >
@@ -324,31 +328,25 @@ function CashCard({ active }: { active: boolean }) {
         >
           <div
             ref={amountRef}
-            className={`relative rounded-xl border p-6 overflow-visible ${
-              !goldFirst
-                ? greyed
-                  ? "border-[#E5E7EB] bg-[#F9FAFB]"
-                  : "border-[#E5E7EB] bg-white"
-                : "border-[#E5E7EB] bg-[#F9FAFB]"
-            }`}
+            className={`relative rounded-xl border p-6 overflow-visible border-[#E8D9B8] ${greyed ? "bg-[#FFFBF2]" : "bg-white"}`}
           >
             <label
               className={`block text-[14px] font-medium mb-2 ${
-                !goldFirst && !greyed ? "text-[#3D3D3D]" : "text-[#BCBCBC]"
+                !goldFirst && !greyed ? "text-[#3D3D3D]" : "text-[#111111]"
               }`}
               style={mona}
             >
               Amount you receive (INR)
             </label>
             <p
-              className={`text-[28px] font-bold leading-none ${
+              className={`text-[28px] font-medium leading-none ${
                 !goldFirst && !greyed ? "text-[#0A0A0A]" : "text-[#BCBCBC]"
               }`}
               style={mona}
             >
               {!goldFirst && !greyed ? (
                 <span className="flex min-w-0 items-baseline gap-0.5">
-                  <span className="shrink-0 text-[28px] font-bold leading-none">
+                  <span className="shrink-0 text-[28px] font-semibold leading-none">
                     ₹
                   </span>
                   <input
@@ -357,9 +355,9 @@ function CashCard({ active }: { active: boolean }) {
                     inputMode="numeric"
                     autoComplete="off"
                     aria-label="Redeem amount in Indian rupees"
-                    className={`${valueInputClass} text-[#0A0A0A]`}
+                    className={`${valueInputClass} font-semibold text-[#0A0A0A]`}
                     style={mona}
-                    value={amountInr === 0 ? "" : String(amountInr)}
+                    value={String(amountInr)}
                     onChange={(e) =>
                       setFromAmount(parseInrDigits(e.target.value))
                     }
@@ -372,7 +370,9 @@ function CashCard({ active }: { active: boolean }) {
 
             <div
               className={`flex flex-nowrap items-center justify-between gap-1.5 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden transition-all ${
-                !goldFirst ? "opacity-100 mt-4 pb-1.5 h-auto" : "opacity-0 pointer-events-none h-0 overflow-hidden mt-0 pb-0"
+                !goldFirst
+                  ? "opacity-100 mt-4 pb-1.5 h-auto"
+                  : "opacity-0 pointer-events-none h-0 overflow-hidden mt-0 pb-0"
               }`}
             >
               {QUICK_AMOUNTS.map((qa) => (
@@ -398,8 +398,8 @@ function CashCard({ active }: { active: boolean }) {
               <p
                 className={`absolute -bottom-9 z-[-1] left-0 right-0 flex w-full items-end justify-center rounded-b-xl px-4 pt-4 pb-2 text-center text-[13px] leading-[18px] ${
                   greyed
-                    ? "bg-[#F1F1F6] text-[#C8C8D6]"
-                    : "bg-[#E6E6F2] text-[#3F4656]"
+                    ? "bg-[#EDE0C4] text-[#C8BC9A]"
+                    : "bg-[#B8943F] text-white"
                 }`}
                 style={mona}
               >
@@ -412,16 +412,15 @@ function CashCard({ active }: { active: boolean }) {
 
       <div className="-mt-3 lg:mt-auto flex justify-center">
         <button
-          className={`w-fit px-4 self-center flex items-center justify-center gap-2 rounded-full py-3.5 text-[15px] font-bold transition-colors ${
+          className={`w-full px-4 self-center border flex items-center justify-center gap-2 rounded-full py-3 text-[14px] font-bold transition-colors ${
             active
-              ? "bg-[#00007F] text-white hover:bg-[#000066]"
-              : "bg-[#D9D9D9] text-[#A0A0A0] cursor-default"
+              ? "bg-transparent text-[#00007F] border-[#00007F]"
+              : "bg-transparent text-[#A0A0A0] border-[#B8AA8A] cursor-default"
           }`}
-          style={mona}
+          style={{ ...mona, letterSpacing: "1px" }}
           disabled={!active}
         >
-          Sell gold for cash
-          <ArrowRight className="w-4 h-4" />
+          SELL GOLD FOR CASH
         </button>
       </div>
     </div>
@@ -436,54 +435,60 @@ function PhysicalCard({ active }: { active: boolean }) {
     <div
       className={`relative flex h-full flex-col rounded-2xl border p-6 transition-all duration-300 ${
         active
-          ? "border-[#E5E7EB] bg-white shadow-[0px_0px_16px_0px_rgba(191,155,103,0.15)]"
-          : "border-[#E5E7EB] bg-[#FAFAFA]"
+          ? "border-[#E8D9B8] bg-white shadow-[0px_0px_24px_0px_rgba(191,155,103,0.35)]"
+          : "border-[#E8D9B8] bg-[#FFF7E5]"
       }`}
     >
       {/* Title */}
       <h3
-        className={`text-center text-[18px] lg:text-[22px] font-bold mb-1 lg:mb-2 ${
-          active ? "text-[#00007F]" : "text-[#0A0A0A]"
+        className={`text-center text-[18px] lg:text-[22px] font-semibold mb-1 lg:mb-2 ${
+          active ? "text-[#B8943F]" : "text-[#B8AA8A]"
         }`}
-        style={sansation}
+        style={{
+          ...mona,
+          letterSpacing: "1px",
+        }}
       >
-        Get physical gold
+        GET PHYSICAL GOLD
       </h3>
       <p
-        className={`text-center text-[12px] lg:text-[13px] leading-[17px] lg:leading-[18px] mb-4 lg:mb-6 max-w-[320px] mx-auto ${
-          greyed ? "text-[#BCBCBC]" : "text-[#8A8FA8]"
+        className={`text-center text-[12px] lg:text-[12px] leading-[17px] lg:leading-[18px] mb-4 lg:mb-6 max-w-[450px] mx-auto ${
+          greyed ? "text-[#C8BC9A]" : "text-[#111111]"
         }`}
         style={mona}
       >
-        Get certified gold coin or bar securely delivered to your doorstep.
+        Get a certified MMTC-PAMP gold coin or bar — sealed, signed,individually
+        serial-numbered and assay-certified — securely delivered to your
+        doorstep.
       </p>
 
       {/* Available Gold */}
       <AvailableGoldBar greyed={greyed} />
       <p
-        className="text-[15px] lg:text-[18px] mt-3"
+        className="text-[13px] lg:text-[15px] font-regular tracking-wide mt-3"
         style={{
-          color: greyed ? "#BCBCBC" : "#3D3D3D",
+          ...mona,
+          color: greyed ? "#C8BC9A" : "#111111",
         }}
       >
-        Select denomination
+        SELECT DENOMINATION
       </p>
 
       {/* Gold (grams) */}
-      <div className="mt-4 mb-12 lg:mb-9 relative rounded-xl border border-[#E5E7EB] overflow-visible">
+      <div className="mt-4 mb-12 z-10 lg:mb-9 relative rounded-xl border border-[#E8D9B8] overflow-visible">
         <div
-          className={`relative z-10 rounded-xl p-4 ${greyed ? "bg-[#F9FAFB]" : "bg-white"}`}
+          className={`relative z-10 rounded-xl p-4 ${greyed ? "bg-[#FFFBF2]" : "bg-[#ffffff]"}`}
         >
           <label
-            className={`block text-[14px] font-medium mb-2 ${
-              greyed ? "text-[#BCBCBC]" : "text-[#3D3D3D]"
+            className={`block text-[18px] font-medium mb-2 ${
+              greyed ? "text-[#BCBCBC]" : "text-[#B8943F]"
             }`}
             style={mona}
           >
             Gold (grams)
           </label>
           <p
-            className={`text-[28px] font-bold leading-none mb-4 ${
+            className={`text-[28px] font-medium leading-none mb-4 ${
               greyed ? "text-[#BCBCBC]" : "text-[#0A0A0A]"
             }`}
             style={mona}
@@ -501,7 +506,7 @@ function PhysicalCard({ active }: { active: boolean }) {
                   onClick={() => !greyed && setSelectedWeight(item.weight)}
                   className={`flex-1 flex flex-col items-center gap-2 rounded-xl border py-3 transition-colors ${
                     greyed
-                      ? "border-[#E5E7EB] bg-[#F3F4F6] cursor-default"
+                      ? "border-[#E5E7EB] bg-[#FFFBF2] cursor-default"
                       : selected
                         ? "border-[#C08514] bg-[#FAF3E8]"
                         : "border-[#E5E7EB] bg-[#F9FAFB] hover:bg-[#F3F4F6]"
@@ -535,10 +540,8 @@ function PhysicalCard({ active }: { active: boolean }) {
           </div>
         </div>
         <p
-          className={`absolute -bottom-7 lg:-bottom-9 z-0 left-0 right-0 flex w-full items-end justify-center rounded-b-xl px-1 pt-4 pb-2 text-center text-[11px] leading-[12px] ${
-            greyed
-              ? "bg-[#F1F1F6] text-[#C8C8D6]"
-              : "bg-[#E6E6F2] text-[#3F4656]"
+          className={`absolute -bottom-7 lg:-bottom-6.5 z-0 left-0 right-0 flex w-full items-end justify-center rounded-b-xl px-1 pt-4 pb-2 text-center text-[11px] leading-[12px] ${
+            greyed ? "bg-[#EDE0C4] text-[#C8BC9A]" : "bg-[#B8943F] text-white"
           }`}
           style={mona}
         >
@@ -547,9 +550,7 @@ function PhysicalCard({ active }: { active: boolean }) {
       </div>
 
       <div
-        className={`mt-4 rounded-xl border p-4 ${
-          greyed ? "border-[#E5E7EB] bg-[#F9FAFB]" : "border-[#E5E7EB] bg-white"
-        }`}
+        className={`relative z-10 mt-4 rounded-xl border p-4 border-[#E8D9B8] ${greyed ? "bg-[#FFFBF2]" : "bg-white"}`}
       >
         <label
           className={`block text-[14px] font-semibold mb-2 ${
@@ -579,16 +580,15 @@ function PhysicalCard({ active }: { active: boolean }) {
       {/* Redeem Button */}
       <div className="mt-6 lg:mt-auto lg:pt-8 flex justify-center">
         <button
-          className={`w-fit px-4 flex items-center justify-center gap-2 rounded-full py-3.5 text-[15px] font-bold transition-colors ${
+          className={`w-full px-4 self-center border flex items-center justify-center gap-2 rounded-full py-3 text-[14px] font-bold transition-colors ${
             active
-              ? "bg-[#00007F] text-white hover:bg-[#000066]"
-              : "bg-[#D9D9D9] text-[#A0A0A0] cursor-default"
+              ? "bg-transparent text-[#00007F] border-[#00007F]"
+              : "bg-transparent text-[#A0A0A0] border-[#B8AA8A] cursor-default"
           }`}
-          style={mona}
+          style={{ ...mona, letterSpacing: "1px" }}
           disabled={!active}
         >
-          Get physical gold
-          <ArrowRight className="w-4 h-4" />
+          GET PHYSICAL GOLD
         </button>
       </div>
     </div>
@@ -599,20 +599,21 @@ export const Redemption = () => {
   const [mode, setMode] = useState<RedeemMode>("cash");
 
   return (
-    <section className="bg-[#F9F8F6] py-[85px] pt-2 lg:py-[100px] px-6 overflow-hidden">
+    <section className="bg-gradient-to-b from-[#FFFBF2] to-[#FFFFFF] py-[80px] lg:pt-[100px] lg:pb-[180px] px-6">
       <div className="container mx-auto max-w-[1240px]">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-12"
+          className="text-center mb-2 lg:mb-12"
         >
           <h2
-            className="text-[40px] font-bold leading-[46px] text-[#0A0A0A] hidden lg:block"
+            className="lg:text-[56px] text-[26px] lg:text-[46px] font-regular leading-[46px] text-[#0A0A0A] block"
             style={sansation}
           >
-            Your Gold, Your Choice
+            Your Gold,{" "}
+            <span className="font-bold text-[#B8943F]">Your Choice</span>
           </h2>
         </motion.div>
 
@@ -621,7 +622,7 @@ export const Redemption = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative"
+          className="relative mt-0 lg:mt-28"
         >
           {/* Mobile tabs */}
           <div className="lg:hidden flex items-center justify-center gap-0 mb-6 max-w-[960px] mx-auto">
@@ -705,7 +706,7 @@ export const Redemption = () => {
                 animate={{ x: 0 }}
                 exit={{ x: 120 }}
                 transition={{ duration: 0.5 }}
-                className="hidden lg:block absolute -bottom-[10px] left-[0px] z-0"
+                className="hidden lg:flex flex-col items-start absolute -bottom-[30px] left-[0px] z-0 w-[250px]"
               >
                 <Image
                   src={MobileImage}
@@ -714,7 +715,12 @@ export const Redemption = () => {
                   height={480}
                   className="object-contain"
                 />
-               
+                <p
+                  className="text-[10px] text-[#3D3D3D] text-left w-full mt-1"
+                  style={mona}
+                >
+                  This is just a visual representation
+                </p>
               </motion.div>
             )}
           </AnimatePresence>
@@ -727,7 +733,7 @@ export const Redemption = () => {
                 animate={{ x: 0 }}
                 exit={{ x: -120 }}
                 transition={{ duration: 0.5 }}
-                className="hidden lg:block absolute -bottom-[0px] right-[20px] z-0"
+                className="hidden lg:flex flex-col items-end absolute -bottom-[30px] right-[20px] z-0 w-[240px]"
               >
                 <Image
                   src={CoinImage}
@@ -736,7 +742,12 @@ export const Redemption = () => {
                   height={180}
                   className="object-contain"
                 />
-                
+                <p
+                  className="text-[10px] text-[#3D3D3D] text-right w-full mt-4"
+                  style={mona}
+                >
+                 This is just a visual representation
+                </p>
               </motion.div>
             )}
           </AnimatePresence>

@@ -4,50 +4,45 @@ export const faqData: Record<FaqTab, FaqEntry[]> = {
   know_stoex: [
     {
       question: "What is STOEX?",
-      answer: `STOEX is a gold investment platform that lets you buy, sell, and own verified 24-karat gold — starting from
-just ₹15. Every gram you purchase is physically stored in insured, institutional-grade vaults under
-independent trustee custody, and your holdings are recorded on a blockchain-based public ledger — one
-of the world’s most widely adopted and trusted networks — so you can verify your gold exists at any time.
-Think of it as buying real gold with the convenience of a digital wallet — and the transparency to prove
-it’s actually there.`,
+      answer: `STOEX is a digital gold platform that lets you buy, sell and own verified 24-karat gold refined by MMTC-PAMP — starting from just ₹10. Every gram you buy is physically stored in insured,institutional-grade vaults under independent trustee custody,and your holdings are recorded on a public, tamper-proof ledger so you can verify your gold at any time`,
     },
     {
-      question: "How do I start investing on STOEX?",
-      answer: `Three steps: (1) Sign up on STOEX.io and complete your KYC verification — it takes under 2 minutes with
+      question: "How do I start buying gold on STOEX?",
+      answer: `Three steps: (1) Download the STOEX app and complete your KYC verification — it takes under 2 minutes with
 Aadhaar-based biometric verification. (2) Add funds via UPI, net banking, or any standard payment
-method. (3) Choose how much gold you want to buy — starting from as little as ₹15. Your gold is allocated
+method. (3) Choose how much gold you want to buy — starting from as little as ₹10. Your gold is allocated
 instantly, and you can verify your holdings right away from the STOEX app.`,
     },
     {
-      question: "What is the minimum amount I can invest in digital gold?",
-      answer: `₹15. That’s roughly 0.001 grams of 24-karat gold at current prices. There’s no maximum limit for purchases.
-You can invest any amount, at any time, and your gold balance accumulates fractionally — so you’re
+      question: "What is the minimum amount I can buy in digital gold?",
+      answer: `₹10. That’s roughly 0.001 grams of 24-karat gold at current prices. There’s no maximum limit for purchases.
+You can buy any amount, at any time, and your gold balance accumulates fractionally — so you’re
 building real gold ownership with every transaction, no matter how small.`,
     },
     {
       question: "Is STOEX the same as Paytm Gold or PhonePe Gold?",
-      answer: `STOEX is a gold investment platform, just like them — but there’s a fundamental difference in how your
+      answer: `STOEX is a digital gold platform, just like them — but there’s a fundamental difference in how your
 gold is secured and verified. On STOEX, every gram is stored under independent trustee custody (not held
 by the platform itself), audited quarterly by RRBP Advisors, and recorded on a tamper-proof digital ledger
 you can check anytime. We also charge zero storage fees and offer instant, 24/7 liquidity. The gold is the
 same. The accountability is not.`,
     },
     {
-      question: "Is gold a good investment right now?",
+      question: "Is gold a good way to save right now?",
       answer: `Gold has been one of the most consistent stores of value for centuries — and India’s 5,000-year
 relationship with gold reflects that. Whether it’s the right time depends on your financial goals, but gold
 has historically served as a strong inflation hedge, portfolio diversifier, and safe haven during economic
 uncertainty. With STOEX, you don’t need to time the market or buy a full gram — you can start building
-your gold holdings from ₹15 and invest at your own pace.`,
+your gold holdings from ₹10 and buy at your own pace.`,
     },
     {
       question: "How is STOEX different from Gold ETFs?",
       answer: `Buying a Gold ETF runs on stock-market rules — you need a demat account with a broker, you can only
 place orders during market hours (9:15 AM–3:30 PM on weekdays), and trades take T+2 days to settle.
-Buying on STOEX runs on app rules — open the STOEX app, tap to buy from ₹15, and the gold is in your
+Buying on STOEX runs on app rules — open the STOEX app, tap to buy from ₹10, and the gold is in your
 account in seconds, any day of the week, weekends and holidays included.
 Both give you exposure to real gold, but STOEX goes one step further: your gold is physically vaulted and
-independently verifiable, not a paper claim. Add to that zero storage fees, a ₹15 minimum, and the option
+independently verifiable, not a paper claim. Add to that zero storage fees, a ₹10 minimum, and the option
 to redeem certified physical coins or bars whenever you want — and you get direct ownership, not just
 an entry on a broker’s screen.`,
     },
@@ -56,9 +51,9 @@ an entry on a broker’s screen.`,
       answer: `It depends on what you’re optimizing for. Physical gold (jewellery, coins, bars) gives you something you
 can hold, but it comes with making charges (8–25% for jewellery), storage risk, locker fees, and purity
 doubts. Digital gold on STOEX gives you the same 24-karat purity at live market rates — without making
-charges, storage fees, or purity concerns. You can also start with ₹15 instead of committing to a full gram
+charges, storage fees, or purity concerns. You can also start with ₹10 instead of committing to a full gram
 or ornament.
-The best part: you don’t have to choose. On STOEX, you can invest digitally and convert your holdings into
+The best part: you don’t have to choose. On STOEX, you can buy digitally and convert your holdings into
 certified physical gold coins or bars delivered to your doorstep anytime. You get the flexibility of digital
 with the option of physical — whenever you want it.`,
     },
@@ -70,8 +65,8 @@ long-term instrument if you’re comfortable locking funds in. The trade-offs: y
 limited RBI issue windows, you need a demat account, and exiting early means selling on exchanges, often
 at a discount.
 Digital gold on STOEX works very differently — no lock-in, no demat, no waiting for issue windows. You
-can buy from ₹15, sell 24/7 at live market rates, and redeem physical gold anytime. In short: SGB suits
-patient, long-horizon capital; STOEX suits flexibility, small-ticket investing, and instant liquidity.`,
+can buy from ₹10, sell 24/7 at live market rates, and redeem physical gold anytime. In short: SGB suits
+patient, long-horizon capital; STOEX suits flexibility, small-ticket saving, and instant liquidity.`,
     },
     {
       question: " Which is the best digital gold platform in India?",
@@ -80,7 +75,7 @@ audited? Is it insured? And what does it cost you to hold? Most digital gold app
 their own balance sheet, with limited visibility into the vault or the audit process.
 STOEX is built differently — your gold sits with an independent trustee (Vistra), is audited quarterly by a
 third party (RRBP Advisors), is insured in Sequel Global’s institutional-grade vaults, and every gram is
-recorded on a tamper-proof ledger you can verify yourself. Add zero storage fees, a ₹15 minimum, 24/7
+recorded on a tamper-proof ledger you can verify yourself. Add zero storage fees, a ₹10 minimum, 24/7
 liquidity, and physical redemption on demand — and you have a platform designed around the one thing
 that matters: proof that your gold is actually there.`,
     },
@@ -129,7 +124,7 @@ findings are shared transparently.`,
     },
     {
       question: " Is STOEX regulated?",
-      answer: `Yes — STOEX operates as a licensed securities firm and follows the strictest investor-protection practices
+      answer: `Yes — STOEX operates as a licensed securities firm and follows the strictest buyer-protection practices
 available today. In plain terms: your gold is held by an independent custodian (not STOEX), checked by an
 outside auditor every quarter, recorded on a ledger nobody can secretly edit, and you go through proper
 KYC like any serious investment platform. We’ve built STOEX ready for the day full digital gold regulation
@@ -137,13 +132,13 @@ arrives — not rushing to catch up after.`,
     },
     {
       question: "Is digital gold on STOEX 24-karat pure?",
-      answer: `Yes — every gram on STOEX is 24-karat (999.9 fine) gold, the purest investment-grade standard available.
+      answer: `Yes — every gram on STOEX is 24-karat (999.9 fine) gold, the purest grade standard available.
 No alloys, no mixing, no purity drop. Each gram is backed 1:1 by physical 24-karat gold held in Sequel
 Global’s insured vaults and verified quarterly by third-party audits. If you ever choose physical redemption,
 the coins or bars you receive carry hallmarked 999.9 purity certification.`,
     },
     {
-      question: "What KYC documents do I need to invest on STOEX?",
+      question: "What KYC documents do I need to buy gold on STOEX?",
       answer: `Just your Aadhaar and PAN. The entire KYC is completed in under 2 minutes through Aadhaar-based
 biometric verification — no uploading photos of documents, no waiting for manual approval. You’ll also
 need a bank account or UPI ID for transactions. STOEX follows the same full KYC/AML standards used by
@@ -170,11 +165,11 @@ hidden markups, no hidden spreads.`,
 your holdings into real, certified 24-karat gold coins or bars and have them delivered to your doorstep.
 Choose from 1g, 5g, or 10g denominations, with a minimum redemption of 1 gram, and delivery handled
 securely with end-to-end tracking. You can also redeem partially — turn some of your gold physical, keep
-the rest invested and liquid. Real gold, really yours, really deliverable.`,
+the rest liquid. Real gold, really yours, really deliverable.`,
     },
     {
       question: "Are there any limits on how much I can buy?",
-      answer: `There’s no upper limit on purchases. You can invest from ₹15 up to any amount you choose. For larger
+      answer: `There’s no upper limit on purchases. You can buy from ₹10 up to any amount you choose. For larger
 transactions, the same verification and custody protections apply — every gram is independently
 auditable regardless of your holding size.`,
     },
@@ -186,10 +181,10 @@ available.`,
     },
     {
       question: "Can I do a gold SIP on STOEX?",
-      answer: `Yes — you can set up a recurring investment on STOEX to automatically buy gold at regular intervals,
-similar to a mutual fund SIP. This lets you benefit from rupee-cost averaging: by investing a fixed amount
+      answer: `Yes — you can set up a recurring purchase on STOEX to automatically buy gold at regular intervals,
+similar to a mutual fund SIP. This lets you benefit from rupee-cost averaging: by buying a fixed amount
 periodically, you buy more gold when prices are low and less when prices are high. You can start from as
-little as ₹15 per installment and adjust or pause anytime.`,
+little as ₹10 per installment and adjust or pause anytime.`,
     },
     {
       question: " Can I gift digital gold to someone on STOEX?",
@@ -216,7 +211,7 @@ charges, and zero annual fees. Your gold sits in insured, institutional-grade va
 the only cost is the gold price at the time of purchase.`,
     },
     {
-      question: "What are the tax implications of investing in gold on STOEX?",
+      question: "What are the tax implications of buying gold on STOEX?",
       answer: `Gold purchased on STOEX is treated as a capital asset under Indian tax law. Short-term capital gains
 (holdings sold within 3 years) are taxed at your income tax slab rate. Long-term capital gains (holdings
 sold after 3 years) are taxed at 20% with indexation benefits. We recommend consulting a tax advisor for
@@ -231,7 +226,7 @@ category. No hidden spreads, no surprise deductions, and no markups on gold rate
 checkout is what you pay.`,
     },
     {
-      question: " Do I need a demat account to invest on STOEX?",
+      question: " Do I need a demat account to buy gold on STOEX?",
       answer: `No. Unlike Gold ETFs or gold mutual funds, STOEX doesn’t require a demat account, trading account, or
 any brokerage setup. All you need is a smartphone, an Aadhaar-linked KYC verification, and a UPI or bank
 account. You can go from signup to your first gold purchase in under 3 minutes.`,
@@ -275,7 +270,7 @@ possible — and it’s the core reason STOEX is built on blockchain.`,
     },
     {
       question: "Is STOEX a cryptocurrency platform?",
-      answer: `No. STOEX is a gold investment platform, not a crypto exchange. The blockchain is
+      answer: `No. STOEX is a digital gold platform, not a crypto exchange. The blockchain is
 used purely as a record-keeping layer — to create a tamper-proof, publicly verifiable
 record of your gold ownership. You’re not buying cryptocurrency or a speculative token.
 You’re buying real, 24-karat physical gold that happens to be recorded on a blockchain

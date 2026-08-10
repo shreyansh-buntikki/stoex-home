@@ -3,7 +3,10 @@
 import Image from "next/image";
 import { Mail, Phone, AlertCircle, CheckCircle, Loader2 } from "lucide-react";
 import { useState, type CSSProperties } from "react";
+import { motion } from "framer-motion";
 import ContactHero from "@/public/assets/images/contact-hero.webp";
+
+const fadeIn = { hidden: { opacity: 0 }, show: { opacity: 1 } };
 
 const mona: CSSProperties = { fontFamily: "Mona Sans, sans-serif" };
 const sansation: CSSProperties = { fontFamily: "Sansation, sans-serif" };
@@ -115,19 +118,12 @@ export const ContactForm = () => {
     setSubmitted(false);
 
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-      if (!baseUrl) {
-        setError(
-          "Base URL is not configured. Please contact the administrator.",
-        );
-        return;
-      }
-      const response = await fetch(`${baseUrl}/api/inquiries`, {
+      const response = await fetch(`/api/inquiries`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, type: "contact" }),
       });
 
       const result = await response.json();
@@ -161,21 +157,28 @@ export const ContactForm = () => {
     <section className="bg-[#f8f6f6]">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-6 items-stretch">
-          <div className="bg-white h-full rounded-2xl p-6 sm:p-8 lg:p-10 shadow-sm">
+          <motion.div
+            className="bg-white h-full rounded-2xl p-6 sm:p-8 lg:p-10 shadow-sm order-2 lg:order-none"
+            variants={fadeIn}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
             <p
-              className="text-[#00007F] text-[28px] font-regular leading-[100%] tracking-wider uppercase"
+              className="text-[#00007F] text-[20px] md:text-[28px] font-regular leading-[100%] tracking-wider uppercase"
               style={mona}
             >
               GET IN TOUCH
             </p>
             <h1
-              className="mt-3 text-[32px] leading-[1.15] sm:text-[40px] lg:text-[48px] font-bold text-[#0A0A0A]"
+              className="mt-3 text-[36px] leading-[1] lg:leading-[1.15] sm:text-[40px] lg:text-[48px] font-bold text-[#0A0A0A]"
               style={sansation}
             >
               Write us your query!
             </h1>
             <p
-              className="mt-5 text-[16px] text-[#1D1D1D] leading-relaxed max-w-[520px]"
+              className="mt-5 text-[14px] md:text-[16px] text-[#1D1D1D] leading-relaxed max-w-[520px]"
               style={mona}
             >
               Have a question or need more information? Fill out the form below
@@ -335,10 +338,17 @@ export const ContactForm = () => {
                 )}
               </div>
             </form>
-          </div>
+          </motion.div>
 
-          <div className="flex flex-col gap-6 h-full">
-            <div className="relative w-full flex-1 min-h-[500px] lg:min-h-[600px] rounded-2xl overflow-hidden shadow-sm">
+          <div className="contents lg:flex lg:flex-col lg:gap-6 lg:h-full">
+            <motion.div
+              className="relative w-full order-1 lg:order-none lg:flex-1 min-h-[400px] sm:min-h-[460px] lg:min-h-[600px] rounded-2xl overflow-hidden shadow-sm"
+              variants={fadeIn}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, ease: "easeOut", delay: 0.05 }}
+            >
               <Image
                 src={ContactHero}
                 alt="STOEX office skyline"
@@ -347,9 +357,16 @@ export const ContactForm = () => {
                 className="object-cover"
                 priority
               />
-            </div>
+            </motion.div>
 
-            <div className="bg-white rounded-2xl p-5 sm:p-6 shadow-sm flex flex-col gap-4">
+            <motion.div
+              className="bg-white rounded-2xl p-5 sm:p-6 shadow-sm flex flex-col gap-4 order-3 lg:order-none"
+              variants={fadeIn}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
+            >
               <div className="bg-[#f8f6f6] rounded-xl p-5 flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-[#EEEEFB] flex items-center justify-center flex-shrink-0">
                   <Mail className="w-5 h-5 text-[#00007F]" />
@@ -357,10 +374,10 @@ export const ContactForm = () => {
                 <div style={mona}>
                   <p className="text-[18px] font-bold text-[#0A0A0A]">Email</p>
                   <a
-                    href="mailto:connectus@stoex.io"
+                    href="mailto:connectus@stoex.in"
                     className="text-[16px] text-[#0A0A0A] hover:text-[#00007F] transition-colors"
                   >
-                    connectus@stoex.io
+                    connectus@stoex.in
                   </a>
                 </div>
               </div>
@@ -375,11 +392,11 @@ export const ContactForm = () => {
                     href="tel:+919319769194"
                     className="text-[16px] text-[#0A0A0A] hover:text-[#00007F] transition-colors"
                   >
-                    +91 93197 69194
+                    +91 84483 58943
                   </a>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

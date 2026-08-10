@@ -1,30 +1,8 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import BlogDetail from "@/components/blogs/BlogDetail";
+import BlogNotFound from "@/components/blogs/BlogNotFound";
 import type { Blog } from "@/components/blogs/BlogList";
-
-interface BlogResponse {
-  blog: Blog;
-  otherBlogs: Blog[];
-}
-
-async function getBlogBySlug(slug: string): Promise<BlogResponse | null> {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs/${slug}`,
-      { next: { revalidate: 60 } },
-    );
-    if (!res.ok) return null;
-    const json = await res.json();
-    if (!json.data?.blog) return null;
-    return {
-      blog: json.data.blog,
-      otherBlogs: json.data.otherBlogs ?? [],
-    };
-  } catch {
-    return null;
-  }
-}
+import { getBlogBySlugWithOthers } from "@/lib/wordpress";
 
 export async function generateMetadata({
   params,
@@ -32,7 +10,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const result = await getBlogBySlug(slug);
+  const result = await getBlogBySlugWithOthers(slug);
   if (!result) return { title: "Blog Not Found" };
 
   const { blog } = result;
@@ -60,8 +38,12 @@ export default async function BlogPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const result = await getBlogBySlug(slug);
-  if (!result) notFound();
+  const result = await getBlogBySlugWithOthers(slug);
+  if (!result) return <BlogNotFound />;
 
-  return <BlogDetail blog={result.blog} otherBlogs={result.otherBlogs} />;
+  return (
+    <div className="w-full" style={{ background: "linear-gradient(to bottom, #FFEFCF 0px, #FFF8EC 250px, #FFFAF2 380px, #FFFFFF 550px)" }}>
+      <BlogDetail blog={result.blog} otherBlogs={result.otherBlogs} />;
+    </div>
+  );
 }

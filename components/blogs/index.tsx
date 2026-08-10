@@ -1,21 +1,17 @@
 import BlogList, { type Blog } from "./BlogList";
-
-async function getBlogs(): Promise<Blog[]> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs`, {
-    next: { revalidate: 60 },
-  });
-  if (!res.ok) throw new Error("Failed to fetch blogs");
-  const data = await res.json();
-  console.log("blogs API response keys:", Object.keys(data));
-  return Array.isArray(data) ? data : data.blogs ?? data.data ?? [];
-}
+import { getBlogs, getCategories, type Category } from "@/lib/wordpress";
 
 export default async function Blogs() {
   let blogs: Blog[] = [];
+  let hasMore = false;
+  let categories: Category[] = [];
   let error: string | null = null;
 
   try {
-    blogs = await getBlogs();
+    ([{ blogs, hasMore }, categories] = await Promise.all([
+      getBlogs(1, 13),
+      getCategories(),
+    ]));
   } catch {
     error = "Failed to load blogs. Please try again later.";
   }
@@ -30,5 +26,5 @@ export default async function Blogs() {
     );
   }
 
-  return <BlogList blogs={blogs} />;
+  return <BlogList blogs={blogs} initialHasMore={hasMore} categories={categories} />;
 }

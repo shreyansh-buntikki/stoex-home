@@ -16,11 +16,7 @@ export function GoldRateProvider({ children }: { children: ReactNode }) {
 
   const getGoldRate = async () => {
     try {
-      const response = await fetch("https://apirate.digigold.com/rates/stoex", {
-        headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
-        },
-      });
+      const response = await fetch("/api/gold-rate", { cache: "no-store" });
       const data = await response.json();
       setGoldRate(data?.data?.gold_rate || 0);
     } catch (error) {

@@ -1,5 +1,4 @@
-"use client";
-
+import { Advantage } from "./Advantage";
 import { Assets } from "./Assets";
 import { Comparison } from "./Comparison";
 import { EarlyAccess } from "./EarlyAccess";
@@ -8,6 +7,7 @@ import { HeroGold } from "./Hero";
 import { Protection } from "./Protection";
 import { Redemption } from "./Redemption";
 import Secure from "./Secure";
+import Standard from "./Standard";
 import { Steps } from "./Steps";
 
 export function HomePageGold() {
@@ -17,12 +17,14 @@ export function HomePageGold() {
         <HeroGold />
       </section>
       <Secure />
-      <Comparison />
+      <Standard />
+      <Advantage/>
       <Steps />
-      <Protection />
       <Redemption />
+      {/* <Assets /> */}
+      <Comparison />
+      <Protection />
       <FAQs />
-      <Assets />
       <section id="early-access-section">
         <EarlyAccess />
       </section>

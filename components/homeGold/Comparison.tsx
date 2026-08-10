@@ -2,6 +2,15 @@
 
 import { motion } from "framer-motion";
 import type { CSSProperties } from "react";
+import Image from "next/image";
+import PaymentsIcon from "@/public/assets/icons/payments.svg";
+import EncryptionIcon from "@/public/assets/icons/encrypted.svg";
+import CompareArrowsIcon from "@/public/assets/icons/compare_arrows.svg";
+import ReceiptIcon from "@/public/assets/icons/receipt_long.svg";
+import BeenHereIcon from "@/public/assets/icons/beenhere.svg";
+import RedeemIcon from "@/public/assets/icons/redeem.svg";
+import FactCheckIcon from "@/public/assets/icons/fact_check.svg";
+import ManageSearchIcon from "@/public/assets/icons/manage_search.svg";
 
 const mona: CSSProperties = { fontFamily: "Mona Sans, sans-serif" };
 const sansation: CSSProperties = {
@@ -9,216 +18,404 @@ const sansation: CSSProperties = {
   letterSpacing: "1px",
 };
 
+const B = "border-[#E0E0E0]";
+
 const comparisonData = [
   {
-    feature: "Minimum investment",
-    traditional: "1 gram (₹9.8k+)",
-    stoex: "₹15",
+    feature: "Minimum Purchase",
+    icon: PaymentsIcon,
+    traditional: { main: "0.1gm ~ ₹1500" },
+    other: { main: "₹10" },
+    stoex: { main: "₹10" },
+    stoexOnly: false,
   },
   {
-    feature: "Storage fees",
-    traditional: "₹500-2000/year",
-    stoex: "₹0",
+    feature: "Storage & Safety",
+    icon: EncryptionIcon,
+    traditional: { main: "₹2000-5000 p.a." },
+    other: { main: "₹0", sub: "May vary by platform" },
+    stoex: {
+      main: "₹0",
+      sub: "Guaranteed, with registered vault provider up to 5 years",
+    },
+    stoexOnly: false,
   },
   {
     feature: "Liquidity",
-    traditional: "2-7 days",
-    stoex: "Instant, 24x7",
+    icon: CompareArrowsIcon,
+    traditional: { main: "2-7 days" },
+    other: { main: "Some day", sub: "bought by bullion dealer/refinery" },
+    stoex: {
+      main: "Instant 24x7",
+      sub: "72-hour cooling-off before proceeds release",
+    },
+    stoexOnly: false,
   },
   {
-    feature: "Purity verification",
-    traditional: "Manual testing",
-    stoex: "Amrapali Hallmark",
+    feature: "Price Transparency",
+    icon: ReceiptIcon,
+    traditional: { main: "Wide spreads and making charges" },
+    other: { main: "Hidden fees and spreads" },
+    stoex: {
+      main: "Live and upfront price",
+      sub: "same from order to invoice",
+    },
+    stoexOnly: false,
   },
   {
-    feature: "Physical redemption",
-    traditional: "Not available",
-    stoex: "Anytime",
+    feature: "Purity Assurance",
+    icon: BeenHereIcon,
+    traditional: { main: "BIS Hallmark" },
+    other: { main: "24K claimed" },
+    stoex: { main: "24K LBMA verified" },
+    stoexOnly: false,
   },
+  {
+    feature: "Physical Delivery",
+    icon: RedeemIcon,
+    traditional: { main: "Yes", sub: "you already own it" },
+    other: { main: "Yes", sub: "Dependent on platform and reserves held" },
+    stoex: {
+      main: "Yes",
+      sub: "Guaranteed, request anytime with min. weight threshold",
+    },
+    stoexOnly: false,
+  },
+  // {
+  //   feature: "Proof of Service and Ownership",
+  //   icon: FactCheckIcon,
+  //   traditional: { main: "N.A." },
+  //   other: { main: "N.A." },
+  //   stoex: { main: "Live", sub: "On-chain public ledger" },
+  //   stoexOnly: true,
+  // },
+  // {
+  //   feature: "Independent Trustee and Audit",
+  //   icon: ManageSearchIcon,
+  //   traditional: { main: "N.A." },
+  //   other: { main: "Yes", sub: "Dependent on the platform" },
+  //   stoex: {
+  //     main: "Yes",
+  //     sub: "Guaranteed, and recorded On-chain public ledger",
+  //   },
+  //   stoexOnly: true,
+  // },
 ];
+
+const regularRows = comparisonData.filter((r) => !r.stoexOnly);
+const stoexOnlyRows = comparisonData.filter((r) => r.stoexOnly);
 
 export const Comparison = () => {
   return (
-    <section className="bg-white py-[80px] pt-0 lg:py-[0px] lg:pb-[100px] px-6">
+    <section className="bg-white py-[80px] pt-0 lg:py-[180px] lg:pb-[100px] px-4 lg:px-6">
       <div className="container mx-auto">
-        <div className="flex flex-col gap-8 items-center">
+        <div className="flex flex-col gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8 }}
-            className="flex flex-col gap-4 lg:gap-6items-center text-center lg:max-w-[800px]"
+            className="flex flex-col gap-4 lg:gap-6 items-center text-center lg:max-w-[800px]"
           >
             <h2
-              className="text-[26px] lg:text-[40px] font-semibold leading-[32px] lg:leading-[40px] text-[#0A0A0A]"
+              className="text-[26px] lg:text-[48px] font-regular leading-[32px] lg:leading-[50px] text-[#0A0A0A]"
               style={sansation}
             >
-              Gold you can understand <br />
-              in <span className="text-[#B8943F]">plain language</span>
+             A Better Way to
+              <span className="text-[#B8943F] font-bold">
+                {" "}
+                Buy Gold
+              </span>
             </h2>
-            <p
-              className="text-[15px] lg:text-[20px] leading-[22px] lg:leading-[28px] text-[#3D3D3D] max-w-[609px]"
-              style={mona}
-            >
-              We've stripped away the complexity of traditional gold investing.
-              No hidden fees, no confusing paperwork, no minimum lock-ins.
-            </p>
+           
           </motion.div>
 
-          {/* Desktop: 3 separate cards */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-full max-w-[1100px] hidden lg:block"
+            className="w-full max-w-[1100px] flex flex-col"
           >
-            <div className="flex items-stretch gap-6">
-              {/* Card 1: Feature — no border, no bg */}
-              <div className="flex-1 flex flex-col">
-                <div className="px-5 py-5 h-[58px] flex items-center">
+            {/* Container 1: regular rows */}
+            <div
+              className={`border border-[#E0E0E0] rounded-[14px] overflow-hidden`}
+            >
+              {/* Header */}
+              <div className="grid grid-cols-3 lg:grid-cols-[1.2fr_1fr_1fr_1fr]">
+                <div className={`hidden lg:block border-r ${B}`} />
+                <div
+                  className={`px-3 py-3 lg:py-4 flex items-center justify-start border-b border-r ${B}`}
+                >
                   <p
-                    className="text-[14px] leading-[16px] text-[#8A8FA8] font-bold tracking-[0.525px]"
+                    className="text-[10px] lg:text-[16px] text-[#B8B8B8] font-bold tracking-wider text-start"
                     style={mona}
                   >
-                    Feature
+                    Traditional Gold
                   </p>
                 </div>
-                {comparisonData.map((row) => (
-                  <div
-                    key={row.feature}
-                    className="px-5 py-5 h-[64px] flex items-center border-t border-[#E5E7EF]"
+                <div
+                  className={`px-3 py-3 lg:py-4 flex items-center justify-start border-b border-r lg:border-r-0 ${B}`}
+                >
+                  <p
+                    className="text-[10px] lg:text-[16px] text-[#B8AA8A] font-bold tracking-wider text-start"
+                    style={mona}
                   >
+                    Other Digital Gold
+                  </p>
+                </div>
+                <div
+                  className={`px-3 py-3 lg:py-4 flex items-start justify-start border-b ${B}`}
+                  style={{
+                    background: "linear-gradient(to bottom, #FFCD57, #FFF7E5)",
+                  }}
+                >
+                  <p
+                    className="text-[10px] lg:text-[16px] text-[#52421C] font-bold tracking-wider text-start"
+                    style={mona}
+                  >
+                    STOEX Platform
+                  </p>
+                </div>
+              </div>
+
+              {regularRows.map((row) => (
+                <div key={row.feature}>
+                  <div
+                    className={`lg:hidden flex items-center justify-center gap-2 px-2 pt-2 pb-2 border-t ${B}`}
+                  >
+                    <Image
+                      src={row.icon}
+                      alt=""
+                      width={16}
+                      height={16}
+                      className="w-4 h-4 flex-shrink-0 opacity-70"
+                    />
                     <p
-                      className="text-[14px] leading-[20px] text-[#3D3D3D]"
+                      className="text-[12px] font-semibold text-[#1A1A1A] text-center"
                       style={mona}
                     >
                       {row.feature}
                     </p>
                   </div>
-                ))}
-              </div>
 
-              {/* Card 2: Traditional — border, #F7F8FC header */}
-              <div className="flex-1 flex flex-col border border-[#E5E7EF] rounded-[14px] overflow-hidden">
-                <div className="bg-[#F7F8FC] px-5 py-5 h-[58px] flex items-center justify-center">
-                  <p
-                    className="text-[14px] leading-[16px] text-[#8A8FA8] font-bold tracking-[0.525px]"
-                    style={mona}
-                  >
-                    Traditional
-                  </p>
-                </div>
-                {comparisonData.map((row) => (
                   <div
-                    key={row.feature}
-                    className="bg-white px-5 py-5 h-[64px] flex items-center justify-center border-t border-[#E5E7EF]"
+                    className={`grid grid-cols-3 lg:grid-cols-[1.2fr_1fr_1fr_1fr] border-t ${B} min-h-[100px] lg:min-h-[120px]`}
                   >
-                    <p
-                      className="text-[14px] leading-[20px] text-[#3d3d3d] text-center"
-                      style={mona}
+                    <div
+                      className={`hidden lg:flex items-center gap-3 px-4 py-4 lg:py-5 border-r ${B}`}
                     >
-                      {row.traditional}
-                    </p>
-                  </div>
-                ))}
-              </div>
+                      <Image
+                        src={row.icon}
+                        alt=""
+                        width={20}
+                        height={20}
+                        className="w-6 h-6 flex-shrink-0 opacity-80"
+                      />
+                      <p
+                        className="text-[14px] lg:text-[16px] font-semibold text-[#1A1A1A]"
+                        style={mona}
+                      >
+                        {row.feature}
+                      </p>
+                    </div>
 
-              {/* Card 3: Stoex Gold — navy border+header, green values */}
-              <div className="flex-1 flex flex-col rounded-[14px] overflow-hidden border-2 border-[#00007F] shadow-[0px_0px_16px_0px_rgba(191,155,103,0.4)]">
-                <div className="bg-[#00007F] px-5 py-5 h-[58px] flex items-center justify-center">
-                  <p
-                    className="text-[14px] leading-[16px] text-white font-bold tracking-[0.525px] uppercase"
-                    style={mona}
-                  >
-                    STOEX GOLD
-                  </p>
+                    <div
+                      className={`px-3 lg:px-5 py-4 lg:py-5 flex flex-col items-start justify-center border-r ${B}`}
+                    >
+                      <p
+                        className="text-[13px] lg:text-[17px] text-[#B8B8B8] text-start"
+                        style={mona}
+                      >
+                        {row.traditional.main}
+                      </p>
+                      {row.traditional.sub && (
+                        <p
+                          className="text-[10px] lg:text-[12px] text-[#B8B8B8] text-start mt-0.5"
+                          style={mona}
+                        >
+                          {row.traditional.sub}
+                        </p>
+                      )}
+                    </div>
+
+                    <div
+                      className={`px-3 lg:px-5 py-4 lg:py-5 flex flex-col items-start justify-center border-r lg:border-r-0 ${B}`}
+                    >
+                      <p
+                        className="text-[13px] lg:text-[17px] text-[#B8AA8A] text-start"
+                        style={mona}
+                      >
+                        {row.other.main}
+                      </p>
+                      {row.other.sub && (
+                        <p
+                          className="text-[10px] lg:text-[12px] text-[#B8AA8A] text-start mt-0.5"
+                          style={mona}
+                        >
+                          {row.other.sub}
+                        </p>
+                      )}
+                    </div>
+
+                    <div
+                      className="px-3 lg:px-5 py-4 lg:py-5 flex flex-col items-start justify-center"
+                      style={{
+                        background: "linear-gradient(to left, #FFFFFF, #FFF7E5)",
+                      }}
+                    >
+                      <p
+                        className="text-[13px] lg:text-[17px] font-semibold text-[#52421C] text-start"
+                        style={mona}
+                      >
+                        {row.stoex.main}
+                      </p>
+                      {row.stoex.sub && (
+                        <p
+                          className="text-[10px] lg:text-[12px] text-[#8A7A50] text-start mt-0.5"
+                          style={mona}
+                        >
+                          {row.stoex.sub}
+                        </p>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                {comparisonData.map((row) => (
-                  <div
-                    key={row.feature}
-                    className="bg-white px-5 py-5 h-[64px] flex items-center justify-center border-t border-[#E5E7EF]"
-                  >
-                    <p
-                      className="text-[14px] leading-[20px] text-[#1A9E5C] font-semibold text-center"
-                      style={mona}
-                    >
-                      {row.stoex}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Mobile: single table card */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-full lg:hidden rounded-2xl border border-[#E5E7EF] overflow-hidden shadow-[0px_0px_16px_0px_#BF9B6766]"
-          >
-            {/* Table header */}
-            <div className="flex items-stretch bg-[#F7F8FC] border-b border-[#E5E7EF] divide-x divide-[#E5E7EF]">
-              <div className="flex-1 px-2 py-4">
-                <p
-                  className="text-[10px] leading-[13px] text-[#8A8FA8] font-bold text-center tracking-[0.5px] capitalize"
-                  style={mona}
-                >
-                  Feature
-                </p>
-              </div>
-              <div className="flex-1 px-2 py-4 text-center">
-                <p
-                  className="text-[10px] leading-[13px] text-[#8A8FA8] font-bold tracking-[0.5px] capitalize"
-                  style={mona}
-                >
-                  Traditional
-                </p>
-              </div>
-              <div className="flex-1 px-2 py-4 text-center">
-                <p
-                  className="text-[10px] leading-[13px] text-[#00007F] font-bold tracking-[0.5px] uppercase"
-                  style={mona}
-                >
-                  STOEX GOLD
-                </p>
-              </div>
+              ))}
             </div>
 
-            {/* Table rows */}
-            {comparisonData.map((row) => (
+            {/* Divider between containers */}
+            {/* <div className="flex items-center gap-3 px-4 py-4 lg:py-10">
               <div
-                key={row.feature}
-                className="flex items-stretch border-b border-[#E5E7EF] last:border-b-0 divide-x divide-[#E5E7EF]"
+                className="flex-1 h-[1px]"
+                style={{
+                  background:
+                    "linear-gradient(to right, transparent, #C8A84B)",
+                }}
+              />
+              <p
+                className="text-[16px] max-w-[150px] lg:max-w-none text-[#00007F] font-semibold text-center uppercase shrink-0"
+                style={{ ...mona, letterSpacing: "4px" }}
               >
-                <div className="flex-1 px-2 py-4 flex items-center justify-center">
-                  <p
-                    className="text-[11px] leading-[16px] text-[#3D3D3D] font-medium text-center"
-                    style={mona}
+                Offered by STOEX only in India
+              </p>
+              <div
+                className="flex-1 h-[1px]"
+                style={{
+                  background:
+                    "linear-gradient(to left, transparent, #C8A84B)",
+                }}
+              />
+            </div> */}
+
+            {/* Container 2: STOEX-only rows */}
+            {/* <div
+              className={`ring-1 ring-[#E0E0E0] rounded-b-[14px] overflow-hidden`}
+            >
+              {stoexOnlyRows.map((row, idx) => (
+                <div key={row.feature}>
+                  <div
+                    className={`lg:hidden flex items-center justify-center gap-2 px-2 pt-2 pb-2 ${idx !== 0 ? `border-t ${B}` : ""}`}
                   >
-                    {row.feature}
-                  </p>
-                </div>
-                <div className="flex-1 px-2 py-4 flex items-center justify-center">
-                  <p
-                    className="text-[11px] leading-[16px] text-[#8A8FA8] text-center"
-                    style={mona}
+                    <Image
+                      src={row.icon}
+                      alt=""
+                      width={16}
+                      height={16}
+                      className="w-4 h-4 flex-shrink-0 opacity-70"
+                    />
+                    <p
+                      className="text-[12px] font-semibold text-[#1A1A1A] text-center"
+                      style={mona}
+                    >
+                      {row.feature}
+                    </p>
+                  </div>
+
+                  <div
+                    className={`grid grid-cols-3 lg:grid-cols-[1.2fr_1fr_1fr_1fr] border-t ${B} min-h-[100px] lg:min-h-[120px]`}
                   >
-                    {row.traditional}
-                  </p>
+                    <div
+                      className={`hidden lg:flex items-center gap-3 px-4 py-5 border-r ${B}`}
+                    >
+                      <Image
+                        src={row.icon}
+                        alt=""
+                        width={20}
+                        height={20}
+                        className="w-6 h-6 flex-shrink-0 opacity-80"
+                      />
+                      <p
+                        className="text-[14px] lg:text-[16px] font-semibold text-[#1A1A1A]"
+                        style={mona}
+                      >
+                        {row.feature}
+                      </p>
+                    </div>
+
+                    <div
+                      className={`px-3 lg:px-5 py-4 lg:py-6 flex flex-col items-start justify-center border-r ${B}`}
+                    >
+                      <p
+                        className="text-[13px] lg:text-[17px] text-[#B8B8B8] text-start"
+                        style={mona}
+                      >
+                        {row.traditional.main}
+                      </p>
+                      {row.traditional.sub && (
+                        <p
+                          className="text-[10px] lg:text-[12px] text-[#B8B8B8] text-start mt-0.5"
+                          style={mona}
+                        >
+                          {row.traditional.sub}
+                        </p>
+                      )}
+                    </div>
+
+                    <div
+                      className={`px-3 lg:px-5 py-4 lg:py-6 flex flex-col items-start justify-center border-r lg:border-r-0 ${B}`}
+                    >
+                      <p
+                        className="text-[13px] lg:text-[17px] text-[#B8AA8A] text-start"
+                        style={mona}
+                      >
+                        {row.other.main}
+                      </p>
+                      {row.other.sub && (
+                        <p
+                          className="text-[10px] lg:text-[12px] text-[#B8AA8A] text-start mt-0.5"
+                          style={mona}
+                        >
+                          {row.other.sub}
+                        </p>
+                      )}
+                    </div>
+
+                    <div
+                      className="px-3 lg:px-5 py-4 lg:py-6 flex flex-col items-start justify-center"
+                      style={{
+                        background: "linear-gradient(to right, #E6E6FF, #FFFFFF)",
+                      }}
+                    >
+                      <p
+                        className="text-[13px] lg:text-[17px] font-semibold text-[#52421C] text-start"
+                        style={mona}
+                      >
+                        {row.stoex.main}
+                      </p>
+                      {row.stoex.sub && (
+                        <p
+                          className="text-[10px] lg:text-[12px] text-[#8A7A50] text-start mt-0.5"
+                          style={mona}
+                        >
+                          {row.stoex.sub}
+                        </p>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                <div className="flex-1 px-2 py-4 flex items-center justify-center">
-                  <p
-                    className="text-[12px] leading-[16px] text-[#00007F] font-semibold text-center"
-                    style={mona}
-                  >
-                    {row.stoex}
-                  </p>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div> */}
           </motion.div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useEarlyAccess } from "./GoldLayout";
 
 const mona = { fontFamily: "Mona Sans, sans-serif" };
 
@@ -8,6 +9,7 @@ const HIDE_SECTIONS = ["hero-section", "early-access-section", "site-footer"];
 
 export function MobileStickyBar() {
   const [hidden, setHidden] = useState(false);
+  const { openModal } = useEarlyAccess();
 
   useEffect(() => {
     const visibility = new Map<string, boolean>();
@@ -46,8 +48,9 @@ export function MobileStickyBar() {
     >
       <button
         type="button"
-        className="w-full rounded-full py-3 text-[16px] font-bold text-white"
-        style={{ backgroundColor: "#00007F", ...mona }}
+        onClick={() => openModal()}
+        className="w-full rounded-full py-3 text-[16px] uppercase font-semibold text-white"
+        style={{ backgroundColor: "#00007F", ...mona , letterSpacing: '2px'}}
       >
         Get Early Access
       </button>
