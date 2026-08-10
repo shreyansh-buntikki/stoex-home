@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import type { CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 
 import InflationHedge from "@/public/assets/images/inflation-hedge.webp";
 import PortfolioSafety from "@/public/assets/images/portfolio-safety.webp";
@@ -63,12 +63,23 @@ const cardVariants = {
   },
 };
 
-function ProtectionCard({ item }: { item: (typeof protectionData)[0] }) {
+function ProtectionCard({
+  item,
+  highlighted = false,
+}: {
+  item: (typeof protectionData)[0];
+  highlighted?: boolean;
+}) {
   return (
     <div
-      className="rounded-xl p-px h-full"
+      className="rounded-xl p-px h-full transition-shadow duration-500"
       style={{
-        background: "linear-gradient(to bottom, transparent 0%, #FFCD57 70%)",
+        background: highlighted
+          ? "linear-gradient(to bottom, #FFCD57 0%, #B8943F 100%)"
+          : "linear-gradient(to bottom, transparent 0%, #FFCD57 70%)",
+        boxShadow: highlighted
+          ? "0px 16px 36px -14px rgba(184,148,63,0.45)"
+          : "none",
       }}
     >
       <motion.div
@@ -117,30 +128,101 @@ export const Protection = () => {
           <div>
             
             <h2
-              className="text-[26px] lg:text-[50px] font-regular leading-[32px] lg:leading-[46px]"
+              className="text-[24px] min-[380px]:text-[26px] lg:text-[50px] font-regular leading-[32px] lg:leading-[46px] text-balance"
               style={sansation}
             >
-              <span className="text-[#B8943F] font-bold">
-                {" "}
-               Add Shine
-              </span> to Your Portfolio
+              <span className="text-[#B8943F] font-bold">Add Shine</span> to
+              Your Portfolio
             </h2>
           </div>
          
         </motion.div>
 
+        {/* Desktop: static grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 lg:grid-cols-4 lg:gap-6 gap-4 mt-8 lg:mt-10"
+          className="hidden lg:grid lg:grid-cols-4 lg:gap-6 mt-8 lg:mt-10"
         >
           {protectionData.map((item) => (
             <ProtectionCard key={item.title} item={item} />
           ))}
         </motion.div>
+
+        {/* Mobile: swipeable, auto-advancing carousel */}
+        <ProtectionCarousel />
       </div>
     </section>
+  );
+};
+
+const AUTO_ADVANCE_MS = 4000;
+
+const ProtectionCarousel = () => {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  const handleScroll = () => {
+    const track = trackRef.current;
+    if (!track) return;
+    const index = Math.round(track.scrollLeft / track.clientWidth);
+    setActive(Math.min(Math.max(index, 0), protectionData.length - 1));
+  };
+
+  const goTo = (index: number) => {
+    const track = trackRef.current;
+    if (!track) return;
+    track.scrollTo({ left: index * track.clientWidth, behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    if (paused) return;
+    const timer = setTimeout(() => {
+      goTo((active + 1) % protectionData.length);
+    }, AUTO_ADVANCE_MS);
+    return () => clearTimeout(timer);
+  }, [active, paused]);
+
+  return (
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-50px" }}
+      className="lg:hidden mt-8"
+    >
+      <div
+        ref={trackRef}
+        onScroll={handleScroll}
+        onPointerDown={() => setPaused(true)}
+        className="flex snap-x snap-mandatory overflow-x-auto scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {protectionData.map((item, index) => (
+          <div key={item.title} className="w-full shrink-0 snap-center px-1">
+            <ProtectionCard item={item} highlighted={active === index} />
+          </div>
+        ))}
+      </div>
+
+      <div className="flex items-center justify-center gap-2 mt-5">
+        {protectionData.map((item, index) => (
+          <button
+            key={item.title}
+            type="button"
+            onClick={() => {
+              setPaused(true);
+              goTo(index);
+            }}
+            aria-label={`Go to ${item.title}`}
+            className={`h-2 rounded-full transition-all ${
+              active === index ? "w-6 bg-[#B8943F]" : "w-2 bg-[#E5D9BC]"
+            }`}
+          />
+        ))}
+      </div>
+    </motion.div>
   );
 };

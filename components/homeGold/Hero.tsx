@@ -6,6 +6,7 @@ import TruckIcon from "@/public/assets/icons/truck.svg";
 import StorageIcon from "@/public/assets/icons/storage.svg";
 import HeroImageResponsive from "@/public/assets/images/hero-image-responsive.webp";
 import HeroImage from "@/public/assets/images/hero-image.webp";
+import { useEarlyAccess } from "@/components/layout/GoldLayout";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { type CSSProperties } from "react";
@@ -28,6 +29,8 @@ const HEADING_GRADIENT = "linear-gradient(to bottom, #B8943F 0%, #52421C 100%)";
 const HERO_BG = "linear-gradient(180deg, #FFFFFF 0%, #FFFBF2 100%)";
 
 export const HeroGold = () => {
+  const { openModal } = useEarlyAccess();
+
   return (
     <div
       className="relative flex min-h-[calc(100dvh-4.5rem)] overflow-hidden"
@@ -45,11 +48,9 @@ export const HeroGold = () => {
               <Image
                 src={HeroImage}
                 alt="Gold App"
-                width={600}
-                height={820}
                 sizes="(max-width: 1280px) 560px, 590px"
                 className="w-full h-auto max-h-[85dvh] object-contain object-bottom"
-                priority
+                loading="eager"
                 fetchPriority="high"
               />
             </div>
@@ -101,43 +102,36 @@ export const HeroGold = () => {
               <Image
                 src={HeroImageResponsive}
                 alt="Gold App"
-                width={280}
-                height={435}
-                sizes="280px"
-                className="mx-auto h-auto object-contain object-bottom"
-                style={{ maxWidth: "280px" }}
-                priority
+                sizes="(max-width: 380px) 300px, 340px"
+                className="mx-auto h-auto w-full max-w-[300px] min-[380px]:max-w-[340px] object-contain object-bottom"
+                loading="eager"
                 fetchPriority="high"
               />
             </motion.div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-2 lg:gap-8 items-start">
+            <div className="grid grid-cols-2 gap-3 pt-2 lg:gap-8 items-stretch">
               {TRUST_ITEMS.map((item, index) => (
                 <motion.div
                   key={item.label}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.15 + index * 0.05 }}
-                  className="flex flex-col items-start"
+                  className="flex h-full flex-col items-start rounded-[14px] border border-[#EFE3C8] bg-white/70 px-3 py-3 lg:border-0 lg:bg-transparent lg:p-0"
                 >
-                  <div
-                    className="flex gap-3"
-                    style={{
-                      alignItems: index === 10 ? "start" : "center",
-                    }}
-                  >
+                  <div className="flex h-full items-center gap-2 lg:gap-3">
                     <Image
                       src={item.icon}
-                      alt={item.label}
+                      alt=""
                       width={28}
                       height={28}
-                      className="shrink-0 lg:pt-1"
+                      aria-hidden="true"
+                      className="size-6 shrink-0 lg:size-7"
                       style={{
                         filter:
                           "sepia(1) saturate(3) hue-rotate(5deg) brightness(0.7)",
                       }}
                     />
                     <span
-                      className="text-[16px] font-[500] text-[#B8943F]"
+                      className="text-[14px] leading-[18px] font-[500] text-[#B8943F] lg:text-[16px]"
                       style={mona}
                     >
                       {item.label}
@@ -151,18 +145,22 @@ export const HeroGold = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.5 }}
             >
-              <div
-                className="inline-flex items-center md:mt-4 rounded-full px-4 py-3 w-fit"
-                style={{
-                  background: "linear-gradient(to right, #CCA763, #8A6D2F)",
-                }}
-              >
-                <span
-                  className="text-[16px] font-semibold text-[#ffffff]"
-                  style={mona}
+              <div className="flex justify-center lg:justify-start">
+                <button
+                  type="button"
+                  onClick={() => openModal()}
+                  className="inline-flex items-center justify-center md:mt-4 rounded-full px-10 py-4 lg:px-8 lg:py-3.5 w-full max-w-[360px] lg:w-fit lg:max-w-none transition-transform active:scale-[0.98]"
+                  style={{
+                    background: "linear-gradient(to right, #CCA763, #8A6D2F)",
+                  }}
                 >
-                  Get Early Access
-                </span>
+                  <span
+                    className="text-[18px] lg:text-[16px] font-semibold text-[#ffffff]"
+                    style={mona}
+                  >
+                    Get Early Access
+                  </span>
+                </button>
               </div>
             </motion.div>
           </div>
