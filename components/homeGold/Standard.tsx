@@ -220,15 +220,18 @@ export default function Standard() {
             <div className="lg:hidden">
               <Image src={StandardImage} alt="Stoex Standard" className="w-full" />
 
-              <div className="flex flex-wrap justify-center gap-3 mt-6">
-                {trustCards.map((card) => (
+              {/* 3 boxes on the first row, 2 centred on the second. */}
+              <div className="grid grid-cols-6 gap-2.5 mt-6">
+                {trustCards.map((card, index) => (
                   <div
                     key={card.id}
-                    className="flex items-center gap-2 whitespace-nowrap rounded-2xl bg-gradient-to-t from-white to-[#FFF7E5] px-4 py-3 shadow-sm"
+                    className={`flex min-h-[92px] flex-col items-center justify-center gap-2 rounded-2xl bg-gradient-to-t from-white to-[#FFF7E5] px-2 py-3 text-center shadow-sm ${
+                      index < 3 ? "col-span-2" : "col-span-3"
+                    }`}
                   >
-                    <Image src={card.icon} alt="" width={18} height={18} />
+                    <Image src={card.icon} alt="" width={22} height={22} />
                     <span
-                      className="text-[13px] font-bold text-[#B8943F]"
+                      className="text-[12px] leading-[15px] font-bold text-[#B8943F] text-balance"
                       style={mona}
                     >
                       {card.label}
