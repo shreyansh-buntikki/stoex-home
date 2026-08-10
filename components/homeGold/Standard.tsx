@@ -82,9 +82,9 @@ export default function Standard() {
   const [activeCard, setActiveCard] = useState<string | null>(null);
 
   return (
-    <section className=" relative bg-white py-[80px] sm:pb-0 lg:py-[140px] lg:pt-[160px] px-6">
+    <section className=" relative bg-white py-[40px] lg:py-[60px] px-6">
       <div className="container mx-auto max-w-[1200px]">
-        <div className="flex flex-col items-center justify-center gap-10 mb-10 lg:mb-10">
+        <div className="flex flex-col items-center justify-center gap-4 lg:gap-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -117,7 +117,8 @@ export default function Standard() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="relative w-full max-w-[500px] lg:max-w-[1040px]"
+            className="relative w-full max-w-[500px] lg:max-w-[1040px] mt-4 lg:mt-4"
+
           >
            
             {/* Height comes from the image itself so the section keeps no dead

@@ -27,11 +27,11 @@ export const EarlyAccess = () => {
   return (
     <section
       id="early-access-section"
-      className="bg-gradient-to-b from-[#FFFFFF] to-[#FFFBF2] py-[0px] pt-0 lg:py-[100px] lg:pt-0 lg:pb-0 pb-0 px-0"
+      className="bg-gradient-to-b from-[#FFFFFF] to-[#FFFBF2] py-[40px] lg:py-[60px] px-0"
     >
       <div className="mx-auto w-full max-w-none">
-        <div className="relative w-full overflow-hidden px-6 py-0 md:px-12 md:py-16">
-          <div className="relative z-10 mx-auto max-w-[1000px] pt-15 text-center">
+        <div className="relative w-full overflow-hidden px-6 py-0 md:px-12">
+          <div className="relative z-10 mx-auto max-w-[1000px] text-center">
             <h2
               className="text-[26px] leading-[36px] font-bold lg:text-[40px] lg:leading-[48px]"
               style={{

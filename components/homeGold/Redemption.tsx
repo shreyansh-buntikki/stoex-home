@@ -599,14 +599,14 @@ export const Redemption = () => {
   const [mode, setMode] = useState<RedeemMode>("cash");
 
   return (
-    <section className="bg-gradient-to-b from-[#FFFBF2] to-[#FFFFFF] py-[80px] lg:pt-[100px] lg:pb-[180px] px-6">
+    <section className="bg-gradient-to-b from-[#FFFBF2] to-[#FFFFFF] py-[40px] lg:py-[60px] px-6">
       <div className="container mx-auto max-w-[1240px]">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-2 lg:mb-12"
+          className="text-center mb-8 lg:mb-10"
         >
           <h2
             className="lg:text-[56px] text-[26px] lg:text-[46px] font-regular leading-[46px] text-[#0A0A0A] block"
@@ -622,7 +622,7 @@ export const Redemption = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative mt-0 lg:mt-28"
+          className="relative mt-0"
         >
           {/* Mobile tabs */}
           <div className="lg:hidden flex items-center justify-center gap-0 mb-6 max-w-[960px] mx-auto">

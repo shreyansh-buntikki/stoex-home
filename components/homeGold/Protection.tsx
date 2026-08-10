@@ -105,16 +105,16 @@ function ProtectionCard({ item }: { item: (typeof protectionData)[0] }) {
 
 export const Protection = () => {
   return (
-    <section className="bg-white lg:py-[0px] py-[80px] pt-0 px-6">
+    <section className="bg-white py-[40px] lg:py-[60px] px-6">
       <div className="container mx-auto max-w-[1340px]">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-[20px] mx-auto"
+          className="text-center mx-auto"
         >
-          <div className="mb-4 lg:mb-6">
+          <div>
             
             <h2
               className="text-[26px] lg:text-[50px] font-regular leading-[32px] lg:leading-[46px]"
@@ -134,7 +134,7 @@ export const Protection = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 lg:grid-cols-4 lg:gap-8 gap-4 mt-8 lg:mt-16"
+          className="grid grid-cols-1 lg:grid-cols-4 lg:gap-6 gap-4 mt-8 lg:mt-10"
         >
           {protectionData.map((item) => (
             <ProtectionCard key={item.title} item={item} />

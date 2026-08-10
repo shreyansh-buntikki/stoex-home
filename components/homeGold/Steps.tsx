@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
+import { useRef, useState } from "react";
 import type { CSSProperties } from "react";
 
 import Background from "@/public/assets/images/steps-bg.webp";
@@ -15,15 +16,45 @@ const sansation: CSSProperties = {
   letterSpacing: "1px",
 };
 
-const stepData = [
+type Step = { number: string; title: string; image: StaticImageData };
+
+const stepData: Step[] = [
   { number: "01", title: "Sign Up in under 45 seconds", image: SignupImage },
   { number: "02", title: "Pay via UPI", image: TransactionImage },
   { number: "03", title: "Own and Verify It", image: OrderImage },
 ];
 
+const StepCard = ({ step, className = "" }: { step: Step; className?: string }) => (
+  <div
+    className={`relative rounded-2xl border border-white/[0.16] bg-white/[0.07] backdrop-blur-[3px] overflow-hidden ${className}`}
+  >
+    <div className="pt-6 px-4 flex flex-col items-center text-center">
+      <span className="text-[24px] leading-[30px] text-[#B8943F]" style={mona}>
+        {step.number}
+      </span>
+      <h3
+        className="text-[20px] lg:text-[24px] font-semibold leading-[26px] lg:leading-[30px] text-white mt-3 lg:mt-4"
+        style={mona}
+      >
+        {step.title}
+      </h3>
+    </div>
+
+    <div className="absolute bottom-0 left-0 right-0 flex justify-center">
+      <Image
+        src={step.image}
+        alt={step.title}
+        className="w-[200px] lg:w-[230px] h-auto rounded-t-[33px]"
+      />
+    </div>
+
+    <div className="absolute bottom-0 left-0 right-0 h-14 bg-gradient-to-b from-transparent to-[#131339] pointer-events-none" />
+  </div>
+);
+
 export const Steps = () => {
   return (
-    <section className="relative py-[80px] lg:py-[150px] px-6 overflow-hidden">
+    <section className="relative py-[40px] lg:py-[60px] px-6 overflow-hidden">
       <Image
         src={Background}
         alt="Background Image"
@@ -42,20 +73,21 @@ export const Steps = () => {
             className="text-center mb-8 lg:mb-10 max-w-[911px] mx-auto"
           >
             <h2
-              className="text-[26px] lg:text-[48px] leading-[32px] lg:leading-[40px] mb-3 lg:mb-4 text-white"
+              className="text-[26px] lg:text-[48px] leading-[32px] lg:leading-[40px] mb-0 text-white"
               style={sansation}
             >
               No Demat, No Brokers, No Waiting
             </h2>
             <p
-              className="text-[15px] mt-6 lg:text-[20px] leading-[22px] lg:leading-[28px] text-white"
+              className="text-[15px] mt-4 lg:mt-6 lg:text-[20px] leading-[22px] lg:leading-[28px] text-white"
               style={mona}
             >
               From signup to gold ownership in minutes.
             </p>
           </motion.div>
 
-          <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 items-stretch justify-center">
+          {/* Desktop: three cards side by side */}
+          <div className="hidden lg:flex gap-6 items-stretch justify-center">
             {stepData.map((step, index) => (
               <motion.div
                 key={step.number}
@@ -63,37 +95,65 @@ export const Steps = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: index * 0.15 }}
-                className="relative flex-1 lg:w-[397px] lg:h-[440px] rounded-2xl border border-white/[0.16] bg-white/[0.07] backdrop-blur-[3px] overflow-hidden"
+                className="flex-1 w-[397px] h-[440px]"
               >
-                <div className="pt-6 px-4 flex flex-col items-center text-center">
-                  <span
-                    className="text-[24px] leading-[30px] text-[#B8943F]"
-                    style={mona}
-                  >
-                    {step.number}
-                  </span>
-                  <h3
-                    className="text-[24px] font-semibold leading-[30px] text-white mt-4"
-                    style={mona}
-                  >
-                    {step.title}
-                  </h3>
-                </div>
-
-                <div className="absolute bottom-0 left-0 right-0 flex justify-center">
-                  <Image
-                    src={step.image}
-                    alt={step.title}
-                    className="w-[230px] h-auto rounded-t-[33px]"
-                  />
-                </div>
-
-                <div className="absolute bottom-0 left-0 right-0 h-14 bg-gradient-to-b from-transparent to-[#131339] pointer-events-none" />
+                <StepCard step={step} className="w-full h-full" />
               </motion.div>
             ))}
           </div>
+
+          {/* Mobile: swipeable carousel */}
+          <StepsCarousel />
         </div>
       </div>
     </section>
+  );
+};
+
+const StepsCarousel = () => {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+
+  const handleScroll = () => {
+    const track = trackRef.current;
+    if (!track) return;
+    const index = Math.round(track.scrollLeft / track.clientWidth);
+    setActive(Math.min(Math.max(index, 0), stepData.length - 1));
+  };
+
+  const goTo = (index: number) => {
+    const track = trackRef.current;
+    if (!track) return;
+    track.scrollTo({ left: index * track.clientWidth, behavior: "smooth" });
+  };
+
+  return (
+    <div className="lg:hidden">
+      <div
+        ref={trackRef}
+        onScroll={handleScroll}
+        className="flex snap-x snap-mandatory overflow-x-auto scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {stepData.map((step) => (
+          <div key={step.number} className="w-full shrink-0 snap-center px-1">
+            <StepCard step={step} className="h-[380px]" />
+          </div>
+        ))}
+      </div>
+
+      <div className="flex items-center justify-center gap-2 mt-5">
+        {stepData.map((step, index) => (
+          <button
+            key={step.number}
+            type="button"
+            onClick={() => goTo(index)}
+            aria-label={`Go to step ${step.number}`}
+            className={`h-2 rounded-full transition-all ${
+              active === index ? "w-6 bg-[#B8943F]" : "w-2 bg-white/30"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
   );
 };

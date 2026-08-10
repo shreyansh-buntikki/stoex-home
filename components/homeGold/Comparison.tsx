@@ -107,9 +107,9 @@ const stoexOnlyRows = comparisonData.filter((r) => r.stoexOnly);
 
 export const Comparison = () => {
   return (
-    <section className="bg-white py-[80px] pt-0 lg:py-[180px] lg:pb-[100px] px-4 lg:px-6">
+    <section className="bg-white py-[40px] lg:py-[60px] px-4 lg:px-6">
       <div className="container mx-auto">
-        <div className="flex flex-col gap-12 items-center">
+        <div className="flex flex-col gap-8 lg:gap-10 items-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

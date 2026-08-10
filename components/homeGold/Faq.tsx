@@ -106,17 +106,17 @@ export const FAQs = () => {
     hasMore && !showAll ? allItems.slice(0, INITIAL_VISIBLE) : allItems;
 
   return (
-    <section id="faqs" className="bg-white py-[80px] lg:py-[0px] lg:pt-20 px-6">
+    <section id="faqs" className="bg-white py-[40px] lg:py-[60px] px-6">
       <div className="container mx-auto max-w-[1100px]">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-4 lg:mb-10"
+          className="text-center mb-8 lg:mb-10"
         >
           <h2
-            className="text-[26px] lg:text-[48px] font-regular leading-[32px] lg:leading-[46px] text-[#0A0A0A] mb-6"
+            className="text-[26px] lg:text-[48px] font-regular leading-[32px] lg:leading-[46px] text-[#0A0A0A] mb-0"
             style={sansation}
           >
             FAQs about <span className="text-[#B8943F] font-bold">STOEX Gold</span>

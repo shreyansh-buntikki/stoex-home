@@ -16,9 +16,9 @@ const sansation: CSSProperties = {
 
 export default function Secure() {
   return (
-    <section className=" relative bg-white py-[80px] sm:pb-0 lg:py-[140px] lg:pt-[160px] px-6">
+    <section className=" relative bg-white py-[40px] lg:py-[60px] px-6">
       <div className="container mx-auto max-w-[1200px]">
-        <div className="flex items-start justify-center gap-8 mb-10 lg:mb-10">
+        <div className="flex items-start justify-center gap-8 mb-8 lg:mb-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -35,7 +35,7 @@ export default function Secure() {
             </h2>
           </motion.div>
         </div>
-        <div className="flex flex-col gap-5 md:gap-10">
+        <div className="flex flex-col gap-4 md:gap-6">
           <MMTCCard logo={MMTCLogo} />
           <MMTCCard logo={AmpraLogo} isBlurred={true} />
           <p className="text-center text-[#111111] text-[16px] font-regular md:text-[20px] leading-[28px]">

@@ -91,7 +91,7 @@ const AdvantageCard = ({
 export const Advantage = () => {
   return (
     <section
-      className="relative py-[80px] lg:py-[120px] px-6"
+      className="relative py-[40px] lg:py-[60px] px-6"
       style={{
         backgroundImage:
           "linear-gradient(180deg, #FFFBF2 0%, #FFF8E6 50%, #FFFBF2 100%)",
