@@ -23,7 +23,7 @@ export function HomePageSilver() {
       {/* <Assets /> */}
       <Comparison mode="silver" />
       <Protection mode="silver" />
-      <FAQs />
+      <FAQs mode="silver" />
       <section id="early-access-section">
         <EarlyAccess />
       </section>

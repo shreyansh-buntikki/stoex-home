@@ -35,11 +35,13 @@ function FaqItem({
   isOpen,
   onToggle,
   index,
+  isSilver = false,
 }: {
   item: FaqEntry;
   isOpen: boolean;
   onToggle: () => void;
   index: number;
+  isSilver?: boolean;
 }) {
   return (
     <motion.div
@@ -47,7 +49,9 @@ function FaqItem({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-30px" }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="border-b border-[#ffecbf] first:border-t-0 "
+      className={`border-b first:border-t-0 ${
+        isSilver ? "border-[#C7CDD4]" : "border-[#ffecbf]"
+      }`}
     >
       <button
         onClick={onToggle}
@@ -63,7 +67,11 @@ function FaqItem({
         >
           {item.question}
         </h3>
-        <div className="flex-shrink-0 flex items-center justify-center text-[#B8922A]">
+        <div
+          className={`flex-shrink-0 flex items-center justify-center ${
+            isSilver ? "text-[#8B94A4]" : "text-[#B8922A]"
+          }`}
+        >
           <Plus
             className={`w-5 h-5 transition-transform duration-200 ${
               isOpen ? "rotate-45" : "rotate-0"
@@ -97,7 +105,8 @@ function FaqItem({
 
 const INITIAL_VISIBLE = 10;
 
-export const FAQs = () => {
+export const FAQs = ({ mode = "gold" }: { mode?: "gold" | "silver" }) => {
+  const isSilver = mode === "silver";
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const [showAll, setShowAll] = useState(false);
 
@@ -119,7 +128,12 @@ export const FAQs = () => {
             className="text-[26px] lg:text-[48px] font-regular leading-[32px] lg:leading-[46px] text-[#0A0A0A] mb-0"
             style={sansation}
           >
-            FAQs about <span className="text-[#B8943F] font-bold">STOEX Gold</span>
+            FAQs about{" "}
+            <span
+              className={`font-bold ${isSilver ? "text-[#00007F]" : "text-[#B8943F]"}`}
+            >
+              STOEX {isSilver ? "Silver" : "Gold"}
+            </span>
           </h2>
         </motion.div>
 
@@ -136,6 +150,7 @@ export const FAQs = () => {
                   item={item}
                   index={index}
                   isOpen={openIndex === index}
+                  isSilver={isSilver}
                   onToggle={() =>
                     setOpenIndex(openIndex === index ? null : index)
                   }
@@ -146,7 +161,9 @@ export const FAQs = () => {
                 <button
                   type="button"
                   onClick={() => setShowAll(!showAll)}
-                  className="text-[14px] cursor-pointer font-semibold underline text-[#B8943F] mt-6 text-center w-full"
+                  className={`text-[14px] cursor-pointer font-semibold underline mt-6 text-center w-full ${
+                    isSilver ? "text-[#8B94A4]" : "text-[#B8943F]"
+                  }`}
                   style={{
                     ...mona,
                     letterSpacing: "5px",
