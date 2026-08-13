@@ -89,27 +89,22 @@ const silverTrustCards: TrustCard[] = [
   {
     ...trustCards[0],
     icon: CalendarIconSilver,
-    label: "Quarterly independent audits",
   },
   {
     ...trustCards[1],
     icon: LockIconSilver,
-    label: "Independent trustee custody",
   },
   {
     ...trustCards[2],
     icon: BuildingIconSilver,
-    label: "Insured accredited vaults",
   },
   {
     ...trustCards[3],
     icon: ShadesIconSilver,
-    label: "100% physically backed",
   },
   {
     ...trustCards[4],
     icon: CheckIconSilver,
-    label: "Publicly verifiable",
   },
 ];
 
