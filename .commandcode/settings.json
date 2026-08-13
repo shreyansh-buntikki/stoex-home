@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Shell(npx tsc --noEmit)",
+      "Shell(npx eslint components/homeGold/Secure.tsx)"
+    ],
+    "deny": [],
+    "defaultMode": "default"
+  }
+}

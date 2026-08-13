@@ -22,7 +22,6 @@ type CardProps = {
   image: StaticImageData;
   delay: number;
   className?: string;
-  /** Groww-style wide card: text left, illustration right. */
   wide?: boolean;
   imageClassName?: string;
 };

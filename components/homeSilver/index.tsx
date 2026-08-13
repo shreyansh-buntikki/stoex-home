@@ -15,8 +15,8 @@ export function HomePageSilver() {
       <section id="hero-section">
         <HeroGold mode="silver" />
       </section>
-      <Secure />
-      <Standard />
+      <Secure mode="silver" />
+      <Standard mode="silver" />
       <Advantage/>
       <Steps />
       <Redemption />
