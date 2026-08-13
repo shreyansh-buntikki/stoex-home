@@ -25,7 +25,7 @@ export function HomePageSilver() {
       <Protection mode="silver" />
       <FAQs mode="silver" />
       <section id="early-access-section">
-        <EarlyAccess />
+        <EarlyAccess mode="silver" />
       </section>
     </>
   );

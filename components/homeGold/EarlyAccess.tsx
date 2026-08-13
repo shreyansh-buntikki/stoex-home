@@ -14,7 +14,8 @@ const manrope: CSSProperties = {
   fontWeight: 700,
 };
 
-export const EarlyAccess = () => {
+export const EarlyAccess = ({ mode = 'gold'}: { mode?: "gold" | "silver" }) => {
+  const isSilver = mode === "silver";
   const [email, setEmail] = useState("");
   const { openModal } = useEarlyAccess();
 
@@ -27,7 +28,11 @@ export const EarlyAccess = () => {
   return (
     <section
       id="early-access-section"
-      className="bg-gradient-to-b from-[#FFFFFF] to-[#FFFBF2] py-[40px] lg:py-[60px] px-0"
+      className={
+        isSilver
+          ? "bg-gradient-to-b from-[#FFFFFF] to-[#ECEFF4] py-[40px] lg:py-[60px] px-0"
+          : "bg-gradient-to-b from-[#FFFFFF] to-[#FFFBF2] py-[40px] lg:py-[60px] px-0"
+      }
     >
       <div className="mx-auto w-full max-w-none">
         <div className="relative w-full overflow-hidden px-6 py-0 md:px-12">
@@ -36,14 +41,16 @@ export const EarlyAccess = () => {
               className="text-[26px] leading-[36px] font-bold lg:text-[40px] lg:leading-[48px]"
               style={{
                 ...manrope,
-                background:
-                  "linear-gradient(to bottom, #52421C 0%, #B8943F 100%)",
+                background: isSilver
+                  ? "linear-gradient(to bottom, #2E333D 0%, #8B94A4 33%, #A7AFBE 66%, #2E333D 100%)"
+                  : "linear-gradient(to bottom, #52421C 0%, #B8943F 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
               }}
             >
-              Be among the first to own publicly verifiable gold <br />
+              Be among the first to own publicly verifiable{" "}
+              {isSilver ? "silver" : "gold"} <br />
               Starting from ₹10
             </h2>
 
@@ -77,10 +84,18 @@ export const EarlyAccess = () => {
             </form>
 
             <p className="mt-4 text-[16px] leading-none" style={mona}>
-              <span className="font-bold text-[20px] text-[#B8943F]">
+              <span
+                className={`font-bold text-[20px] ${
+                  isSilver ? "text-[#2E333D]" : "text-[#B8943F]"
+                }`}
+              >
                 4,827
               </span>{" "}
-              <span className="text-[#8a8fa8] text-[12.5px]">
+              <span
+                className={`text-[12.5px] ${
+                  isSilver ? "text-[#2E333D]" : "text-[#8a8fa8]"
+                }`}
+              >
                 people already on the waitlist
               </span>
             </p>
