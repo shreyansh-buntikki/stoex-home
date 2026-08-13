@@ -74,10 +74,10 @@ export const HeaderGold = () => {
                   <div
                     key={item.label}
                     className="relative shrink-0"
-                    onMouseEnter={() => setOpenDropdown(item.label)}
                     onMouseLeave={() => setOpenDropdown(null)}
                   >
                     <button
+                      onMouseEnter={() => setOpenDropdown(item.label)}
                       onClick={() =>
                         setOpenDropdown((prev) =>
                           prev === item.label ? null : item.label,
@@ -106,17 +106,16 @@ export const HeaderGold = () => {
                         />
                       </svg>
                     </button>
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3.5">
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-10">
                       <div
-                        className={`relative transition-all duration-200 origin-top ${
+                        className={`relative transition-all duration-150 origin-top ${
                           openDropdown === item.label
                             ? "opacity-100 scale-100 translate-y-0"
                             : "opacity-0 scale-95 -translate-y-1 pointer-events-none"
                         }`}
                       >
-                        <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-t border-l border-[#F0E7D6] rotate-45" />
-                        <div className="relative min-w-60 rounded-2xl bg-white border border-[#F0E7D6] shadow-xl overflow-hidden">
-                          {item.children.map((child, i) => {
+                        <div className="relative min-w-52 rounded-xl bg-white border border-[#EBEBEB] shadow-lg overflow-hidden py-1.5">
+                          {item.children.map((child) => {
                             const childActive = pathname === child.href;
                             const isGold = child.label === "Gold";
                             return (
@@ -124,25 +123,21 @@ export const HeaderGold = () => {
                                 key={child.label}
                                 href={child.href}
                                 onClick={() => setOpenDropdown(null)}
-                                className={`group flex items-center gap-3.5 px-5 py-4 transition-colors ${
-                                  i > 0 ? "border-t border-[#F6EFE2]" : ""
-                                } ${
+                                className={`flex items-center gap-3 px-4 py-2.5 mx-1.5 rounded-lg transition-colors ${
                                   childActive
-                                    ? "bg-[#FFF9EE]"
-                                    : "hover:bg-[#FFF9EE]"
+                                    ? "bg-[#F5F5F7]"
+                                    : "hover:bg-[#F5F5F7]"
                                 }`}
                               >
                                 <span
-                                  className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
-                                    isGold
-                                      ? "bg-gradient-to-br from-[#F2D285] via-[#CCA763] to-[#B8943F]"
-                                      : "bg-gradient-to-br from-[#E9EBEE] via-[#C7CBD1] to-[#90969F]"
+                                  className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${
+                                    isGold ? "bg-[#B8943F]" : "bg-[#9AA1AC]"
                                   }`}
                                 >
                                   <svg
-                                    className="w-4 h-4"
+                                    className="w-3 h-3"
                                     viewBox="0 0 36 36"
-                                    fill={isGold ? "#B8943F" : "#FFFFFF"}
+                                    fill="#FFFFFF"
                                     xmlns="http://www.w3.org/2000/svg"
                                   >
                                     <path d="M20.3187 24.8329C20.1728 23.5547 19.4609 22.4272 18.3666 21.7467L14.5101 19.341C11.8536 17.6836 10.1279 14.9515 9.7732 11.8451C9.4185 8.73884 10.4851 5.69029 12.7014 3.47796L16.1855 0H8.20848C7.57203 0 6.95822 0.253627 6.50792 0.703125L0.704375 6.49637C0.254078 6.94587 0 7.55608 0 8.19392V33.5993C0 34.9252 1.07669 36 2.40494 36H11.3782L19.1137 28.2782C20.0269 27.3666 20.4646 26.111 20.3187 24.8329Z" />
@@ -150,27 +145,14 @@ export const HeaderGold = () => {
                                   </svg>
                                 </span>
                                 <span
-                                  className={`text-sm font-semibold transition-colors ${
+                                  className={`text-sm font-medium transition-colors ${
                                     childActive
-                                      ? "text-[#BB943F]"
-                                      : "text-[#1D1D1D] group-hover:text-[#00007F]"
+                                      ? "text-[#00007F]"
+                                      : "text-[#1D1D1D]"
                                   }`}
                                 >
                                   {child.label}
                                 </span>
-                                <svg
-                                  className="ml-auto w-4 h-4 text-[#BB943F] opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  strokeWidth="2.5"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M9 5l7 7-7 7"
-                                  />
-                                </svg>
                               </Link>
                             );
                           })}
@@ -178,7 +160,7 @@ export const HeaderGold = () => {
                       </div>
                     </div>
                     {isActive && (
-                      <div className="absolute -bottom-[23.5px] left-1/2 -translate-x-1/2 h-1.5 bg-[#BB943F] rounded-t w-20" />
+                      <div className="absolute -bottom-[23.5px] left-1/2 -translate-x-1/2 h-1.5 bg-[#BB943F] rounded-t w-20 z-0" />
                     )}
                   </div>
                 );
