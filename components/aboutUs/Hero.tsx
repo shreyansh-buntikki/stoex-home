@@ -5,11 +5,17 @@ import Locker from "@/public/assets/images/locker.webp";
 import AboutUsImage from "@/public/assets/images/about-col.webp";
 import AboutUsBW from "@/public/assets/images/about-bw.webp";
 import Logo1 from "@/public/assets/logos/logo-dark.svg";
+import LogoBlue from "@/public/assets/logos/logo-blue.svg";
 
 const sansation: CSSProperties = { fontFamily: "Sansation, sans-serif" };
 const mona: CSSProperties = { fontFamily: "Mona Sans, sans-serif" };
 
-export const AboutUsHero = () => {
+export const AboutUsHero = ({ mode = "gold" }: { mode?: "gold" | "silver" }) => {
+  const isSilver = mode === "silver";
+  const accentColor = isSilver ? "#00007F" : "#B8922A";
+  const dividerFrom = isSilver ? "rgba(0,0,127,0)" : "rgba(184,146,42,0)";
+  const dividerTo = isSilver ? "rgba(0,0,127,1)" : "rgba(184,146,42,1)";
+
   return (
     <section className="relative bg-white flex items-center justify-center mt-20 lg:pt-12 ">
       <div className="container mx-auto px-6 items-center justify-center flex w-full">
@@ -20,8 +26,10 @@ export const AboutUsHero = () => {
               style={sansation}
               className="text-[32px] text-center sm:text-[44px] lg:text-[56px] font-bold leading-[1]"
             >
-              <span className="text-[#0A0A0A]">The gold may be real but</span>{" "}
-              <span className="text-[#B8922A]">
+              <span className="text-[#0A0A0A]">
+                The {isSilver ? "silver" : "gold"} may be real but
+              </span>{" "}
+              <span style={{ color: accentColor }}>
                 the proof usually isn&apos;t.
               </span>
             </h1>
@@ -31,10 +39,12 @@ export const AboutUsHero = () => {
                 style={mona}
                 className="text-[16px] text-center sm:text-[18px] lg:text-[20px] leading-[1.65] font-medium text-[#1D1D1D]"
               >
-                Most digital gold in India works on trust alone. You send money;
-                the platform says you own gold, and you take their word for it.
-                There&apos;s no independent proof your gold exists, no way to
-                verify it&apos;s in a vault.
+                Most digital {isSilver ? "silver" : "gold"} in India works on
+                trust alone. You send money; the platform says you own{" "}
+                {isSilver ? "silver" : "gold"}, and you take their word for
+                it. There&apos;s no independent proof your{" "}
+                {isSilver ? "silver" : "gold"} exists, no way to verify
+                it&apos;s in a vault.
               </p>
               {/* <p
               style={mona}
@@ -97,23 +107,27 @@ export const AboutUsHero = () => {
               {/* Row 2 — STOEX */}
               <div className="flex items-center gap-4 sm:gap-6 lg:gap-8 py-6 lg:py-8">
                 <Image
-                  src={GoldLocker}
-                  alt="Gold locker"
+                  src={isSilver ? Locker : GoldLocker}
+                  alt={isSilver ? "Silver locker" : "Gold locker"}
                   width={106}
                   height={106}
                   className="w-[64px] sm:w-[80px] lg:w-[106px] h-auto flex-shrink-0 object-contain"
+                  style={
+                    isSilver
+                      ? { filter: "grayscale(1) brightness(0.9)" }
+                      : undefined
+                  }
                 />
 
                 <div
                   className="flex-1 h-px min-w-[16px]"
                   style={{
-                    background:
-                      "linear-gradient(90deg, rgba(184,146,42,0) 0%, rgba(184,146,42,1) 100%)",
+                    background: `linear-gradient(90deg, ${dividerFrom} 0%, ${dividerTo} 100%)`,
                   }}
                 />
 
                 <Image
-                  src={Logo1}
+                  src={isSilver ? LogoBlue : Logo1}
                   alt="STOEX"
                   className="h-[20px] sm:h-[24px] lg:h-[28px] w-auto flex-shrink-0"
                 />
@@ -121,8 +135,7 @@ export const AboutUsHero = () => {
                 <div
                   className="flex-1 h-px min-w-[16px]"
                   style={{
-                    background:
-                      "linear-gradient(90deg, rgba(184,146,42,1) 0%, rgba(184,146,42,0) 100%)",
+                    background: `linear-gradient(90deg, ${dividerTo} 0%, ${dividerFrom} 100%)`,
                   }}
                 />
 

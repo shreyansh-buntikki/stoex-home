@@ -4,14 +4,16 @@ import BuySellIcon from "@/public/assets/icons/buy-sell.svg";
 import GoldIcon from "@/public/assets/icons/gold.svg";
 import TruckIcon from "@/public/assets/icons/truck.svg";
 import StorageIcon from "@/public/assets/icons/storage.svg";
-import HeroImageResponsive from "@/public/assets/images/hero-image-responsive.webp";
-import HeroImage from "@/public/assets/images/hero-image.webp";
+import HeroImageGoldResponsive from "@/public/assets/images/hero-image-responsive.webp";
+import HeroImageSilverResponsive from "@/public/assets/images/hero-image-silver-responsive.webp";
+import HeroImageGold from "@/public/assets/images/hero-image.webp";
+import HeroImageSilver from "@/public/assets/images/hero-image-silver.webp";
 import { useEarlyAccess } from "@/components/layout/GoldLayout";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { type CSSProperties } from "react";
 
-const TRUST_ITEMS = [
+const TRUST_ITEMS_GOLD = [
   { label: "24K (999.9+) Purest Gold", icon: GoldIcon },
   {
     label: "Free Storage",
@@ -22,14 +24,37 @@ const TRUST_ITEMS = [
   // { label: "Independently verifiable on public ledger", icon: MagnifyIcon },
 ] as const;
 
+const TRUST_ITEMS_SILVER = [
+  { label: "999+ fine silver", icon: GoldIcon },
+  { label: "From ₹10", icon: StorageIcon },
+  { label: "Buy & Sell 24x7", icon: BuySellIcon },
+  { label: "Doorstep Delivery", icon: TruckIcon },
+] as const;
+
 const mona: CSSProperties = { fontFamily: "Mona Sans, sans-serif" };
 const sansation: CSSProperties = { fontFamily: "Sansation, sans-serif" };
 
-const HEADING_GRADIENT = "linear-gradient(to bottom, #B8943F 0%, #52421C 100%)";
-const HERO_BG = "linear-gradient(180deg, #FFFFFF 0%, #FFFBF2 100%)";
+const HEADING_GRADIENT_GOLD =
+  "linear-gradient(to bottom, #B8943F 0%, #52421C 100%)";
+const HEADING_GRADIENT_SILVER =
+  "linear-gradient(to bottom, #2E333D 0%, #8B94A4 33%, #A7AFBE 66%, #2E333D 100%)";
+const HERO_BG_GOLD = "linear-gradient(180deg, #FFFFFF 0%, #FFFBF2 100%)";
+const HERO_BG_SILVER = "linear-gradient(180deg, #FFFFFF 0%, #ECEFF4 100%)";
+const ICON_FILTER_GOLD = "sepia(1) saturate(3) hue-rotate(5deg) brightness(0.7)";
+const ICON_FILTER_SILVER =
+  "grayscale(1) brightness(0.4) contrast(1.2)";
 
-export const HeroGold = () => {
+export const HeroGold = ({ mode = "gold" }: { mode?: "gold" | "silver" }) => {
   const { openModal } = useEarlyAccess();
+  const isSilver = mode === "silver";
+  const HERO_BG = isSilver ? HERO_BG_SILVER : HERO_BG_GOLD;
+  const HEADING_GRADIENT = isSilver
+    ? HEADING_GRADIENT_SILVER
+    : HEADING_GRADIENT_GOLD;
+  const ICON_FILTER = isSilver ? ICON_FILTER_SILVER : ICON_FILTER_GOLD;
+  const TRUST_ITEMS = isSilver ? TRUST_ITEMS_SILVER : TRUST_ITEMS_GOLD;
+  const TEXT_COLOR = isSilver ? "#2E333D" : "#B8943F";
+  const HeroImageResponsive = isSilver ? HeroImageSilverResponsive : HeroImageGoldResponsive;
 
   return (
     <div
@@ -46,7 +71,7 @@ export const HeroGold = () => {
           >
             <div className="relative w-full lg:w-[560px] xl:w-[590px]">
               <Image
-                src={HeroImage}
+                src={mode === "gold" ? HeroImageGold : HeroImageSilver}
                 alt="Gold App"
                 sizes="(max-width: 1280px) 560px, 590px"
                 className="w-full h-auto max-h-[85dvh] object-contain object-bottom"
@@ -70,7 +95,7 @@ export const HeroGold = () => {
                 backgroundClip: "text",
               }}
             >
-              Real Vaulted Gold
+              Real Vaulted {isSilver ? "Silver" : "Gold"}
               <br />
               at Live Price.
             </motion.h1>
@@ -85,11 +110,12 @@ export const HeroGold = () => {
                 className="text-[16px] leading-[26px] md:max-w-[450px] lg:text-[20px] lg:leading-[32px] text-[#111111]"
                 style={{ ...mona, fontWeight: 400 }}
               >
-                Buy, sell and own verified 24-karat gold refined and safe-kept
-                by MMTC-PAMP.
+                {isSilver
+                  ? "Buy, sell and own verified 999+ fine silver refined and safe-kept by MMTC-PAMP."
+                  : "Buy, sell and own verified 24-karat gold refined and safe-kept by MMTC-PAMP."}
               </p>
               <div className="text-[10px] font-regular leading-[22px] text-[#B8AA8A]">
-                *The figure subjects to the gold rate.
+                *The figure subjects to the {isSilver ? "silver" : "gold"} rate.
               </div>
             </motion.div>
 
@@ -115,7 +141,9 @@ export const HeroGold = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.15 + index * 0.05 }}
-                  className="flex h-full flex-col items-start rounded-[14px] border border-[#EFE3C8] bg-white/70 px-3 py-3 lg:border-0 lg:bg-transparent lg:p-0"
+                  className={`flex h-full flex-col items-start rounded-[14px] border ${
+                    isSilver ? "border-[#E5E7EB]" : "border-[#EFE3C8]"
+                  } bg-white/70 px-3 py-3 lg:border-0 lg:bg-transparent lg:p-0`}
                 >
                   <div className="flex h-full items-center gap-2 lg:gap-3">
                     <Image
@@ -125,14 +153,11 @@ export const HeroGold = () => {
                       height={28}
                       aria-hidden="true"
                       className="size-6 shrink-0 lg:size-7"
-                      style={{
-                        filter:
-                          "sepia(1) saturate(3) hue-rotate(5deg) brightness(0.7)",
-                      }}
+                      style={{ filter: ICON_FILTER }}
                     />
                     <span
-                      className="text-[14px] leading-[18px] font-[500] text-[#B8943F] lg:text-[16px]"
-                      style={mona}
+                      className="text-[14px] leading-[18px] font-[500] lg:text-[16px]"
+                      style={{ ...mona, color: TEXT_COLOR }}
                     >
                       {item.label}
                     </span>
