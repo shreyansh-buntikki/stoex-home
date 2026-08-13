@@ -22,7 +22,7 @@ export function HomePageSilver() {
       <Redemption themeMode="silver" />
       {/* <Assets /> */}
       <Comparison mode="silver" />
-      <Protection />
+      <Protection mode="silver" />
       <FAQs />
       <section id="early-access-section">
         <EarlyAccess />

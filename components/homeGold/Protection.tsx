@@ -1,14 +1,17 @@
 "use client";
 
-
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
 import InflationHedge from "@/public/assets/images/inflation-hedge.webp";
+import InflationHedgeSilver from "@/public/assets/images/inflation-hedge-silver.webp";
 import PortfolioSafety from "@/public/assets/images/portfolio-safety.webp";
+import PortfolioSafetySilver from "@/public/assets/images/portfolio-safety-silver.webp";
 import CulturalValue from "@/public/assets/images/cultural-value.webp";
+import CulturalValueSilver from "@/public/assets/images/cultural-value-silver.webp";
 import GenerationalWealth from "@/public/assets/images/generational-wealth.webp";
+import GenerationalWealthSilver from "@/public/assets/images/generational-wealth-silver.webp";
 
 const mona: CSSProperties = { fontFamily: "Mona Sans, sans-serif" };
 const sansation: CSSProperties = {
@@ -16,7 +19,7 @@ const sansation: CSSProperties = {
   letterSpacing: "1px",
 };
 
-const protectionData = [
+const protectionDataGold = [
   {
     image: InflationHedge,
     title: "BEAT INFLATION",
@@ -40,6 +43,33 @@ const protectionData = [
     title: "A GIFT THAT LASTS",
     description:
       "The gold you buy today can be your children's tomorrow - fully verified, always valuable, and yours to pass on whenever you choose.",
+  },
+];
+
+const protectionDataSilver = [
+  {
+    image: InflationHedgeSilver,
+    title: "THE EVERYDAY PRECIOUS METAL",
+    description:
+      "Silver has been Indian households' first store of value for generations: anklets, coins, utensils, gifts.",
+  },
+  {
+    image: PortfolioSafetySilver,
+    title: "POWERS THE MODERN WORLD",
+    description:
+      "Solar panels, EVs, electronics: silver is the working metal of the energy transition, with real industrial demand behind it.",
+  },
+  {
+    image: CulturalValueSilver,
+    title: "A LIGHTER WAY IN",
+    description:
+      "A fraction of gold's price per gram, so a young saver can build a meaningful holding sooner.",
+  },
+  {
+    image: GenerationalWealthSilver,
+    title: "A GIFT THAT LASTS",
+    description:
+      "Shubh for every occasion: births, housewarmings, Dhanteras — now verifiable and deliverable to a doorstep.",
   },
 ];
 
@@ -67,26 +97,37 @@ const cardVariants = {
 function ProtectionCard({
   item,
   highlighted = false,
+  mode = "gold",
 }: {
-  item: (typeof protectionData)[0];
+  item: (typeof protectionDataGold)[0];
   highlighted?: boolean;
+  mode?: "gold" | "silver";
 }) {
+  const isSilver = mode === "silver";
   return (
     <div
       className="rounded-xl p-px h-full transition-shadow duration-500"
       style={{
-        background: highlighted
-          ? "linear-gradient(to bottom, #FFCD57 0%, #B8943F 100%)"
-          : "linear-gradient(to bottom, transparent 0%, #FFCD57 70%)",
-        boxShadow: highlighted
-          ? "0px 16px 36px -14px rgba(184,148,63,0.45)"
-          : "none",
+        background: isSilver
+          ? "none"
+          : highlighted
+            ? "linear-gradient(to bottom, #FFCD57 0%, #B8943F 100%)"
+            : "linear-gradient(to bottom, transparent 0%, #FFCD57 70%)",
+        boxShadow: isSilver
+          ? "0px 4px 16px -4px rgba(10,10,10,0.1)"
+          : highlighted
+            ? "0px 16px 36px -14px rgba(184,148,63,0.45)"
+            : "none",
       }}
     >
       <motion.div
         variants={cardVariants}
         className="flex flex-col gap-3 p-5 pb-[36px] rounded-xl h-full"
-        style={{ background: "linear-gradient(to top, #FFFFFF, #FFF8E6)" }}
+        style={{
+          background: isSilver
+            ? "linear-gradient(to top, #FFFFFF, #ECEFF4)"
+            : "linear-gradient(to top, #FFFFFF, #FFF8E6)",
+        }}
       >
         <Image
           src={item.image}
@@ -115,7 +156,10 @@ function ProtectionCard({
   );
 }
 
-export const Protection = () => {
+export const Protection = ({ mode = "gold" }: { mode?: "gold" | "silver" }) => {
+  const isSilver = mode === "silver";
+  const protectionData = isSilver ? protectionDataSilver : protectionDataGold;
+
   return (
     <section className="bg-white py-[40px] lg:py-[60px] px-6">
       <div className="container mx-auto max-w-[1340px]">
@@ -127,16 +171,18 @@ export const Protection = () => {
           className="text-center mx-auto"
         >
           <div>
-            
             <h2
               className="text-[24px] min-[380px]:text-[26px] lg:text-[50px] font-regular leading-[32px] lg:leading-[46px] text-balance"
               style={sansation}
             >
-              <span className="text-[#B8943F] font-bold">Add Shine</span> to
-              Your Portfolio
+              <span
+                className={isSilver ? "text-[#00007F] font-bold" : "text-[#B8943F] font-bold"}
+              >
+                Add Shine
+              </span>{" "}
+              {isSilver ? "To" : "to"} Your Portfolio
             </h2>
           </div>
-         
         </motion.div>
 
         {/* Desktop: static grid */}
@@ -148,12 +194,12 @@ export const Protection = () => {
           className="hidden lg:grid lg:grid-cols-4 lg:gap-6 mt-8 lg:mt-10"
         >
           {protectionData.map((item) => (
-            <ProtectionCard key={item.title} item={item} />
+            <ProtectionCard key={item.title} item={item} mode={mode} />
           ))}
         </motion.div>
 
         {/* Mobile: swipeable, auto-advancing carousel */}
-        <ProtectionCarousel />
+        <ProtectionCarousel data={protectionData} mode={mode} />
       </div>
     </section>
   );
@@ -161,7 +207,14 @@ export const Protection = () => {
 
 const AUTO_ADVANCE_MS = 4000;
 
-const ProtectionCarousel = () => {
+const ProtectionCarousel = ({
+  data,
+  mode = "gold",
+}: {
+  data: typeof protectionDataGold;
+  mode?: "gold" | "silver";
+}) => {
+  const isSilver = mode === "silver";
   const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -170,7 +223,7 @@ const ProtectionCarousel = () => {
     const track = trackRef.current;
     if (!track) return;
     const index = Math.round(track.scrollLeft / track.clientWidth);
-    setActive(Math.min(Math.max(index, 0), protectionData.length - 1));
+    setActive(Math.min(Math.max(index, 0), data.length - 1));
   };
 
   const goTo = (index: number) => {
@@ -182,7 +235,7 @@ const ProtectionCarousel = () => {
   useEffect(() => {
     if (paused) return;
     const timer = setTimeout(() => {
-      goTo((active + 1) % protectionData.length);
+      goTo((active + 1) % data.length);
     }, AUTO_ADVANCE_MS);
     return () => clearTimeout(timer);
   }, [active, paused]);
@@ -201,15 +254,19 @@ const ProtectionCarousel = () => {
         onPointerDown={() => setPaused(true)}
         className="flex snap-x snap-mandatory overflow-x-auto scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
-        {protectionData.map((item, index) => (
+        {data.map((item, index) => (
           <div key={item.title} className="w-full shrink-0 snap-center px-1">
-            <ProtectionCard item={item} highlighted={active === index} />
+            <ProtectionCard
+              item={item}
+              highlighted={active === index}
+              mode={mode}
+            />
           </div>
         ))}
       </div>
 
       <div className="flex items-center justify-center gap-2 mt-5">
-        {protectionData.map((item, index) => (
+        {data.map((item, index) => (
           <button
             key={item.title}
             type="button"
@@ -219,7 +276,13 @@ const ProtectionCarousel = () => {
             }}
             aria-label={`Go to ${item.title}`}
             className={`h-2 rounded-full transition-all ${
-              active === index ? "w-6 bg-[#B8943F]" : "w-2 bg-[#E5D9BC]"
+              active === index
+                ? isSilver
+                  ? "w-6 bg-[#00007F]"
+                  : "w-6 bg-[#B8943F]"
+                : isSilver
+                  ? "w-2 bg-[#DCE1E9]"
+                  : "w-2 bg-[#E5D9BC]"
             }`}
           />
         ))}
