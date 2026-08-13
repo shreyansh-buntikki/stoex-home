@@ -19,7 +19,7 @@ export function HomePageSilver() {
       <Standard mode="silver" />
       <Advantage mode="silver" />
       <Steps mode="silver" />
-      <Redemption />
+      <Redemption themeMode="silver" />
       {/* <Assets /> */}
       <Comparison />
       <Protection />

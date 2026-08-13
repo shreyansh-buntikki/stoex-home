@@ -33,21 +33,63 @@ const GOLD_WEIGHTS = [
   { weight: "10g", icon: Gold10gm },
 ];
 
-function AvailableGoldBar({ greyed }: { greyed: boolean }) {
+const redemptionTheme = {
+  gold: {
+    metal: "gold" as const,
+    Metal: "Gold" as const,
+    sectionBg: "linear-gradient(180deg, #FFFBF2 0%, #FFFFFF 100%)",
+    heading: "text-[#B8943F]",
+    unselectedCardBg: "bg-[#FFF7E5]",
+    activeTitle: "text-[#B8943F]",
+    unselectedTitle: "text-[#B8AA8A]",
+    unselectedText: "text-[#C8BC9A]",
+    unselectedTextHex: "#C8BC9A",
+    cardBorder: "border-[#E8D9B8]",
+    bannerBg: "bg-[#EDE0C4]",
+    bannerText: "text-[#C8BC9A]",
+    disabledButtonBorder: "border-[#B8AA8A]",
+  },
+  silver: {
+    metal: "silver" as const,
+    Metal: "Silver" as const,
+    sectionBg: "linear-gradient(180deg, #ECEFF4 0%, #FFFFFF 100%)",
+    heading: "text-[#00007F]",
+    unselectedCardBg: "bg-[#DCE1E9]",
+    activeTitle: "text-[#00007F]",
+    unselectedTitle: "text-[#8A96A8]",
+    unselectedText: "text-[#8A96A8]",
+    unselectedTextHex: "#8A96A8",
+    cardBorder: "border-[#C7CDD4]",
+    bannerBg: "bg-[#DCE1E9]",
+    bannerText: "text-[#6C7484]",
+    disabledButtonBorder: "border-[#8A96A8]",
+  },
+} as const;
+
+function AvailableGoldBar({
+  greyed,
+  themeMode = "gold",
+}: {
+  greyed: boolean;
+  themeMode?: "gold" | "silver";
+}) {
+  const greyedBg = themeMode === "silver" ? "bg-[#ECEFF4]" : "bg-[#FFFBF2]";
   return (
     <div
       className={`flex items-center justify-between rounded-xl border px-4 py-3 ${
-        greyed ? "border-[#E5E7EB] bg-[#FFFBF2]" : "border-[#E5E7EB] bg-white"
+        greyed ? `border-[#E5E7EB] ${greyedBg}` : "border-[#E5E7EB] bg-white"
       }`}
     >
       <div className="flex items-center gap-3">
         <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
           <Image
             src={CoinIcon}
-            alt="Gold Coin"
+            alt={themeMode === "silver" ? "Silver Coin" : "Gold Coin"}
             width={65}
             height={65}
-            className={`object-cover ${greyed ? "opacity-40 grayscale" : ""}`}
+            className={`object-cover ${
+              themeMode === "silver" ? "grayscale brightness-125" : ""
+            } ${greyed ? "opacity-40 grayscale" : ""}`}
           />
         </div>
         <span
@@ -85,7 +127,14 @@ function sanitizeGramsInput(raw: string): string {
   return `${cleaned.slice(0, dot + 1)}${cleaned.slice(dot + 1).replace(/\./g, "")}`;
 }
 
-function CashCard({ active }: { active: boolean }) {
+function CashCard({
+  active,
+  themeMode = "gold",
+}: {
+  active: boolean;
+  themeMode?: "gold" | "silver";
+}) {
+  const t = redemptionTheme[themeMode];
   const { goldRate } = useGoldRate();
   const cashPricePerGram = parseFloat(String(goldRate));
   const [goldGrams, setGoldGrams] = useState(0.01);
@@ -144,34 +193,34 @@ function CashCard({ active }: { active: boolean }) {
     <div
       className={`relative flex h-full flex-col rounded-2xl border p-6 transition-all duration-300 ${
         active
-          ? "border-[#E8D9B8] bg-white shadow-[0px_0px_24px_0px_rgba(191,155,103,0.35)]"
-          : "border-[#E8D9B8] bg-[#FFF7E5]"
+          ? `${t.cardBorder} bg-white shadow-[0px_0px_24px_0px_rgba(191,155,103,0.35)]`
+          : `${t.cardBorder} ${t.unselectedCardBg}`
       }`}
     >
       <h3
         className={`text-center text-[18px] lg:text-[22px] font-semibold mb-1 lg:mb-2 ${
-          active ? "text-[#B8943F]" : "text-[#B8AA8A]"
+          active ? t.activeTitle : t.unselectedTitle
         }`}
         style={{ ...mona, letterSpacing: "1px" }}
       >
-        SELL GOLD FOR CASH
+        SELL {t.Metal.toUpperCase()} FOR CASH
       </h3>
       <p
         className={`text-center text-[12px] lg:text-[12px] leading-[17px] lg:leading-[18px] mb-4 lg:mb-6 max-w-[320px] mx-auto ${
-          greyed ? "text-[#C8BC9A]" : "text-[#111111]"
+          greyed ? t.unselectedText : "text-[#111111]"
         }`}
         style={mona}
       >
-        Sell your gold instantly at live market rates. Funds are credited to
-        your bank account within seconds.
+        Sell your {t.metal} instantly at live market rates. Funds are
+        credited to your bank account within seconds.
       </p>
 
-      <AvailableGoldBar greyed={greyed} />
+      <AvailableGoldBar greyed={greyed} themeMode={themeMode} />
       <p
         className="text-[13px] lg:text-[15px] font-regular tracking-wide mt-3"
         style={{
           ...mona,
-          color: greyed ? "#C8BC9A" : "#111111",
+          color: greyed ? t.unselectedTextHex : "#111111",
         }}
       >
         SELECT DENOMINATION
@@ -192,9 +241,11 @@ function CashCard({ active }: { active: boolean }) {
             className={`relative rounded-xl border p-6 overflow-visible ${
               goldFirst
                 ? greyed
-                  ? "border-[#E8D9B8] bg-[#FFFBF2]"
-                  : "border-[#E8D9B8] bg-white"
-                : "border-[#E8D9B8] bg-white"
+                  ? `${t.cardBorder} ${
+                      themeMode === "silver" ? "bg-[#ECEFF4]" : "bg-[#FFFBF2]"
+                    }`
+                  : `${t.cardBorder} bg-white`
+                : `${t.cardBorder} bg-white`
             }`}
           >
             <label
@@ -203,7 +254,7 @@ function CashCard({ active }: { active: boolean }) {
               }`}
               style={mona}
             >
-              Gold (grams)
+              {t.Metal} (grams)
             </label>
             <div className="flex items-baseline gap-0" style={mona}>
               <input
@@ -272,7 +323,7 @@ function CashCard({ active }: { active: boolean }) {
               <p
                 className={`absolute -bottom-9 z-[-1] left-0 right-0 flex w-full items-end justify-center rounded-b-xl px-4 pt-4 pb-2 text-center text-[13px] leading-[18px] ${
                   greyed
-                    ? "bg-[#EDE0C4] text-[#C8BC9A]"
+                    ? `${t.bannerBg} ${t.bannerText}`
                     : "bg-[#B8943F] text-white"
                 }`}
                 style={mona}
@@ -328,7 +379,13 @@ function CashCard({ active }: { active: boolean }) {
         >
           <div
             ref={amountRef}
-            className={`relative rounded-xl border p-6 overflow-visible border-[#E8D9B8] ${greyed ? "bg-[#FFFBF2]" : "bg-white"}`}
+            className={`relative rounded-xl border p-6 overflow-visible ${t.cardBorder} ${
+              greyed
+                ? themeMode === "silver"
+                  ? "bg-[#ECEFF4]"
+                  : "bg-[#FFFBF2]"
+                : "bg-white"
+            }`}
           >
             <label
               className={`block text-[14px] font-medium mb-2 ${
@@ -398,7 +455,7 @@ function CashCard({ active }: { active: boolean }) {
               <p
                 className={`absolute -bottom-9 z-[-1] left-0 right-0 flex w-full items-end justify-center rounded-b-xl px-4 pt-4 pb-2 text-center text-[13px] leading-[18px] ${
                   greyed
-                    ? "bg-[#EDE0C4] text-[#C8BC9A]"
+                    ? `${t.bannerBg} ${t.bannerText}`
                     : "bg-[#B8943F] text-white"
                 }`}
                 style={mona}
@@ -415,69 +472,79 @@ function CashCard({ active }: { active: boolean }) {
           className={`w-full px-4 self-center border flex items-center justify-center gap-2 rounded-full py-3 text-[14px] font-bold transition-colors ${
             active
               ? "bg-transparent text-[#00007F] border-[#00007F]"
-              : "bg-transparent text-[#A0A0A0] border-[#B8AA8A] cursor-default"
+              : `bg-transparent text-[#A0A0A0] ${t.disabledButtonBorder} cursor-default`
           }`}
           style={{ ...mona, letterSpacing: "1px" }}
           disabled={!active}
         >
-          SELL GOLD FOR CASH
+          SELL {t.Metal.toUpperCase()} FOR CASH
         </button>
       </div>
     </div>
   );
 }
 
-function PhysicalCard({ active }: { active: boolean }) {
+function PhysicalCard({
+  active,
+  themeMode = "gold",
+}: {
+  active: boolean;
+  themeMode?: "gold" | "silver";
+}) {
+  const t = redemptionTheme[themeMode];
   const greyed = !active;
   const [selectedWeight, setSelectedWeight] = useState("1g");
+  const greyedBg = themeMode === "silver" ? "bg-[#ECEFF4]" : "bg-[#FFFBF2]";
 
   return (
     <div
       className={`relative flex h-full flex-col rounded-2xl border p-6 transition-all duration-300 ${
         active
-          ? "border-[#E8D9B8] bg-white shadow-[0px_0px_24px_0px_rgba(191,155,103,0.35)]"
-          : "border-[#E8D9B8] bg-[#FFF7E5]"
+          ? `${t.cardBorder} bg-white shadow-[0px_0px_24px_0px_rgba(191,155,103,0.35)]`
+          : `${t.cardBorder} ${t.unselectedCardBg}`
       }`}
     >
       {/* Title */}
       <h3
         className={`text-center text-[18px] lg:text-[22px] font-semibold mb-1 lg:mb-2 ${
-          active ? "text-[#B8943F]" : "text-[#B8AA8A]"
+          active ? t.activeTitle : t.unselectedTitle
         }`}
         style={{
           ...mona,
           letterSpacing: "1px",
         }}
       >
-        GET PHYSICAL GOLD
+        GET PHYSICAL {t.Metal.toUpperCase()}
       </h3>
       <p
         className={`text-center text-[12px] lg:text-[12px] leading-[17px] lg:leading-[18px] mb-4 lg:mb-6 max-w-[450px] mx-auto ${
-          greyed ? "text-[#C8BC9A]" : "text-[#111111]"
+          greyed ? t.unselectedText : "text-[#111111]"
         }`}
         style={mona}
       >
-        Get a certified MMTC-PAMP gold coin or bar — sealed, signed,individually
-        serial-numbered and assay-certified — securely delivered to your
-        doorstep.
+        Get a certified MMTC-PAMP {t.metal} coin or bar — sealed,
+        signed,individually serial-numbered and assay-certified — securely
+        delivered to your doorstep.
       </p>
 
-      {/* Available Gold */}
-      <AvailableGoldBar greyed={greyed} />
+      {/* Available balance */}
+      <AvailableGoldBar greyed={greyed} themeMode={themeMode} />
       <p
         className="text-[13px] lg:text-[15px] font-regular tracking-wide mt-3"
         style={{
           ...mona,
-          color: greyed ? "#C8BC9A" : "#111111",
+          color: greyed ? t.unselectedTextHex : "#111111",
         }}
       >
         SELECT DENOMINATION
       </p>
 
-      {/* Gold (grams) */}
-      <div className="mt-4 mb-12 z-10 lg:mb-9 relative rounded-xl border border-[#E8D9B8] overflow-visible">
+      {/* Metal (grams) */}
+      <div
+        className={`mt-4 mb-12 z-10 lg:mb-9 relative rounded-xl border ${t.cardBorder} overflow-visible`}
+      >
         <div
-          className={`relative z-10 rounded-xl p-4 ${greyed ? "bg-[#FFFBF2]" : "bg-[#ffffff]"}`}
+          className={`relative z-10 rounded-xl p-4 ${greyed ? greyedBg : "bg-[#ffffff]"}`}
         >
           <label
             className={`block text-[18px] font-medium mb-2 ${
@@ -485,7 +552,7 @@ function PhysicalCard({ active }: { active: boolean }) {
             }`}
             style={mona}
           >
-            Gold (grams)
+            {t.Metal} (grams)
           </label>
           <p
             className={`text-[28px] font-medium leading-none mb-4 ${
@@ -506,7 +573,7 @@ function PhysicalCard({ active }: { active: boolean }) {
                   onClick={() => !greyed && setSelectedWeight(item.weight)}
                   className={`flex-1 flex flex-col items-center gap-2 rounded-xl border py-3 transition-colors ${
                     greyed
-                      ? "border-[#E5E7EB] bg-[#FFFBF2] cursor-default"
+                      ? `border-[#E5E7EB] ${greyedBg} cursor-default`
                       : selected
                         ? "border-[#C08514] bg-[#FAF3E8]"
                         : "border-[#E5E7EB] bg-[#F9FAFB] hover:bg-[#F3F4F6]"
@@ -519,7 +586,9 @@ function PhysicalCard({ active }: { active: boolean }) {
                       alt={item.weight}
                       width={32}
                       height={32}
-                      className={`object-contain ${greyed ? "opacity-40 grayscale" : ""}`}
+                      className={`object-contain ${
+                        themeMode === "silver" ? "grayscale brightness-125" : ""
+                      } ${greyed ? "opacity-40 grayscale" : ""}`}
                     />
                   </div>
                   <span
@@ -541,7 +610,7 @@ function PhysicalCard({ active }: { active: boolean }) {
         </div>
         <p
           className={`absolute -bottom-7 lg:-bottom-6.5 z-0 left-0 right-0 flex w-full items-end justify-center rounded-b-xl px-1 pt-4 pb-2 text-center text-[11px] leading-[12px] ${
-            greyed ? "bg-[#EDE0C4] text-[#C8BC9A]" : "bg-[#B8943F] text-white"
+            greyed ? `${t.bannerBg} ${t.bannerText}` : "bg-[#B8943F] text-white"
           }`}
           style={mona}
         >
@@ -550,7 +619,7 @@ function PhysicalCard({ active }: { active: boolean }) {
       </div>
 
       <div
-        className={`relative z-10 mt-4 rounded-xl border p-4 border-[#E8D9B8] ${greyed ? "bg-[#FFFBF2]" : "bg-white"}`}
+        className={`relative z-10 mt-4 rounded-xl border p-4 ${t.cardBorder} ${greyed ? greyedBg : "bg-white"}`}
       >
         <label
           className={`block text-[14px] font-semibold mb-2 ${
@@ -583,23 +652,31 @@ function PhysicalCard({ active }: { active: boolean }) {
           className={`w-full px-4 self-center border flex items-center justify-center gap-2 rounded-full py-3 text-[14px] font-bold transition-colors ${
             active
               ? "bg-transparent text-[#00007F] border-[#00007F]"
-              : "bg-transparent text-[#A0A0A0] border-[#B8AA8A] cursor-default"
+              : `bg-transparent text-[#A0A0A0] ${t.disabledButtonBorder} cursor-default`
           }`}
           style={{ ...mona, letterSpacing: "1px" }}
           disabled={!active}
         >
-          GET PHYSICAL GOLD
+          GET PHYSICAL {t.Metal.toUpperCase()}
         </button>
       </div>
     </div>
   );
 }
 
-export const Redemption = () => {
+export const Redemption = ({
+  themeMode = "gold",
+}: {
+  themeMode?: "gold" | "silver";
+}) => {
   const [mode, setMode] = useState<RedeemMode>("cash");
+  const t = redemptionTheme[themeMode];
 
   return (
-    <section className="bg-gradient-to-b from-[#FFFBF2] to-[#FFFFFF] py-[40px] lg:py-[60px] px-6">
+    <section
+      className="py-[40px] lg:py-[60px] px-6"
+      style={{ backgroundImage: t.sectionBg }}
+    >
       <div className="container mx-auto max-w-[1240px]">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -612,8 +689,8 @@ export const Redemption = () => {
             className="lg:text-[56px] text-[26px] lg:text-[46px] font-regular leading-[46px] text-[#0A0A0A] block"
             style={sansation}
           >
-            Your Gold,{" "}
-            <span className="font-bold text-[#B8943F]">Your Choice</span>
+            Your {t.Metal},{" "}
+            <span className={`font-bold ${t.heading}`}>Your Choice</span>
           </h2>
         </motion.div>
 
@@ -636,7 +713,7 @@ export const Redemption = () => {
               }`}
               style={sansation}
             >
-              Sell gold for cash
+              Sell {t.metal} for cash
             </button>
             <button
               type="button"
@@ -648,7 +725,7 @@ export const Redemption = () => {
               }`}
               style={sansation}
             >
-              Get physical gold
+              Get physical {t.metal}
             </button>
           </div>
 
@@ -664,7 +741,7 @@ export const Redemption = () => {
                   exit={{ opacity: 0, x: 20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <CashCard active />
+                  <CashCard active themeMode={themeMode} />
                 </motion.div>
               ) : (
                 <motion.div
@@ -674,7 +751,7 @@ export const Redemption = () => {
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <PhysicalCard active />
+                  <PhysicalCard active themeMode={themeMode} />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -686,14 +763,17 @@ export const Redemption = () => {
               onMouseEnter={() => setMode("cash")}
               className="cursor-pointer h-full"
             >
-              <CashCard active={mode === "cash"} />
+              <CashCard active={mode === "cash"} themeMode={themeMode} />
             </div>
 
             <div
               onMouseEnter={() => setMode("physical")}
               className="cursor-pointer h-full"
             >
-              <PhysicalCard active={mode === "physical"} />
+              <PhysicalCard
+                active={mode === "physical"}
+                themeMode={themeMode}
+              />
             </div>
           </div>
 
@@ -746,7 +826,7 @@ export const Redemption = () => {
                   className="text-[10px] text-[#3D3D3D] text-right w-full mt-4"
                   style={mona}
                 >
-                 This is just a visual representation
+                  This is just a visual representation
                 </p>
               </motion.div>
             )}
