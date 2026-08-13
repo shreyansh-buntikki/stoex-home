@@ -21,7 +21,7 @@ export function HomePageSilver() {
       <Steps mode="silver" />
       <Redemption themeMode="silver" />
       {/* <Assets /> */}
-      <Comparison />
+      <Comparison mode="silver" />
       <Protection />
       <FAQs />
       <section id="early-access-section">

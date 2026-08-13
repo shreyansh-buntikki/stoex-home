@@ -20,6 +20,31 @@ const sansation: CSSProperties = {
 
 const B = "border-[#E0E0E0]";
 
+const comparisonTheme = {
+  gold: {
+    metal: "Gold",
+    heading: "text-[#B8943F]",
+    otherLabel: "text-[#B8AA8A]",
+    otherValue: "text-[#B8AA8A]",
+    headerBg: "linear-gradient(to bottom, #FFCD57, #FFF7E5)",
+    headerText: "text-[#52421C]",
+    cellBg: "linear-gradient(to left, #FFFFFF, #FFF7E5)",
+    cellMainText: "text-[#52421C]",
+    cellSubText: "text-[#8A7A50]",
+  },
+  silver: {
+    metal: "Silver",
+    heading: "text-[#00007F]",
+    otherLabel: "text-[#B8B8B8]",
+    otherValue: "text-[#B8B8B8]",
+    headerBg: "linear-gradient(to bottom, #A7AFBE00, #A7AFBE66)",
+    headerText: "text-[#2E333D]",
+    cellBg: "linear-gradient(to left, #A7AFBE00, #A7AFBE40)",
+    cellMainText: "text-[#2E333D]",
+    cellSubText: "text-[#4A515F]",
+  },
+} as const;
+
 const comparisonData = [
   {
     feature: "Minimum Purchase",
@@ -105,7 +130,8 @@ const comparisonData = [
 const regularRows = comparisonData.filter((r) => !r.stoexOnly);
 const stoexOnlyRows = comparisonData.filter((r) => r.stoexOnly);
 
-export const Comparison = () => {
+export const Comparison = ({mode = 'gold'}:{mode?: 'gold' | 'silver'}) => {
+  const t = comparisonTheme[mode];
   return (
     <section className="bg-white py-[40px] lg:py-[60px] px-4 lg:px-6">
       <div className="container mx-auto">
@@ -121,13 +147,13 @@ export const Comparison = () => {
               className="text-[26px] lg:text-[48px] font-regular leading-[32px] lg:leading-[50px] text-[#0A0A0A]"
               style={sansation}
             >
-             A Better Way to
-              <span className="text-[#B8943F] font-bold">
+             The Better Way To
+              <span className={`font-bold ${t.heading}`}>
                 {" "}
-                Buy Gold
+                Buy {t.metal}
               </span>
             </h2>
-           
+
           </motion.div>
 
           <motion.div
@@ -151,27 +177,25 @@ export const Comparison = () => {
                     className="text-[10px] lg:text-[16px] text-[#B8B8B8] font-bold tracking-wider text-start"
                     style={mona}
                   >
-                    Traditional Gold
+                    Traditional {t.metal}
                   </p>
                 </div>
                 <div
                   className={`px-3 py-3 lg:py-4 flex items-center justify-start border-b border-r lg:border-r-0 ${B}`}
                 >
                   <p
-                    className="text-[10px] lg:text-[16px] text-[#B8AA8A] font-bold tracking-wider text-start"
+                    className={`text-[10px] lg:text-[16px] ${t.otherLabel} font-bold tracking-wider text-start`}
                     style={mona}
                   >
-                    Other Digital Gold
+                    Other Digital {t.metal}
                   </p>
                 </div>
                 <div
                   className={`px-3 py-3 lg:py-4 flex items-start justify-start border-b ${B}`}
-                  style={{
-                    background: "linear-gradient(to bottom, #FFCD57, #FFF7E5)",
-                  }}
+                  style={{ background: t.headerBg }}
                 >
                   <p
-                    className="text-[10px] lg:text-[16px] text-[#52421C] font-bold tracking-wider text-start"
+                    className={`text-[10px] lg:text-[16px] ${t.headerText} font-bold tracking-wider text-start`}
                     style={mona}
                   >
                     STOEX Platform
@@ -243,14 +267,14 @@ export const Comparison = () => {
                       className={`px-3 lg:px-5 py-4 lg:py-5 flex flex-col items-start justify-center border-r lg:border-r-0 ${B}`}
                     >
                       <p
-                        className="text-[13px] lg:text-[17px] text-[#B8AA8A] text-start"
+                        className={`text-[13px] lg:text-[17px] ${t.otherValue} text-start`}
                         style={mona}
                       >
                         {row.other.main}
                       </p>
                       {row.other.sub && (
                         <p
-                          className="text-[10px] lg:text-[12px] text-[#B8AA8A] text-start mt-0.5"
+                          className={`text-[10px] lg:text-[12px] ${t.otherValue} text-start mt-0.5`}
                           style={mona}
                         >
                           {row.other.sub}
@@ -260,19 +284,17 @@ export const Comparison = () => {
 
                     <div
                       className="px-3 lg:px-5 py-4 lg:py-5 flex flex-col items-start justify-center"
-                      style={{
-                        background: "linear-gradient(to left, #FFFFFF, #FFF7E5)",
-                      }}
+                      style={{ background: t.cellBg }}
                     >
                       <p
-                        className="text-[13px] lg:text-[17px] font-semibold text-[#52421C] text-start"
+                        className={`text-[13px] lg:text-[17px] font-semibold ${t.cellMainText} text-start`}
                         style={mona}
                       >
                         {row.stoex.main}
                       </p>
                       {row.stoex.sub && (
                         <p
-                          className="text-[10px] lg:text-[12px] text-[#8A7A50] text-start mt-0.5"
+                          className={`text-[10px] lg:text-[12px] ${t.cellSubText} text-start mt-0.5`}
                           style={mona}
                         >
                           {row.stoex.sub}
