@@ -18,7 +18,7 @@ export function HomePageSilver() {
       <Secure mode="silver" />
       <Standard mode="silver" />
       <Advantage mode="silver" />
-      <Steps />
+      <Steps mode="silver" />
       <Redemption />
       {/* <Assets /> */}
       <Comparison />

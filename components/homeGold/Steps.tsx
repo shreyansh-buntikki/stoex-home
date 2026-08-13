@@ -9,6 +9,7 @@ import Background from "@/public/assets/images/steps-bg.webp";
 import SignupImage from "@/public/assets/images/signup.webp";
 import TransactionImage from "@/public/assets/images/transaction.webp";
 import OrderImage from "@/public/assets/images/order.webp";
+import OrderSilverImage from "@/public/assets/images/order-silver.webp";
 
 const mona: CSSProperties = { fontFamily: "Mona Sans, sans-serif" };
 const sansation: CSSProperties = {
@@ -24,7 +25,15 @@ const stepData: Step[] = [
   { number: "03", title: "Own and Verify It", image: OrderImage },
 ];
 
-const StepCard = ({ step, className = "" }: { step: Step; className?: string }) => (
+const StepCard = ({
+  step,
+  className = "",
+  mode = "gold",
+}: {
+  step: Step;
+  className?: string;
+  mode?: "gold" | "silver";
+}) => (
   <div
     className={`relative rounded-2xl border border-white/[0.16] bg-white/[0.07] backdrop-blur-[3px] overflow-hidden ${className}`}
   >
@@ -42,7 +51,7 @@ const StepCard = ({ step, className = "" }: { step: Step; className?: string }) 
 
     <div className="absolute bottom-0 left-0 right-0 flex justify-center">
       <Image
-        src={step.image}
+        src={mode === "silver" && step.number === "03" ? OrderSilverImage : step.image}
         alt={step.title}
         className="w-[200px] lg:w-[230px] h-auto rounded-t-[33px]"
       />
@@ -52,7 +61,7 @@ const StepCard = ({ step, className = "" }: { step: Step; className?: string }) 
   </div>
 );
 
-export const Steps = () => {
+export const Steps = ({ mode = "gold" }: { mode?: "gold" | "silver" }) => {
   return (
     <section className="relative py-[40px] lg:py-[60px] px-6 overflow-hidden">
       <Image
@@ -97,7 +106,7 @@ export const Steps = () => {
                 transition={{ duration: 0.6, delay: index * 0.15 }}
                 className="flex-1 w-[397px] h-[440px]"
               >
-                <StepCard step={step} className="w-full h-full" />
+                <StepCard mode={mode} step={step} className="w-full h-full" />
               </motion.div>
             ))}
           </div>
