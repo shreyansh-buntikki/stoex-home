@@ -42,8 +42,8 @@ export const EarlyAccess = ({ mode = 'gold'}: { mode?: "gold" | "silver" }) => {
               style={{
                 ...manrope,
                 background: isSilver
-                  ? "linear-gradient(to bottom, #2E333D 0%, #8B94A4 33%, #A7AFBE 66%, #2E333D 100%)"
-                  : "linear-gradient(to bottom, #52421C 0%, #B8943F 100%)",
+                  ? "linear-gradient(to right, #2E333D 0%, #8B94A4 33%, #A7AFBE 66%, #2E333D 100%)"
+                  : "linear-gradient(to right, #52421C 0%, #B8943F 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",

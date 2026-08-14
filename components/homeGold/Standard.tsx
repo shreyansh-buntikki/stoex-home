@@ -121,7 +121,7 @@ const theme = {
   silver: {
     heading: "text-[#00007F] font-bold",
     subtitle:
-      "Every gram is recorded on a public, tamper-proof ledger and reconciled against the vault — matched to Grant Thornton Bharat's quarterly audit.",
+      "Every gram is recorded on a public, tamper-proof ledger and reconciled against the vault.",
     cardBg: "linear-gradient(180deg, #FFFFFF 0%, #ECEFF4 100%)",
     cardLabel: "text-[#2E333D]",
     tooltipBorder: "#C7CDD4",

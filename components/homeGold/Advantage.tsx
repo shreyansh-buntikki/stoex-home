@@ -28,6 +28,8 @@ type CardProps = {
   imageBleed?: boolean;
   imageAlign?: "center" | "end";
   imagePinTop?: boolean;
+  borderColor?: string;
+  hoverShadowColor?: string;
 };
 
 const AdvantageCard = ({
@@ -41,6 +43,8 @@ const AdvantageCard = ({
   imageBleed = false,
   imageAlign = "center",
   imagePinTop = false,
+  borderColor = "#F0E7D6",
+  hoverShadowColor = "rgba(184,148,63,0.35)",
 }: CardProps) => {
   return (
     <motion.div
@@ -50,10 +54,11 @@ const AdvantageCard = ({
       transition={{ duration: 0.8, delay, ease: "easeOut" }}
       whileHover={{
         y: -6,
-        boxShadow: "0px 20px 40px -12px rgba(184,148,63,0.35)",
+        boxShadow: `0px 20px 40px -12px ${hoverShadowColor}`,
       }}
       whileTap={{ y: -2 }}
-      className={`group relative flex overflow-hidden rounded-[24px] cursor-default border border-[#F0E7D6] ${
+      style={{ borderColor }}
+      className={`group relative flex overflow-hidden rounded-[24px] cursor-default border ${
         wide
           ? "flex-col gap-4 p-5 lg:flex-row lg:items-stretch lg:p-7"
           : "flex-col gap-5 p-5 lg:p-7"
@@ -110,6 +115,8 @@ const advantageTheme = {
     sectionBg: "linear-gradient(180deg, #FFFBF2 0%, #FFF8E6 50%, #FFFBF2 100%)",
     heading: "text-[#C0932A] font-bold",
     cardBg: "bg-white",
+    borderColor: "#F0E7D6",
+    hoverShadowColor: "rgba(184,148,63,0.35)",
     storageTitle: "No Storage Fee",
     storageDescription:
       "Your gold sits in an MMTC-PAMP vault — no storage charge, ever.",
@@ -121,9 +128,10 @@ const advantageTheme = {
     sectionBg: "linear-gradient(180deg, #F5F7FA 0%, #F5F7FA 50%, #ECEFF4 100%)",
     heading: "text-[#00007F] font-bold",
     cardBg: "bg-[#DCE1E9E5]",
-    storageTitle: "Free Storage for 5 Years",
-    storageDescription:
-      "",
+    borderColor: "#C9D2DE",
+    hoverShadowColor: "rgba(140,155,181,0.35)",
+    storageTitle: "No Storage Fee",
+    storageDescription: "",
     vaultImage: VaultSilverImage,
     disclaimer:
       "Silver prices can fall as well as rise, and there is a difference between buy and sell-back prices — you could get back less than you paid. See the full risk note in our FAQs.",
@@ -161,6 +169,8 @@ export const Advantage = ({ mode = "gold" }: { mode?: "gold" | "silver" }) => {
               description="Convert to MMTC-PAMP 24K coins in sealed, tamper-proof, camera-recorded dispatch."
               image={DeliveryImage}
               delay={0.15}
+              borderColor={t.borderColor}
+              hoverShadowColor={t.hoverShadowColor}
               className={`col-span-2 min-h-[280px] lg:col-span-1 lg:min-h-[320px] ${t.cardBg}`}
               imageClassName="max-w-[420px] lg:max-w-[620px]"
               imagePinTop
@@ -170,6 +180,8 @@ export const Advantage = ({ mode = "gold" }: { mode?: "gold" | "silver" }) => {
               description={t.storageDescription}
               image={t.vaultImage}
               delay={0.2}
+              borderColor={t.borderColor}
+              hoverShadowColor={t.hoverShadowColor}
               className={`col-span-2 min-h-[260px] lg:col-span-1 lg:min-h-[340px] ${t.cardBg}`}
               imageClassName="max-w-[620px]"
               imageBleed
@@ -183,14 +195,18 @@ export const Advantage = ({ mode = "gold" }: { mode?: "gold" | "silver" }) => {
               description="Linked to international bullion rates. You always see the current rate, and the total, before you confirm."
               image={PricingImage}
               delay={0.25}
+              borderColor={t.borderColor}
+              hoverShadowColor={t.hoverShadowColor}
               className={`col-span-2 min-h-[260px] lg:col-span-1 lg:min-h-[300px] ${t.cardBg}`}
               imageClassName="max-w-[420px]"
             />
             <AdvantageCard
               title="From ₹10"
-              description="Own 24K gold for less than a bus ticket."
+              description={`${mode === "silver" ? "Own 999+ fine Silver" : "Own 24K gold"} for less than a bus ticket.`}
               image={AmountImage}
               delay={0.3}
+              borderColor={t.borderColor}
+              hoverShadowColor={t.hoverShadowColor}
               className={`min-h-[220px] lg:min-h-[300px] ${t.cardBg}`}
               imageClassName="max-w-[300px]"
             />
@@ -199,6 +215,8 @@ export const Advantage = ({ mode = "gold" }: { mode?: "gold" | "silver" }) => {
               description="Sell back to MMTC-PAMP at the live sell-back price."
               image={BuySellImage}
               delay={0.35}
+              borderColor={t.borderColor}
+              hoverShadowColor={t.hoverShadowColor}
               className={`min-h-[220px] lg:min-h-[300px] ${t.cardBg}`}
               imageClassName="max-w-[320px]"
               imageBleed

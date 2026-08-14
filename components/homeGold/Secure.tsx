@@ -71,9 +71,7 @@ const MMTCCard = ({
   const valueColor = isSilver ? "#2E333D" : "#101828";
   const dividerColor = isSilver ? "#E5E7EB" : "#FFD778";
   const priceUnitColor = "#667085";
-  const ctaClass = isSilver
-    ? "bg-[#00007F]"
-    : "bg-gradient-to-r from-[#D3A558] to-[#916D21]";
+  const ctaClass = "bg-gradient-to-r from-[#D3A558] to-[#916D21]";
 
   return (
     <motion.div

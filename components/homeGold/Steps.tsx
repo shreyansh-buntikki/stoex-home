@@ -91,7 +91,7 @@ export const Steps = ({ mode = "gold" }: { mode?: "gold" | "silver" }) => {
               className="text-[15px] mt-4 lg:mt-6 lg:text-[20px] leading-[22px] lg:leading-[28px] text-white"
               style={mona}
             >
-              From signup to gold ownership in minutes.
+              From signup to {mode === "silver" ? "silver" : "gold"} ownership in minutes.
             </p>
           </motion.div>
 

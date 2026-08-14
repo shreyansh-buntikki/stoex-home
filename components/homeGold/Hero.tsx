@@ -35,9 +35,9 @@ const mona: CSSProperties = { fontFamily: "Mona Sans, sans-serif" };
 const sansation: CSSProperties = { fontFamily: "Sansation, sans-serif" };
 
 const HEADING_GRADIENT_GOLD =
-  "linear-gradient(to bottom, #B8943F 0%, #52421C 100%)";
+  "linear-gradient(to right, #B8943F 0%, #52421C 100%)";
 const HEADING_GRADIENT_SILVER =
-  "linear-gradient(to bottom, #2E333D 0%, #8B94A4 33%, #A7AFBE 66%, #2E333D 100%)";
+  "linear-gradient(to right, #2E333D 0%, #8B94A4 33%, #A7AFBE 66%, #2E333D 100%)";
 const HERO_BG_GOLD = "linear-gradient(180deg, #FFFFFF 0%, #FFFBF2 100%)";
 const HERO_BG_SILVER = "linear-gradient(180deg, #FFFFFF 0%, #ECEFF4 100%)";
 const ICON_FILTER_GOLD = "sepia(1) saturate(3) hue-rotate(5deg) brightness(0.7)";
